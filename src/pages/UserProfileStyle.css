@@ -1,0 +1,22 @@
+.headerText {
+    font-weight: bold;
+    color: #4B0082;
+    padding-top: 50px;
+    font-family: "Monospace";
+    font-size: 60px;
+}
+
+.twoButtons {
+    display:flex; 
+    justify-content:space-evenly;
+}
+
+@media only screen and (max-width: 450px) { 
+    .headerText {
+        font-size: 30px;
+    }
+
+    .twoButtons {
+        flex-direction: column;
+    }
+}

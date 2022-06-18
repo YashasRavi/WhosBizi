@@ -1,0 +1,396 @@
+#allTheThings {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.chatTitle {
+    padding-top: 50px;
+    font-size: 60px;
+    color: yellow;
+    text-align: center;
+    text-shadow: 2px 2px 8px #e78282;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.chatStuff {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#friendCards {
+    width:18rem;
+    height: 470px;
+    border: 4px solid black;
+    background-color: #FFFACD;
+}
+
+#friendCard {
+    width: 15rem; 
+    border: 2px solid black;
+    background-color:yellow;
+}
+
+#friendCards .card-footer {
+    border: 1px solid black;
+    border-top: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#searchForFriend {
+    width: 100px;
+}
+
+#warningModal {
+    width: 400px;
+}
+
+#remFriendModalBtns {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#ModalFormLayout {
+    display: flex; 
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#modalFormBtn {
+    margin-top: 10px;
+}
+
+.chatSpace {
+    display: flex;
+    flex-direction: row;
+}
+
+#allMessages {
+    display: flex;
+    overflow-y: auto;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+#messageItself {
+    width: 90%;
+}
+
+#friendChat {
+    background-color: #FFFFE0;
+    width: 40rem;
+    margin-left: 50px;
+    height: 470px; 
+    border: 4px solid black;
+}
+
+#friendChat .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#blockButton {
+    margin-right: 10px;
+}
+
+#friendButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#chatForm {
+    display: flex; 
+    flex-direction: row;
+}
+
+.textMessage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+
+#LeftIcon {
+    margin-right: 10px;
+}
+
+.myMsg {
+    width: 100%;
+    border: 1px solid black;
+    margin-right: 10px;
+}
+
+#friendData {
+    margin-left: 50px;
+    
+}
+
+#fTable.table-bordered > tbody > tr > td{
+    border:2px solid black;
+    background-color: yellow;
+    height: 30px;
+}
+
+#friendTable {
+    height: 470px;
+    background-color: #FFFACD;
+    border: 4px solid black;
+}
+
+.time {
+    width: 100px;
+    
+}
+
+#tableFooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid black;
+    border-top: 2px solid black;
+    /*
+    position: relative;
+    bottom: 9px;
+    */
+}
+
+#leftRightArrows {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 1400px) {
+    #allTheThings {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    
+    #friendCard {
+        width: 13rem;
+    }
+
+    #friendChat {
+        width: 20rem;
+    }
+
+    #Icons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #LeftIcon {
+        margin-bottom: 10px;
+    }
+
+    #messageItself {
+        margin-right: 10px;
+    }
+
+    .textMessage {
+        margin-right: 0px;
+        margin-bottom: 15px;
+    }
+
+    .cardTitle {
+        font-size: 15px;
+    }
+
+    #tableFooter {
+        bottom: 4px;
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    .chatStuff {
+        flex-direction: column-reverse;
+        align-items: space-evenly;
+    }
+
+    .chatContent {
+        width: calc(50% - 50px);
+    }
+
+    #friendChat {
+        width: 90%;
+    }
+
+    #friendData {
+        width: calc(50% - 50px);
+    }
+
+    #friendCards {
+        margin-left: 50px;
+        margin-top: 50px;
+        width: calc(100% - 100px);
+    }
+
+    #friendCard {
+        width: 100%;
+    }
+
+    #friendCard .card-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 50px;
+    }
+
+    #searchForFriend {
+        width: 300px;
+    }
+
+
+    
+}
+
+@media only screen and (max-width: 800px) {
+    .chatSpace {
+        flex-direction: column;
+    }
+
+    #friendData {
+        width: calc(100% - 100px);
+        margin-top: 50px;
+        margin-left: 50px;
+    }
+
+    .chatContent {
+        width: calc(100% - 100px);
+    }
+
+    #friendChat {
+        width: 100%;
+    }
+
+    #searchForFriend {
+        width: 200px;
+    }
+
+    #Icons {
+        display: flex;
+        flex-direction: row;
+    }
+
+}
+
+@media only screen and (max-width: 530px) {
+   .chatTitle {
+       font-size: 40px;
+   }
+
+    #friendCard .card-body {
+        display: block;
+        height: 160px;
+    }
+
+    #searchForFriend {
+        width: 100px;
+    }
+
+    #Icons {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+@media only screen and (max-width: 430px) {
+    #allTheThings {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    #friendCards {
+        width: 90%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #warningModal {
+        width: 300px;
+    }
+
+    #friendData {
+        width: 90%;
+        margin-left: 10px;
+        margin-right: 10px;
+
+    }
+
+    .chatContent {
+        width: 90%;
+    }
+
+    #friendChat {
+        margin-left: 10px;
+        margin-right: 10px;
+
+    }    
+
+    #LeftIcon {
+        margin-right: 0px;
+    }
+
+}
+
+@media only screen and (max-width: 330px) {
+
+    #friendCard .card-body {
+        display: block;
+        height: 200px;
+    }
+
+    #friendCards .card-footer {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #searchForFriend {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    #warningModal {
+        width: 200px;
+    }
+
+    #remFriendModalBtns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #canButton {
+        margin-top: 20px;
+    }
+
+    #friendChat .card-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #chatForm {
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    .myMsg {
+        margin-bottom: 10px;
+    }
+
+    #tableFooter {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+
+}

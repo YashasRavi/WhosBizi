@@ -1,0 +1,70 @@
+:root {
+    --arrowState: 50%;
+}
+
+.wholeTable {
+    border: 4px solid white;
+    padding-right: 15px;
+    background-color: #2B3034;
+}
+
+
+table.table-bordered > tbody > tr > td{
+    border:1px solid white;
+}
+
+#arrowLeft {
+    opacity: var(--arrowState);
+}
+
+.arrow_btn:hover {
+    fill: yellow;
+}
+
+.myTable {
+    overflow-x:auto;
+}
+
+.pageText1 {
+    display: none;
+}
+
+.pageText2 {
+    display: block;
+}
+
+.bottomStuff {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+@media only screen and (max-width: 450px) {
+    
+    #arrowLeft {
+        position: relative;
+        left: 30px;
+    }
+
+    .pageText1 {
+        display: block;
+    }
+    
+    .pageText2 {
+        display: none;
+    }
+
+    #searchFriends {
+        border: none;
+        width: 180px;
+        /*left: 40px;*/
+    }
+
+    .bottomStuff {
+        display: flex;
+        flex-direction: column;
+    }
+    
+}

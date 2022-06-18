@@ -1,0 +1,22 @@
+.indexTitle {
+    padding-top: 20px;
+    font-size: 120px;
+    color: #0000CD;
+    text-align: center;
+}
+
+/* maybe change title font!*/
+
+@media only screen and (max-width: 500px) { 
+    .indexTitle {
+        font-size: 50px;
+    }
+
+    .inputField {
+        width: 150px;
+    }
+
+    .buttons {
+        width: 150px;
+    }
+}
