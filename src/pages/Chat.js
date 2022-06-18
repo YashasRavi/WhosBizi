@@ -23,6 +23,7 @@ stuff to do:
 -- ALL done! -- 
 
 FEW FIXES:
+1. Fix the flex layout for the data card and listfriends card for small screen sizes.
 1. Code up the search for friend feature.
 2. Code up the view more and view less messages options
 3. Replace "I like this message!" with an image or something
@@ -176,6 +177,20 @@ const updateTableArrows = (tI) => {
         document.querySelector("#leftArrow").style.opacity="100%";
     }
 } 
+
+const trimName = (str, lim) => {
+    if (str == null) {
+        return;
+    }
+    let tempName = "";
+    if (str.length > lim) {
+        tempName = str.substring(0,lim) + "...";
+        return tempName;
+    }
+    else {
+        return str;
+    }
+}
  
  const [nowMessages, setNowMessages] = useState(Messages);
  const [nowFriends, setNowFriends] = useState(anotherCopy);
@@ -299,17 +314,17 @@ const updateTableArrows = (tI) => {
                     <div>
                       <div class="card" id="friendCard">
                            <div class="card-body">
-                              <h6 class="card-subtitle">{user.firstname} {user.lastname}</h6>
+                              <h6 class="card-subtitle">{user.firstname} {trimName(user.lastname, 15)}</h6>
                               <br></br>
                               <Link
                                 to={"/chat"}
                                 state={{allFriends: allFriends, whichFriend: index}}
                               >
-                                  <a class="btn btn-primary btn-sm" style={{border: "1px solid black"}}>Chat with {user.username}</a>
+                                  <a id="chatWithFriendBtn" class="btn btn-primary btn-sm" style={{border: "1px solid black"}}>Chat with {trimName(user.username, 15)}</a>
                               </Link>
                               <br></br>
                               <br></br>
-                              <button class="btn btn-danger btn-sm" onClick={() => {handleFriendOpen(); setRemFriend(user); setRemIndex(index)}} style={{border: "1px solid black"}}>Remove {user.username}</button>
+                              <button id="remFriendBtn" class="btn btn-danger btn-sm" onClick={() => {handleFriendOpen(); setRemFriend(user); setRemIndex(index)}} style={{border: "1px solid black"}}>Remove {trimName(user.username, 15)}</button>
                           </div>
                       </div> 
                       <br></br>
@@ -320,6 +335,18 @@ const updateTableArrows = (tI) => {
         });
       };
 
+      /*
+
+    <tr>
+        <td className="time">
+            11 AM
+        </td>
+        <td style={listData(3)}>
+            
+        </td>
+    </tr>
+    */
+
       //let MessageArray = null;
       const listMessages = () => {
             return Messages.map((mess, index) => {
@@ -328,7 +355,7 @@ const updateTableArrows = (tI) => {
                     return (
                         <div className="textMessage">
                             <div id="messageItself">
-                                <h6>{mess.from}</h6>
+                                <h6>{trimName(mess.from, 20)}</h6>
                                 <p>{mess.msg}</p>
                             </div>
                             <div id="Icons">
@@ -346,7 +373,7 @@ const updateTableArrows = (tI) => {
                     return (
                         <div className="textMessage">
                             <div id="messageItself">
-                                <h6>{mess.from}</h6>
+                                <h6>{trimName(mess.from, 20)}</h6>
                                 <p>{mess.msg}</p>
                             </div>
                             <div id="Icons">
@@ -366,6 +393,7 @@ const updateTableArrows = (tI) => {
       };
 
       const listData = (inp) => {
+        /*
         if (whenFree[inp] < 0) {
             return {backgroundColor: "black"};
         }
@@ -375,6 +403,53 @@ const updateTableArrows = (tI) => {
         else {
             return {backgroundColor: "green"};
         }
+        */
+        if (inp < 0) {
+            return {backgroundColor: "black"};
+        }
+        if (inp > 10) {
+            return {backgroundColor: "red"};
+        }
+        else {
+            return {backgroundColor: "green"};
+        }
+      };
+
+      
+      const retTime = (ind) => {
+        if (ind < 12) {
+            return <p>{ind} AM</p>;
+        }
+        else if (ind == 12) {
+            return <p>{ind} PM</p>
+        }
+        else if (ind > 12 && ind < 24) {
+            return <p>{ind-12} PM</p>;
+        }
+        
+        else if (ind == 24) {
+            return <p>{ind-12} AM</p>;
+        }
+        else {
+            return <p>{ind-24} AM</p>;
+        }
+        
+      }
+      
+
+      const listAllData = () => {
+        return whenFree.map((timeData, index) => {
+            return (
+                <tr>
+                    <td className="time">
+                        {retTime(index+8)}
+                    </td>
+                    <td style={listData(timeData)}>
+                        
+                    </td>
+                </tr>
+            );
+        });  
       };
 
       let newMsg = {
@@ -597,7 +672,7 @@ const updateTableArrows = (tI) => {
                             <div class="card" id="friendChat">
                                 <div class="card-header">
                                     <h5 class="card-title"  id = "toChange" className="cardTitle">
-                                        Chat with {allFriends[whichFriend].username}:
+                                        Chat with {trimName(allFriends[whichFriend].username, 20)}:
                                     </h5>
                                     <div id="friendButtons">
                                         <button id="blockButton" onClick={handleBlock} class="btn btn-secondary btn-sm" style={{border: "1px solid black"}}>Block</button>
@@ -628,7 +703,7 @@ const updateTableArrows = (tI) => {
                             <div class="card" id="friendTable">
                                 <div class="card-header">
                                     <h5 class="card-title" id="toChange2" className="cardTitle">
-                                        When {allFriends[whichFriend].username} is free: 
+                                        When {trimName(allFriends[whichFriend].username, 20)} is free: 
                                     </h5>
                                 </div>
                                 <div class="card-body" style={{overflow: "auto"}}>
@@ -638,9 +713,10 @@ const updateTableArrows = (tI) => {
                                         </thead>
                                         <br></br>
                                         <tbody>
+                                            {/* 
                                             <tr>
                                                 <td className="time">
-                                                    8AM-12PM
+                                                    8 AM
                                                 </td>
                                                 <td style={listData(0)}>
                                                     
@@ -648,7 +724,7 @@ const updateTableArrows = (tI) => {
                                             </tr>
                                             <tr>
                                                 <td className="time">
-                                                    12PM-4PM
+                                                    9 AM
                                                 </td>
                                                 <td style={listData(1)}>
                                                     
@@ -656,7 +732,7 @@ const updateTableArrows = (tI) => {
                                             </tr>
                                             <tr>
                                                 <td className="time">
-                                                    4PM-8PM
+                                                    10 AM
                                                 </td>
                                                 <td style={listData(2)}>
                                                     
@@ -664,7 +740,7 @@ const updateTableArrows = (tI) => {
                                             </tr>
                                             <tr>
                                                 <td className="time">
-                                                    8PM-12AM
+                                                    11 AM
                                                 </td>
                                                 <td style={listData(3)}>
                                                     
@@ -672,7 +748,7 @@ const updateTableArrows = (tI) => {
                                             </tr>
                                             <tr>
                                                 <td className="time">
-                                                    12AM-4AM
+                                                    12 PM
                                                 </td>
                                                 <td style={listData(4)}>
                                                     
@@ -680,12 +756,23 @@ const updateTableArrows = (tI) => {
                                             </tr>
                                             <tr>
                                                 <td className="time">
-                                                    4AM-8AM
+                                                    1 PM
                                                 </td>
                                                 <td style={listData(5)}>
                                                     
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td className="time">
+                                                    2 PM
+                                                </td>
+                                                <td style={listData(6)}>
+                                                    
+                                                </td>
+                                            </tr>
+                                            */}
+                                            {listAllData()}
+                                            
                                         </tbody>
                                     </table>
                                 </div>

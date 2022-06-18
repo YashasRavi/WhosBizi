@@ -1,7 +1,28 @@
-table > tbody > tr > td{
+#calTable > tbody > tr > td{
     border:1px solid black;
+    height: 70px;
+    min-width: 100px;
 }
 
-table > tbody > tr > th{
+#calTable > tbody > tr > th{
     border:1px solid black;
+    min-width: 120px;
 }
+
+.calendarTable {
+    overflow:auto; 
+    border:4px solid black; 
+    background-color:white; 
+    font-size:15px; 
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media only screen and (max-width: 1080px) {
+    .calendarTable {
+        border-right: 10px solid black;
+        border-bottom: 10px solid black;
+        
+    }
+}
+

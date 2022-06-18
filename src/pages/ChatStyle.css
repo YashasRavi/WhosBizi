@@ -30,6 +30,7 @@
     width: 15rem; 
     border: 2px solid black;
     background-color:yellow;
+    text-align: center;
 }
 
 #friendCards .card-footer {
@@ -95,6 +96,18 @@
     justify-content: space-between;
 }
 
+#chatWithFriendBtn {
+    margin-left: 10px;
+    margin-right: 10px;
+    word-break: break-all;
+}
+
+#remFriendBtn {
+    margin-left: 10px;
+    margin-right: 10px;
+    word-break: break-all;
+}
+
 #blockButton {
     margin-right: 10px;
 }
@@ -103,6 +116,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    margin-left: 10px;
+}
+
+.cardTitle {
+    word-break: break-word;
 }
 
 #chatForm {
@@ -146,7 +164,7 @@
 
 .time {
     width: 100px;
-    
+    text-align: center;
 }
 
 #tableFooter {
@@ -188,11 +206,11 @@
     }
 
     #LeftIcon {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 
     #messageItself {
-        margin-right: 10px;
+        padding-right: 10px;
     }
 
     .textMessage {
@@ -242,7 +260,7 @@
         flex-direction: row;
         justify-content: space-evenly;
         align-items: center;
-        height: 50px;
+        height: 70px;
     }
 
     #searchForFriend {
@@ -283,15 +301,17 @@
 
 }
 
-@media only screen and (max-width: 530px) {
-   .chatTitle {
-       font-size: 40px;
-   }
-
+@media only screen and (max-width: 630px) {
     #friendCard .card-body {
         display: block;
         height: 160px;
     }
+}
+
+@media only screen and (max-width: 530px) {
+   .chatTitle {
+       font-size: 40px;
+   }
 
     #searchForFriend {
         width: 100px;
@@ -304,7 +324,7 @@
 
 }
 
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 460px) {
     #allTheThings {
         margin-left: 5px;
         margin-right: 5px;
@@ -343,11 +363,11 @@
 
 }
 
-@media only screen and (max-width: 330px) {
+@media only screen and (max-width: 360px) {
 
     #friendCard .card-body {
         display: block;
-        height: 200px;
+        height: 230px;
     }
 
     #friendCards .card-footer {

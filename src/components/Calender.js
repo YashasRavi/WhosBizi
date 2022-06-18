@@ -48,6 +48,12 @@ const Calender = ({array}) => {
           if (friends[i].data[p][q] > 0) {
             sum += friends[i].data[p][q];
           }
+          if (friends[i].data[p][q+1] > 0) {
+            sum += friends[i].data[p][q+1];
+          }
+          if (friends[i].data[p][q+2] > 0) {
+            sum += friends[i].data[p][q+2];
+          }
         }
        
         if (sum > 5) {
@@ -61,8 +67,8 @@ const Calender = ({array}) => {
     return (
       <div>
         {/*<DatePicker selected={Now} onChange={date => {setNow(date); }}></DatePicker>*/}
-        <div style={{overflow:"auto", border:"4px solid black", backgroundColor:"white", fontSize:"15px", paddingRight: "15px", paddingLeft: "15px"}}>
-            <table class="table">
+        <div className="calendarTable">
+            <table class="table" id="calTable">
                 <thead>
                     <tr>
                     <th scope="col"><p>Time Range</p></th>
@@ -77,7 +83,7 @@ const Calender = ({array}) => {
                 </thead>
                 <tbody>
                     <tr>
-                    <th scope="row">8AM-12PM</th>
+                    <th scope="row">8AM-11AM</th>
                     <td style={showDensity(0,0)}></td>
                     <td style={showDensity(1,0)}></td>
                     <td style={showDensity(2,0)}></td>
@@ -87,27 +93,7 @@ const Calender = ({array}) => {
                     <td style={showDensity(6,0)}></td>
                     </tr>
                     <tr>
-                    <th scope="row">12PM-4PM</th>
-                    <td style={showDensity(0,1)}></td>
-                    <td style={showDensity(1,1)}></td>
-                    <td style={showDensity(2,1)}></td>
-                    <td style={showDensity(3,1)}></td>
-                    <td style={showDensity(4,1)}></td>
-                    <td style={showDensity(5,1)}></td>
-                    <td style={showDensity(6,1)}></td>
-                    </tr>
-                    <tr>
-                    <th scope="row">4PM-8PM</th>
-                    <td style={showDensity(0,2)}></td>
-                    <td style={showDensity(1,2)}></td>
-                    <td style={showDensity(2,2)}></td>
-                    <td style={showDensity(3,2)}></td>
-                    <td style={showDensity(4,2)}></td>
-                    <td style={showDensity(5,2)}></td>
-                    <td style={showDensity(6,2)}></td>
-                    </tr>
-                    <tr>
-                    <th scope="row">8PM-12AM</th>
+                    <th scope="row">11AM-2PM</th>
                     <td style={showDensity(0,3)}></td>
                     <td style={showDensity(1,3)}></td>
                     <td style={showDensity(2,3)}></td>
@@ -117,24 +103,64 @@ const Calender = ({array}) => {
                     <td style={showDensity(6,3)}></td>
                     </tr>
                     <tr>
-                    <th scope="row">12AM-4AM</th>
-                    <td style={showDensity(0,4)}></td>
-                    <td style={showDensity(1,4)}></td>
-                    <td style={showDensity(2,4)}></td>
-                    <td style={showDensity(3,4)}></td>
-                    <td style={showDensity(4,4)}></td>
-                    <td style={showDensity(5,4)}></td>
-                    <td style={showDensity(6,4)}></td>
+                    <th scope="row">2PM-5PM</th>
+                    <td style={showDensity(0,6)}></td>
+                    <td style={showDensity(1,6)}></td>
+                    <td style={showDensity(2,6)}></td>
+                    <td style={showDensity(3,6)}></td>
+                    <td style={showDensity(4,6)}></td>
+                    <td style={showDensity(5,6)}></td>
+                    <td style={showDensity(6,6)}></td>
                     </tr>
                     <tr>
-                    <th scope="row">4AM-8AM</th>
-                    <td style={showDensity(0,5)}></td>
-                    <td style={showDensity(1,5)}></td>
-                    <td style={showDensity(2,5)}></td>
-                    <td style={showDensity(3,5)}></td>
-                    <td style={showDensity(4,5)}></td>
-                    <td style={showDensity(5,5)}></td>
-                    <td style={showDensity(6,5)}></td>
+                    <th scope="row">5PM-8PM</th>
+                    <td style={showDensity(0,9)}></td>
+                    <td style={showDensity(1,9)}></td>
+                    <td style={showDensity(2,9)}></td>
+                    <td style={showDensity(3,9)}></td>
+                    <td style={showDensity(4,9)}></td>
+                    <td style={showDensity(5,9)}></td>
+                    <td style={showDensity(6,9)}></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">8PM-11PM</th>
+                    <td style={showDensity(0,12)}></td>
+                    <td style={showDensity(1,12)}></td>
+                    <td style={showDensity(2,12)}></td>
+                    <td style={showDensity(3,12)}></td>
+                    <td style={showDensity(4,12)}></td>
+                    <td style={showDensity(5,12)}></td>
+                    <td style={showDensity(6,12)}></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">11PM-2AM</th>
+                    <td style={showDensity(0,15)}></td>
+                    <td style={showDensity(1,15)}></td>
+                    <td style={showDensity(2,15)}></td>
+                    <td style={showDensity(3,15)}></td>
+                    <td style={showDensity(4,15)}></td>
+                    <td style={showDensity(5,15)}></td>
+                    <td style={showDensity(6,15)}></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">2AM-5AM</th>
+                    <td style={showDensity(0,18)}></td>
+                    <td style={showDensity(1,18)}></td>
+                    <td style={showDensity(2,18)}></td>
+                    <td style={showDensity(3,18)}></td>
+                    <td style={showDensity(4,18)}></td>
+                    <td style={showDensity(5,18)}></td>
+                    <td style={showDensity(6,18)}></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">5AM-8AM</th>
+                    <td style={showDensity(0,21)}></td>
+                    <td style={showDensity(1,21)}></td>
+                    <td style={showDensity(2,21)}></td>
+                    <td style={showDensity(3,21)}></td>
+                    <td style={showDensity(4,21)}></td>
+                    <td style={showDensity(5,21)}></td>
+                    <td style={showDensity(6,21)}></td>
                     </tr>
                 </tbody>
             </table>

@@ -18,13 +18,13 @@ const FriendGrid = ({array}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   function updateArrows (i) {
-    if (i+4 >= friends.length) {
+    if (i+5 >= friends.length) {
       document.querySelector("#arrowRight").style.opacity="50%";
     }
     else {
       document.querySelector("#arrowRight").style.opacity="100%";
     }
-    if (i < 4) {
+    if (i < 5) {
      document.querySelector("#arrowLeft").style.opacity="50%";
     }
     else {
@@ -36,7 +36,18 @@ const FriendGrid = ({array}) => {
   function showFriends (inp) {
     //updateArrows(inp);
     if (inp < friends.length) {
-      return <p>{friends[inp].username}</p>
+      
+      let tempName = friends[inp].username;
+      if (tempName.length < 26) {
+        return <p>{friends[inp].username}</p>
+      }
+      else {
+        let retString = friends[inp].username.substring(0,25) + "...";
+        return <p>{retString}</p>
+      }
+      
+      //return <p>{friends[inp].username}</p>
+      
     }
     else {
       return <Button variant="contained" size="small">+ Add Friends</Button>
@@ -51,7 +62,7 @@ const FriendGrid = ({array}) => {
     }
 
     let sum = 0;
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < friends[k].data[n].length; i++) {
       sum += friends[k].data[n][i];
     }
     if (sum < 0) {
@@ -69,8 +80,8 @@ const FriendGrid = ({array}) => {
   //updateArrows();
 
   function rightArrowClick () {
-    if (index+4 < friends.length) {
-      setIndex(index+4);
+    if (index+5 < friends.length) {
+      setIndex(index+5);
       setCurrentPage(currentPage+1);
     } 
   }
@@ -80,8 +91,8 @@ const FriendGrid = ({array}) => {
   }, [index])
 
   function leftArrowClick () {
-    if (index >= 4) {
-      setIndex(index-4);
+    if (index >= 5) {
+      setIndex(index-5);
       setCurrentPage(currentPage-1);
       //updateArrows();
     }
@@ -115,14 +126,14 @@ const FriendGrid = ({array}) => {
   }
   return (
     <div className="wholeTable">
-      <div className="myTable">
-        <div className="pageText1">
+      <div className="pageText1">
             <br></br>
             <Typography color="white">
               Page {currentPage} of {Math.ceil(friends.length/4)}
             </Typography>
             <br></br>
         </div>
+      <div className="myTable">
         <table class="table table-dark table-bordered">
           <thead>
             <tr>
@@ -139,7 +150,7 @@ const FriendGrid = ({array}) => {
           </thead>
           <tbody>
             <tr>
-              <td width="30%">
+              <td>
                 <Link
                   to={"/chat"}
                   state={{allFriends: friends, whichFriend: index}}
@@ -156,7 +167,7 @@ const FriendGrid = ({array}) => {
               <td width="10%" style={showData(index,6)}></td>
             </tr>
             <tr>
-              <td width="30%">
+              <td  className = "rowHeader">
                 <Link
                   to={"/chat"}
                   state={{allFriends: friends, whichFriend: index+1}}
@@ -173,7 +184,7 @@ const FriendGrid = ({array}) => {
               <td style={showData(index+1,6)}></td>
             </tr>
             <tr>
-              <td width="30%">
+              <td  className = "rowHeader">
                 <Link
                   to={"/chat"}
                   state={{allFriends: friends, whichFriend: index+2}}
@@ -190,7 +201,7 @@ const FriendGrid = ({array}) => {
               <td style={showData(index+2,6)}></td>
             </tr>
             <tr>
-              <td width="30%">
+              <td  className = "rowHeader">
                 <Link
                   to={"/chat"}
                   state={{allFriends: friends, whichFriend: index+3}}
@@ -205,6 +216,23 @@ const FriendGrid = ({array}) => {
               <td style={showData(index+3,4)}></td>
               <td style={showData(index+3,5)}></td>
               <td style={showData(index+3,6)}></td>
+            </tr>
+            <tr>
+              <td  className = "rowHeader">
+                <Link
+                  to={"/chat"}
+                  state={{allFriends: friends, whichFriend: index+4}}
+                >
+                  {showFriends(index+4)}
+                </Link>
+              </td>
+              <td style={showData(index+4,0)}></td>
+              <td style={showData(index+4,1)}></td>
+              <td style={showData(index+4,2)}></td>
+              <td style={showData(index+4,3)}></td>
+              <td style={showData(index+4,4)}></td>
+              <td style={showData(index+4,5)}></td>
+              <td style={showData(index+4,6)}></td>
             </tr>
           </tbody>
         </table>
