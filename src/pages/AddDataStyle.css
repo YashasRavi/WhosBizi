@@ -1,0 +1,147 @@
+
+#dataBtns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#maxDataCard {
+    width: 18rem;
+    background-color: black; 
+    border: 2px solid yellow; 
+}
+
+#maxDataBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#aDataBtn {
+    width: 200px;
+}
+
+#defaultDataBtn {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 100px;
+}
+
+.tableContainer {
+    overflow: auto;
+    background-color: black;
+    /*
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: 5px solid black;
+    */
+    border: 10px solid black;
+    /*box-shadow: 5px 5px 5px 12px #00008B;*/
+}
+
+#dataTable {
+    border: 2px solid white;
+    width: 100%;
+    height: 100%;
+    /*width: 1100px;*/
+}
+
+/*
+#dataTable.table-bordered > tbody > tr > td {
+    width:500px;
+}
+*/
+
+#dataTable.table-bordered > tbody > tr > th {
+    text-align: center;
+}
+
+#dataTable.table-bordered > thead > tr > th {
+    text-align: center;
+    vertical-align: center;
+}
+
+#switchPlace {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#cellMode2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#inp2 {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 50px;
+}
+
+#btn2 {
+    margin-bottom: 5px;
+    width: 80px;
+}
+
+#cellMode1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#Slider1 {
+    margin-top: 30%;
+    margin-left: 10px;
+    margin-right: 10px;
+    /*
+    margin-right: 5%;
+    margin-left: 5%;
+    */
+}
+
+#Slider2 {
+    margin-top: 5%;
+    margin-left: 10px;
+    margin-right: 10px;
+    /*
+    padding-right: 20px;
+    padding-left: 20px;
+    */
+}
+
+#inp1 {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 30%;
+    width: 50px;
+}
+
+#btn1 {
+    margin-top: 15px;
+    width: 70px;
+}
+
+@media only screen and (max-width: 815px) {
+    .tableContainer {
+        border-right: 10px solid black;
+        /*outline: 2px solid white;*/
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    #maxDataCard {
+        width: 10rem;
+        text-align: center;
+    }
+
+    #maxEntryForm {
+        width: 50px;
+    }
+}

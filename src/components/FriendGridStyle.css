@@ -40,6 +40,16 @@ table.table-bordered > tbody > tr > td{
     overflow-x:auto;
 }
 
+
+#friendLink {
+    color: yellow;
+    text-decoration: none;
+}
+
+#friendLink:hover {
+   color: red;
+}
+
 .pageText1 {
     display: none;
 }

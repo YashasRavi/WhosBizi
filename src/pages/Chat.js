@@ -16,14 +16,14 @@ import { Box } from '@mui/system';
 stuff to do:
 1. Code up the getDay() and corresponding arrow functionality ... DONE
 2. Code up the default chatbox and the chat buttons (JUST do profile page) ... DONE
-3. Code up remove button for messages (use the message id)
-4. Code up edit feature for messages (popup input field)
-5. Code up like and reply feature for messages
-6. Code up the popup (for messages {delete} and friends {block and remove})
+3. Code up remove button for messages (use the message id) ...  DONE
+4. Code up edit feature for messages (popup input field) ... DONE
+5. Code up like and reply feature for messages ... DONE
+6. Code up the popup (for messages {delete} and friends {block and remove}) ... DONE
 -- ALL done! -- 
 
 FEW FIXES:
-1. Fix the flex layout for the data card and listfriends card for small screen sizes.
+1. Fix the flex layout for the data card and listfriends card for small screen sizes ... DONE
 1. Code up the search for friend feature.
 2. Code up the view more and view less messages options
 3. Replace "I like this message!" with an image or something
@@ -713,64 +713,6 @@ const trimName = (str, lim) => {
                                         </thead>
                                         <br></br>
                                         <tbody>
-                                            {/* 
-                                            <tr>
-                                                <td className="time">
-                                                    8 AM
-                                                </td>
-                                                <td style={listData(0)}>
-                                                    
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="time">
-                                                    9 AM
-                                                </td>
-                                                <td style={listData(1)}>
-                                                    
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="time">
-                                                    10 AM
-                                                </td>
-                                                <td style={listData(2)}>
-                                                    
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="time">
-                                                    11 AM
-                                                </td>
-                                                <td style={listData(3)}>
-                                                    
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="time">
-                                                    12 PM
-                                                </td>
-                                                <td style={listData(4)}>
-                                                    
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="time">
-                                                    1 PM
-                                                </td>
-                                                <td style={listData(5)}>
-                                                    
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="time">
-                                                    2 PM
-                                                </td>
-                                                <td style={listData(6)}>
-                                                    
-                                                </td>
-                                            </tr>
-                                            */}
                                             {listAllData()}
                                             
                                         </tbody>
@@ -789,7 +731,17 @@ const trimName = (str, lim) => {
                                             </svg>
                                         </Button>
                                     </div>
-                                    <a href="#" class="btn btn-primary btn-sm" style={{border: "1px solid black", marginBottom: "10px"}}>Add when you're free +</a>
+                                    <button class="btn btn-primary btn-sm" style={{border: "1px solid black", marginBottom: "10px"}}>
+                                        <Link
+                                            style={{textDecoration: "none", color: "white"}}
+                                            to={"/addData"}
+                                            state={{username: "", password: ""}}
+                                        >
+                                            <Typography>
+                                            Add when you're free!
+                                            </Typography> 
+                                        </Link>
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -152,10 +152,11 @@ const FriendGrid = ({array}) => {
             <tr>
               <td>
                 <Link
+                  id="friendLink"
                   to={"/chat"}
                   state={{allFriends: friends, whichFriend: index}}
                 >
-                  {showFriends(index)}
+                  <p id="nameOfFriend">{showFriends(index)}</p>
                 </Link>
               </td>
               <td width="10%" style={showData(index,0)}></td> 
@@ -169,6 +170,7 @@ const FriendGrid = ({array}) => {
             <tr>
               <td  className = "rowHeader">
                 <Link
+                  id="friendLink"
                   to={"/chat"}
                   state={{allFriends: friends, whichFriend: index+1}}
                 >
@@ -186,6 +188,7 @@ const FriendGrid = ({array}) => {
             <tr>
               <td  className = "rowHeader">
                 <Link
+                  id="friendLink"
                   to={"/chat"}
                   state={{allFriends: friends, whichFriend: index+2}}
                 >
@@ -203,6 +206,7 @@ const FriendGrid = ({array}) => {
             <tr>
               <td  className = "rowHeader">
                 <Link
+                  id="friendLink"
                   to={"/chat"}
                   state={{allFriends: friends, whichFriend: index+3}}
                 >
@@ -220,6 +224,7 @@ const FriendGrid = ({array}) => {
             <tr>
               <td  className = "rowHeader">
                 <Link
+                  id="friendLink"
                   to={"/chat"}
                   state={{allFriends: friends, whichFriend: index+4}}
                 >

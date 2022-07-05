@@ -7,6 +7,8 @@ import { Typography } from '@mui/material';
 import FriendGrid from '../components/FriendGrid';
 import Calendar from '../components/Calender';
 import "./UserProfileStyle.css";
+import { Link } from 'react-router-dom';
+
 
 
 /*
@@ -22,6 +24,10 @@ Things to do:
 export class UserProfile extends Component {
   constructor(props) {
     super(props);
+    this.username = "";
+    this.password = "";
+    this.maxEntry = 10;
+
     this.myData = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -314,9 +320,16 @@ export class UserProfile extends Component {
                     <br></br>
                     <div className = "twoButtons">
                       <Button variant="contained">
-                        <Typography>
-                          Enter when you're free!
-                        </Typography>
+                        <Link
+                          style={{textDecoration: "none", color: "white"}}
+                          to={"/addData"}
+                          state={{username: "", password: ""}}
+                        >
+                          <Typography>
+                            Enter when you're free!
+                          </Typography> 
+                        </Link>
+                        
                       </Button>
                       <br></br>
                       <Button variant="contained">
