@@ -377,10 +377,10 @@ const trimName = (str, lim) => {
                                 <p>{mess.msg}</p>
                             </div>
                             <div id="Icons">
-                                <svg id="LeftIcon" onClick={() => {setLikeIndex(index)}} style={{cursor: "pointer"}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                <svg id="LeftIcon" onClick={() => {if (block == false) {setLikeIndex(index)}}} style={{cursor: "pointer"}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                                 </svg>
-                                <svg onClick={() => {handleRepOpen(); setRepMsg(mess); setRepIndex(index)}} xmlns="http://www.w3.org/2000/svg" style={{cursor: "pointer"}} width="20" height="20" fill="currentColor" class="bi bi-reply-fill" viewBox="0 0 16 16">
+                                <svg onClick={() => {if (block == false) {handleRepOpen(); setRepMsg(mess); setRepIndex(index)}}} xmlns="http://www.w3.org/2000/svg" style={{cursor: "pointer"}} width="20" height="20" fill="currentColor" class="bi bi-reply-fill" viewBox="0 0 16 16">
                                     <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
                                 </svg>
                             </div>
@@ -504,6 +504,10 @@ const trimName = (str, lim) => {
             setBlock(false);
             document.querySelector("#blockButton").innerHTML = "Block";
             document.querySelector(".myMsg").disabled = false;
+            /*
+            document.querySelector("#editForm").disabled = false;
+            document.querySelector("#repMsg").disabled = false;
+            */
         }
         
       }
@@ -511,6 +515,10 @@ const trimName = (str, lim) => {
       const displayBlockAlert = () => {
           if ( block == true) {
               document.querySelector(".myMsg").disabled = true;
+              /*
+              document.querySelector("#editForm").disabled = true;
+              document.querySelector("#repMsg").disabled = true;
+              */
               return (
                 <div class="alert alert-dark" role="alert">
                     You have blocked this person.
@@ -713,8 +721,7 @@ const trimName = (str, lim) => {
                                         </thead>
                                         <br></br>
                                         <tbody>
-                                            {listAllData()}
-                                            
+                                            {listAllData()}   
                                         </tbody>
                                     </table>
                                 </div>

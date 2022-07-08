@@ -1,0 +1,208 @@
+#pageContainer {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#accountDetailsCard {
+    width: 90%;
+}
+
+#accountDetailsCardBody {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#bigsect {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+#sect {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#entryOptions {
+    margin-top: 5px;
+}
+
+#entryOptions2 {
+    margin-right: 30px;
+}
+
+#Dropdown {
+    margin-top: 5px;
+}
+
+#saveAll {
+    width: 70%;
+    word-wrap: break-word;
+}
+
+#defaultDataCard {
+    background-color: #D3D3D3;
+    border: 5px solid white;
+    height: 700px;
+}
+
+#defaultDataCardBody {
+    overflow:auto;
+    text-align: center;
+}
+
+#defDataTable {
+    border: 2px solid white;
+}
+
+#cMode1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#cMode2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#Inp1 {
+    width: 50px;
+    margin-left: 40px;
+    margin-right: 20px;
+}
+
+#Inp2 {
+    width: 50px;
+    margin-left: 40px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+
+#warnModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 1050px) {
+    /*
+    #accountDetailsCardBody {
+        flex-direction: column;
+    }
+    */
+
+    #sect {
+        margin-right: 70px;
+        margin-left: 70px;
+    }
+
+    #accountDetailsCard {
+        width: 80%;
+    }
+
+}
+
+@media only screen and (max-width: 950px) {
+    #accountDetailsCard {
+        width: 60%;
+    }
+
+    #saveAll {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    
+    #defaultDataCard {
+        width: 90%;
+    }
+    
+    #defaultDataTable {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    #tabHeader {
+        width: 150px;
+    }
+
+    #entryOptions2 {
+        margin-right: 0px;
+        margin-bottom: 10px;
+    }
+
+    #Inp1 {
+        margin-bottom: 10px;
+    } 
+
+}
+
+@media only screen and (max-width: 620px) {
+    #tableBtn {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    
+    #cMode1 {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #cMode2 {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+}
+
+@media only screen and (max-width: 500px) {
+    #accountDetailsCard {
+        width: 90%;
+    }
+    #saveAll {
+        width: 180px;
+    }
+
+    #defaultDataCard {
+        width: 100%;
+    }
+    
+}
+
+@media only screen and (max-width: 400px) {
+    #defaultDataTable {
+        table-layout: fixed;
+        width: 180%;
+    }
+
+    /*
+    #defaultTableContainer {
+        margin-right: 50px;
+    }
+    */
+
+}
