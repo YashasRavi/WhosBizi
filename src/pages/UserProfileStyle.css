@@ -11,12 +11,85 @@
     justify-content:space-evenly;
 }
 
-@media only screen and (max-width: 450px) { 
+
+#wholeContainer {
+    padding-top: 70px;
+}
+
+#tableColorGradient {
+    border: 2px solid black;
+    background-image: linear-gradient(90deg, red, blue);
+    height: 25px;
+}
+
+#tableColorGradient2 {
+    border: 2px solid black;
+    background-image: linear-gradient(90deg, darkred, #FA86F2);
+    height: 25px;
+}
+
+#altLabel {
+    display: none;
+}
+
+#gradLabels {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+}
+
+@media only screen and (max-width: 900px) {
+    #wholeContainer {
+        padding-top: 120px;
+    }
+}
+
+
+@media only screen and (max-width: 520px) {
+    #gradLabels {
+        display: none;
+    }
+
+    #tableColorGradient {
+        background-image: linear-gradient(180deg, red, blue);
+        height: 100px;
+        margin-bottom: 20px;
+    }
+
+    
+    #tableColorGradient2 {
+        border: 2px solid black;
+        background-image: linear-gradient(180deg, darkred, #FA86F2);
+        height: 100px;
+        margin-bottom: 20px;
+    }
+
+    #altLabel {
+        display: block;
+    }
+
+}
+
+@media only screen and (max-width: 550px) { 
     .headerText {
         font-size: 30px;
     }
 
     .twoButtons {
         flex-direction: column;
+    }
+
+    #bottomBtn {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #wholeContainer {
+        padding-top: 70px;
     }
 }

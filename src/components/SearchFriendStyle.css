@@ -1,0 +1,89 @@
+#allResults {
+    background-color: black;
+    border: 5px solid black;
+    width: 40rem;
+    max-height: 700px;
+}
+
+#allResultsHeader {
+    color: yellow;
+    border: 10px solid black;
+    text-align: center;
+}
+
+#allResultsBody {
+    overflow: auto;
+    border-bottom: 20px solid black;
+}
+
+#SearchCard {
+    margin-bottom: 10px;
+    background-color: #FFFACD;
+    
+}
+
+#SearchCardBody {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 5px solid #FFE4B5;
+}
+
+#Invites {
+    height: 400px;
+    border: 2px solid black;
+    text-align: center;
+    color: yellow;
+    background-color: black;
+}
+
+#InvitesBody {
+    border-bottom: 20px solid black;
+    overflow: auto;
+}
+
+#InviteCard {
+    margin-bottom: 10px;
+    background-color: #F5F5F5;
+    color: black;
+}
+
+#InviteCardBody {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#leftBtn {
+    margin-right: 10px;
+}
+
+#searchInput {
+    background-color: #FDF5E6;
+}
+
+@media only screen and (max-width: 700px) {
+    #allResults {
+        width: 100%;
+    }
+
+    #Invites {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    #SearchCardBody {
+        flex-direction: column;
+    }
+
+    #InviteCardBody {
+        flex-direction: column;
+    }
+
+    #cardSub {
+        margin-bottom: 10px;
+    }
+}

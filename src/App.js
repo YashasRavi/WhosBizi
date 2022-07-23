@@ -7,6 +7,7 @@ import UserProfile from './pages/UserProfile'
 import Chat from './pages/Chat'
 import AddData from './pages/AddData';
 import EditDetails from './pages/EditDetails';
+import Help from './pages/Help';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import {Button} from '@mui/material';
 import {Container} from '@mui/material';
@@ -24,6 +25,7 @@ function App() {
           <Route path="chat" element={<Chat />} />
           <Route path="addData" element={<AddData />} />
           <Route path="editDetails" element={<EditDetails />} />
+          <Route path="help" element={<Help />} />
         </Routes>
       </BrowserRouter>
     </div>

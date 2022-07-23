@@ -47,7 +47,7 @@ table.table-bordered > tbody > tr > td{
 }
 
 #friendLink:hover {
-   color: red;
+   color: #FFA500;
 }
 
 .pageText1 {
@@ -56,6 +56,11 @@ table.table-bordered > tbody > tr > td{
 
 .pageText2 {
     display: block;
+}
+
+#friendSearchForm {
+    margin-left: 20px;
+    width: 200px;
 }
 
 .bottomStuff {
@@ -102,7 +107,23 @@ table.table-bordered > tbody > tr > td{
     
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 510px) {
+
+    
+    #friendSearchForm {
+        width: 85%;
+        margin-left: 0px;
+    }
+
+    #searchFriends {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #friendSearchForm {
+        margin-left: 0px;
+    }
     
     #arrowLeft {
         position: relative;
@@ -124,12 +145,15 @@ table.table-bordered > tbody > tr > td{
     #searchFriends {
         border: none;
         width: 180px;
+        left: 0px;
         /*left: 40px;*/
     }
 
     .bottomStuff {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     
 }

@@ -1,0 +1,26 @@
+#FooterBtn {
+    margin-left: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#theLinks {
+    display: none;
+}
+
+#FooterBody {
+    margin-right: 10px;
+}
+
+@media only screen and (max-width: 420px) {
+    #theLinks {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #FooterBtn {
+        margin-left: 0px;
+        width: 100%;
+    }
+
+}

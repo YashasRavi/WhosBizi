@@ -2,6 +2,9 @@ import React from 'react'
 import { Container } from '@mui/material'
 import { useState, useEffect } from 'react';
 import {Slider} from '@mui/material'
+import { Link } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import "./AddDataStyle.css";
 
 const AddData = () =>  {
@@ -479,7 +482,10 @@ const AddData = () =>  {
 
   return (
     <div style={{backgroundImage: "linear-gradient(45deg, #708090, #2F4F4F)"}}>
-        <Container>
+        <div style={{position: "fixed", width: "100%", zIndex: "10", boxShadow: "2px 2px 3px 4px"}}>
+          <Header type="1"></Header>
+        </div>
+        <Container id="wholeContainer">
             <h2 className="chatTitle">
                 Record when you're free!
             </h2>
@@ -494,6 +500,9 @@ const AddData = () =>  {
                   <h5 class="card-title" style={{color: "#FFD700"}}>
                     Set the maximum value:
                   </h5>
+                  <p style={{color: "yellow", textAlign: "center", marginTop: "10px"}}>
+                    This value represents how free you can possibly get!
+                  </p>
                   <br></br>
                   <input type="text" id="maxEntryForm" defaultValue={maxValue} onChange={(e) => setTempMaxValue(e.target.value)}></input>
                   <br></br>
@@ -509,7 +518,13 @@ const AddData = () =>  {
               <br></br>
               <button id="aDataBtn" class="btn btn-warning btn-lg" onClick={saveAllChanges}>Save All Data</button>
               <br></br>
-              <button id="aDataBtn" class="btn btn-dark">Edit Defaults</button>
+              <Link
+                style={{textDecoration: "none", color: "white"}}
+                to={"/editDetails"}
+                state={{username: "", password: "", scr: 3}}
+              >
+                  <button id="aDataBtn" class="btn btn-dark">Edit Defaults</button>
+              </Link>
               <br></br>
               <button id="aDataBtn" class="btn btn-dark btn-large">
                 Click for Help!
@@ -708,6 +723,7 @@ const AddData = () =>  {
             <br></br>
             <br></br>
         </Container>
+        <Footer type="1"></Footer>
     </div>
   )
 }

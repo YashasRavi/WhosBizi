@@ -7,16 +7,64 @@ import { Typography } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Modal } from '@mui/material';
 import { Box } from '@mui/system';
-import InfoModal from '../components/InfoModal';
-import ContactModal from '../components/ContactModal';
+import {useState, useEffect} from 'react'
 import "./IndexStyle.css";
 
-export class Index extends Component {
-  render() {
-      
-    return (
-        
-      <div style={{backgroundImage: "linear-gradient(45deg, #FA8072, yellow)"}}>
+
+
+function Index() {
+
+  const [ModOpen, setModOpen] = useState(false);
+  const handleModOpen = () => setModOpen(true);
+  const handleModClose = () => setModOpen(false);
+
+  const [ConOpen, setConOpen] = useState(false);
+  const handleConOpen = () => setConOpen(true);
+  const handleConClose = () => setConOpen(false);
+
+  const ModalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    bgcolor: 'yellow',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  return (
+    <div style={{backgroundImage: "linear-gradient(45deg, #FA8072, yellow)"}}>
+          <Modal
+            open={ModOpen}
+            onClose={handleModClose}
+            aria-labelledby="modal-modal-title"
+          >
+              <Box sx={ModalStyle} id="warnModal">
+                  <h6>
+                      What is WhosBizi?
+                  </h6>
+                  <p>
+                    add more info here ... 
+                  </p>
+              </Box>
+          </Modal>
+
+          <Modal
+            open={ConOpen}
+            onClose={handleConClose}
+            aria-labelledby="modal-modal-title"
+          >
+              <Box sx={ModalStyle} id="warnModal">
+                  <h6>
+                      Contact Us!
+                  </h6>
+                  <p>
+                    Here are our details: 
+                  </p>
+              </Box>
+          </Modal>
+
           {/*<Button variant="contained">Hello World</Button>*/}
           <h1 className="indexTitle">
               WhosBizi
@@ -54,11 +102,16 @@ export class Index extends Component {
                         <br></br>
                     </Card>
                     <br></br>
-
-                    <InfoModal></InfoModal>
-                    <ContactModal></ContactModal>
                     <br></br>
-
+                    <button class="btn btn-primary" onClick={() => {{handleModOpen()}}}>MORE INFORMATION!</button>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <button class="btn btn-primary" onClick={() => {{handleConOpen()}}}>CONTACT US!</button>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
 
                 </Grid>
                 <Grid item xs={1} md={3} xl={4}></Grid>
@@ -67,8 +120,7 @@ export class Index extends Component {
           </Container>
           
       </div>
-    )
-  }
+  )
 }
 
 export default Index

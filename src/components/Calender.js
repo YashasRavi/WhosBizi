@@ -55,18 +55,29 @@ const Calender = ({array}) => {
             sum += friends[i].data[p][q+2];
           }
         }
+
+        sum = sum/(3*friends.length);
        
-        if (sum > 5) {
-          return {backgroundColor: "#DC143C"};
+        if (sum > 0.8 && sum <= 1) {
+          return {backgroundColor: "#B30041"};
+        }
+        else if (sum > 0.6 && sum <= 0.8) {
+          return {backgroundColor: "#D7008A"};
+        }
+        else if (sum > 0.4 && sum <= 0.6) {
+          return {backgroundColor: "#ED30CD"};
+        }
+        else if (sum > 0.2 && sum <= 0.4) {
+          return {backgroundColor: "#F55CE7"};
         }
         else {
-          return {backgroundColor: "#FFB6C1"};
+          return {backgroundColor: "#FA86F2"};
         }
+
     }
 
     return (
       <div>
-        {/*<DatePicker selected={Now} onChange={date => {setNow(date); }}></DatePicker>*/}
         <div className="calendarTable">
             <table class="table" id="calTable">
                 <thead>

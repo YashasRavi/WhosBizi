@@ -16,6 +16,7 @@ const FriendGrid = ({array}) => {
   let friends = array;
   const [index, setIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [nowSearch, setSearchInput] = useState("");
 
   function updateArrows (i) {
     if (i+5 >= friends.length) {
@@ -50,7 +51,15 @@ const FriendGrid = ({array}) => {
       
     }
     else {
-      return <Button variant="contained" size="small">+ Add Friends</Button>
+      return (
+        <Link
+          style={{textDecoration: "none", color: "white"}}
+          to={"/editDetails"}
+          state={{username: "", password: "", scr: 2}}
+        >
+            <Button variant="contained" size="small">+ Add Friends</Button> 
+          </Link>
+      );
     }
   }
   
@@ -61,19 +70,37 @@ const FriendGrid = ({array}) => {
       return {backgroundColor: "black"};
     }
 
+    let counter = 0;
     let sum = 0;
     for (let i = 0; i < friends[k].data[n].length; i++) {
-      sum += friends[k].data[n][i];
+      if (friends[k].data[n][i] > 0) {
+        sum += friends[k].data[n][i];
+        counter++;
+      }
+      
     }
+
     if (sum < 0) {
       return {backgroundColor: "black"};
     }
 
-    if (sum > 5) {
-      return {backgroundColor: "red"};
+    sum = sum/counter;
+    //console.log(sum);
+
+    if (sum > 0.8 && sum <= 1) {
+      return {backgroundColor: "blue"};
+    }
+    else if (sum > 0.6 && sum <= 0.8) {
+      return {backgroundColor: "#3300CC"};
+    }
+    else if (sum > 0.4 && sum <= 0.6) {
+      return {backgroundColor: "#660099"};
+    }
+    else if (sum > 0.2 && sum <= 0.4) {
+      return {backgroundColor: "#CC0033"};
     }
     else {
-      return {backgroundColor: "blue"};
+      return {backgroundColor: "red"};
     }
   }
 
@@ -96,6 +123,21 @@ const FriendGrid = ({array}) => {
       setCurrentPage(currentPage-1);
       //updateArrows();
     }
+  }
+
+  const searchForPage = (inp) => {
+    let max = 0;
+    let maxId = 0;
+    for (let i = 0; i < friends.length; i++) {
+      if (friends[i].username.includes(inp)) {
+        max = Math.max(max, inp/friends[i].username.length);
+        maxId = i;
+      }
+    }
+
+    setIndex(maxId-(maxId % 5));
+    setCurrentPage(Math.ceil((maxId+1)/5));
+
   }
 
   const date = new Date();
@@ -245,12 +287,18 @@ const FriendGrid = ({array}) => {
       <div className="bottomStuff">
         <br></br>
           
-          <Typography className="pageText2" color="white">
+          <Typography className="pageText2" color="white" style={{marginLeft: "10px"}}>
             {currentPage} of {Math.ceil(friends.length/4)}
           </Typography>
-          <form id="searchFriends" noValid autoComplete="off" style={{position:"relative", left:"15px"}}>
-              <TextField variant="standard" placeholder="Search for friends!" size="small" style={{backgroundColor:"white", borderLeft:"10px solid white", borderBottom: "5px solid white", borderTop: "5px solid white", borderRight: "5px solid white"}}>
-              </TextField>
+          <form id="searchFriends" noValid autoComplete="off" >
+              <div class="input-group mb-3" id="friendSearchForm">
+                    <input id="searchInput" type="text" class="form-control" placeholder="Search!" aria-label="Search" aria-describedby="basic-addon1" onChange={(e) => setSearchInput(e.target.value)}></input>
+                    <span class="input-group-text" id="basic-addon1" style={{cursor: "pointer"}} onClick={() => {searchForPage(nowSearch)}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>   
+                    </span>
+                </div>
           </form>
           <br></br>
           

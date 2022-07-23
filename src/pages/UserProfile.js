@@ -8,8 +8,8 @@ import FriendGrid from '../components/FriendGrid';
 import Calendar from '../components/Calender';
 import "./UserProfileStyle.css";
 import { Link } from 'react-router-dom';
-
-
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 /*
 Things to do:
@@ -24,7 +24,7 @@ Things to do:
 export class UserProfile extends Component {
   constructor(props) {
     super(props);
-    this.username = "";
+    this.username = "USERNAME";
     this.password = "";
     this.maxEntry = 10;
 
@@ -50,13 +50,13 @@ export class UserProfile extends Component {
     this.friend1 = {
       id: 1, 
       MaxId: 7,
-      username:"p1",
+      username:"john",
       firstname:"f1",
       lastname:"l1",
       block:false, 
       blocked:false,
       data: [
-        [20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0.5, 0.3, 0.6, 0.7, 0.2, 0.7, 0.9, 0.1, 0.8, 0.8, 0.8, 0.8, , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -113,7 +113,7 @@ export class UserProfile extends Component {
     this.friend2 = {
       id: 2,
       MaxId: 7,
-      username:"p2",
+      username:"henry",
       firstname:"f2",
       lastname:"l2",
       block:false, 
@@ -176,7 +176,7 @@ export class UserProfile extends Component {
     this.friend3 = {
       id: 3,
       MaxId: 0,
-      username:"p3",
+      username:"mickey",
       firstname:"f3",
       lastname:"l3", 
       block:false,
@@ -195,7 +195,7 @@ export class UserProfile extends Component {
     
     this.friend4 = {
       id: 4,
-      username:"p4",
+      username:"thorodinson",
       firstname:"f4",
       lastname:"l4",
       block:false, 
@@ -241,7 +241,7 @@ export class UserProfile extends Component {
     this.friend5 = {
       id: 5,
       MaxId: 2,
-      username:"p5",
+      username:"doctorstrange",
       firstname:"f5",
       lastname:"l5",
       block:false, 
@@ -274,7 +274,7 @@ export class UserProfile extends Component {
     this.friend6 = {
       id: 6,
       MaxId: 0,
-      username:"p6",
+      username:"harrypotter",
       firstname:"f6",
       lastname:"l6",
       block:false, 
@@ -294,17 +294,28 @@ export class UserProfile extends Component {
     this.friends = [this.friend1, this.friend2, this.friend3, this.friend4, this.friend5, this.friend6];
   }
 
+  /*boxShadow: "2px 2px 3px 4px"*/
   render() {
     return (
       <div style={{backgroundImage: "linear-gradient(45deg, #FA8072, yellow)", backgroundRepeat:"repeat", backgroundSize:"cover", backgroundPosition:"center"}}>
-        <Container>
+        <div style={{position: "fixed", width: "100%", zIndex: "10", boxShadow: "2px 2px 3px 4px"}}>
+          <Header type="0"></Header>
+        </div>
+      
+        <Container id="wholeContainer">
             <h2 className="headerText" align="center">
-                Welcome, [Name]
+                Welcome, {this.username}
             </h2>
             <Grid container style={{paddingTop: "20px", textAlign: "center"}}>
                 <Grid item xs={0.4} md={1} xl={1}></Grid>
                 <Grid item xs={11.2} md={10} xl={10}>
-                    <Button variant="contained" style={{marginTop:"10px", marginBottom:"10px", backgroundColor:"purple"}}>Edit Account Details</Button> 
+                  <Link
+                      style={{textDecoration: "none", color: "white"}}
+                      to={"/editDetails"}
+                      state={{username: "", password: "", scr: 0}}
+                  >
+                      <Button variant="contained" style={{marginTop:"10px", marginBottom:"10px", backgroundColor:"purple"}}>Edit Account Details</Button> 
+                  </Link>
                     <br></br>
                     <br></br>
                     <br></br>
@@ -312,6 +323,22 @@ export class UserProfile extends Component {
                     <Typography style={{textDecoration:"underline", fontFamily: "Monospace", fontWeight:"bold", fontSize:"20px", color: "#4B0082"}}>
                       When your friends are free:
                     </Typography>
+                    <br></br>
+                    <div class="card text-white bg-dark">
+                        <div class="card-body">
+                            <h5 style={{color: "yellow"}}>
+                              Color Scheme:
+                            </h5>
+                            <br></br>
+                            <p id="altLabel" style={{color: "red"}}>Fully Busy/Unavailable</p>
+                            <div id="tableColorGradient"></div>
+                            <p id="altLabel" style={{color: "lightblue"}}>Fully Free/Available</p>
+                            <div id="gradLabels">
+                                <p style={{color: "red"}}>Fully Busy/Unavailable</p>
+                                <p style={{color: "lightblue"}}>Fully Free/Available</p>
+                            </div>
+                        </div>
+                    </div>
                     <br></br>
                     <div className="fGrid">
                       <FriendGrid array={this.friends}></FriendGrid>
@@ -328,15 +355,21 @@ export class UserProfile extends Component {
                           <Typography>
                             Enter when you're free!
                           </Typography> 
-                        </Link>
-                        
+                        </Link>  
                       </Button>
+
                       <br></br>
-                      <Button variant="contained">
-                        <Typography>
-                          + Add friends!
-                        </Typography>
+                      <Link
+                        style={{textDecoration: "none", color: "white"}}
+                        to={"/editDetails"}
+                        state={{username: "", password: "", scr: 2}}
+                      >
+                        <Button variant="contained" id="bottomBtn">
+                          <Typography>
+                            + Add friends!
+                          </Typography>
                       </Button>
+                    </Link>
                     </div>
                     <br></br>
                     <br></br>
@@ -345,6 +378,22 @@ export class UserProfile extends Component {
                       Who's free at what times:
                     </Typography>
                     <br></br>
+                    <div class="card" style={{border: "4px solid black"}}>
+                        <div class="card-body">
+                            <h5 style={{color: "black"}}>
+                              Color Scheme:
+                            </h5>
+                            <br></br>
+                            <p id="altLabel" style={{color: "darkred"}}>More free friends</p>
+                            <div id="tableColorGradient2"></div>
+                            <p id="altLabel" style={{color: "#FF1493"}}>Less free friends</p>
+                            <div id="gradLabels">
+                                <p style={{color: "darkred"}}>More free friends</p>
+                                <p style={{color: "#FF1493"}}>Less free friends</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
                     <Calendar array={this.friends}></Calendar>
                     <br></br>
                     <br></br>
@@ -352,7 +401,7 @@ export class UserProfile extends Component {
                 <Grid item xs={0.4} md={1} xl={1}></Grid>
             </Grid>
         </Container>
-        
+        <Footer type="0"></Footer>
       </div>
     )
   }

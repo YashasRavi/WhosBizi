@@ -12,11 +12,43 @@
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
+#entireGradCard {
+    width: 50%; 
+    margin-left: 25%;
+}
+
+#tableColorGradientX {
+    border: 2px solid black;
+    background-image: linear-gradient(90deg, red, blue);
+    height: 25px;
+}
+
+
+#altLabel2 {
+    display: none;
+}
+
+#gradLabels2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+}
+
 .chatStuff {
     padding-top: 20px;
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+#showAllBtn {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 #friendCards {
@@ -38,11 +70,20 @@
     border-top: 2px solid black;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-around;
 }
 
+/*
 #searchForFriend {
+    width: 60px;
+}
+*/
+
+
+#fullSearchField {
     width: 100px;
+    margin-top: 10px;
 }
 
 #warningModal {
@@ -156,11 +197,22 @@
     height: 30px;
 }
 
+#fTable.table-bordered {
+    width: 100%;
+}
+
 #friendTable {
     height: 470px;
     background-color: #FFFACD;
     border: 4px solid black;
 }
+
+/*
+
+#dataTableRow {
+    width: 90%;
+}
+*/
 
 .time {
     width: 100px;
@@ -251,6 +303,17 @@
         width: calc(100% - 100px);
     }
 
+    
+
+    /*
+    #friendCards .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    */
+
     #friendCard {
         width: 100%;
     }
@@ -263,12 +326,30 @@
         height: 70px;
     }
 
-    #searchForFriend {
+    #fullSearchField {
         width: 300px;
+        margin-top: 10px;
     }
 
 
     
+}
+
+@media only screen and (max-width: 900px) {
+    #gradLabels2 {
+        display: none;
+    }
+
+    #tableColorGradientX {
+        background-image: linear-gradient(180deg, red, blue);
+        height: 100px;
+        margin-bottom: 20px;
+    }
+
+    #altLabel2 {
+        display: block;
+    }
+
 }
 
 @media only screen and (max-width: 800px) {
@@ -290,8 +371,9 @@
         width: 100%;
     }
 
-    #searchForFriend {
+    #fullSearchField {
         width: 200px;
+        margin-top: 10px;
     }
 
     #Icons {
@@ -309,12 +391,19 @@
 }
 
 @media only screen and (max-width: 530px) {
+
+    #entireGradCard {
+        width: 80%; 
+        margin-left: 10%;
+    }
+
    .chatTitle {
        font-size: 40px;
    }
 
-    #searchForFriend {
+   #fullSearchField {
         width: 100px;
+        margin-top: 10px;
     }
 
     #Icons {
@@ -375,9 +464,10 @@
         justify-content: center;
     }
 
-    #searchForFriend {
-        margin-bottom: 10px;
+    #fullSearchField {
         width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     #warningModal {

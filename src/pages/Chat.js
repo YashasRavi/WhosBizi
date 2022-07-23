@@ -10,7 +10,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Modal } from '@mui/material';
 import { Box } from '@mui/system';
-
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 /*
 stuff to do:
@@ -124,7 +125,7 @@ function retDate (date, offset) {
     const tod = date;
     const next = new Date(tod);
     next.setDate(tod.getDate()+offset);
-    console.log(next); 
+    //console.log(next); 
     let current = next.getDay();
     if (current == 0) {
       return <h6>Sun, {next.getMonth()+1}/{next.getDate()}</h6>;
@@ -291,48 +292,219 @@ const trimName = (str, lim) => {
         replyMsg(currLikeIndex, false);
     }, [currLikeIndex])
 
+    
+    let alreadyIn = [-1, -1, -1, -1, -1, -1];
+    let theInds = [-1, -1, -1, -1, -1, -1];
+    let friendRanks = [-1, -1, -1, -1, -1, -1];
+    
     /*
-    const showConfirmationModal = (inp, type) => {
-        if (type == "friend") {
-            return (
-            );
+        for (let i = 0; i < allFriends.length; i++) {
+            alreadyIn.push(-1);
+            theInds.push(-1);
+            friendRanks.push(-1);
         }
-        else if (type == "chat") {
-
-        }
-        else if (type == "msg") {
-
-        }
-    }
     */
+        const [friendsState, setFriendsState] = useState(false);
+        const [nowInput, setNowInput] = useState("");
+    
+    
+/*
+    const [rankArray, setRankArray] = useState(friendRanks);
+    const [nowAlrIn, setNowAlrIn] = useState(alreadyIn);
+    const [nowInds, setNowInds] = useState(theInds);
+    const [friendsState, setFriendsState] = useState(false);
+    const [nowInput, setNowInput] = useState("");
 
+    const getRank = (q, r) => {
+        let query = q.toString().toLowerCase();
+        let result = r.toString().toLowerCase();
+    
+        if (query == result) {
+            return 1;
+        }
+    
+        if (query.length <= 1) {
+            return 0;
+        }
+    
+        if (query.includes(result) && (result.length/query.length) > 0.75) {
+            return 0.75;
+        }
+    
+        let change = Math.ceil(query.length/5);
+        let tempRank = 0;
+    
+        for (let i = 0; i < query.length-1; i+=change) {
+    
+            //Can be done more efficiently by starting from the end!
+            for (let j = query.length; j > i; j-=change) {
+    
+                if (result.includes(query.substring(i,j))) {
+                    if ((j-i) == query.length) {
+                        tempRank = Math.max(tempRank, (0.7*(j-i)/result.length)+0.3);
+                    }
+                    else {
+                        tempRank = Math.max(tempRank, (j-i)/query.length);
+                    }
+                    
+                }
+    
+            }
+    
+        }
+        
+        return tempRank;
+    
+      }
+    
+      const runSearch = (inp) => {
+        let tempRanks = [...rankArray];
+    
+        for (let i = 0; i < allFriends.length; i++) {
+            let k = getRank(inp, allFriends[i].username);
+            tempRanks[i] = k;
+        }
+
+        console.log("In runSearch():")
+        console.log(tempRanks);
+        setRankArray(tempRanks);
+    
+      }
+
+      const sortRanks = () => {
+        console.log("In sortRanks():")
+        console.log(rankArray);
+
+        let alrIn = [-1,-1,-1,-1,-1,-1];
+        let myIndices = [-1,-1,-1,-1,-1,-1];
+
+
+        let theLimit = Math.min(10, allFriends.length);
+    
+        for (let i = 0; i < theLimit; i++) {
+            for (let j = 0; j < rankArray.length; j++) {
+                if (rankArray[j] > alrIn[i]) {
+                    if (i > 0) {
+                        if (!myIndices.includes(j) && rankArray[j] <= alrIn[i-1]) {
+                            alrIn[i] = rankArray[j];
+                            myIndices[i] = j;
+                        }
+                    }
+                    else {
+                        alrIn[i] = rankArray[j];
+                        myIndices[i] = j;
+                    }
+                    
+                }
+            }
+        }
+
+        //console.log(myIndices);
+    
+        setNowAlrIn(alrIn);
+        setNowInds(myIndices);
+    
+    
+      }
+    
+      useEffect (() => {
+        console.log("In useEffect: ")
+        console.log(rankArray);
+        sortRanks();
+      }, [rankArray])
+
+
+*/
+    
     const listFriends = () => {
         //console.log(this.state.testNum);
-        return anotherCopy.map((user, index) => {
-            if (index != whichFriend) {
+        //console.log(nowInput);
+        let tempFree = [];
+        
+        if (friendsState == true) {
+            for (let i = 0; i < allFriends.length; i++) {
+                if (allFriends[i].username.includes(nowInput)) {
+                    tempFree.push(allFriends[i]);
+                    //i--;
+                }
+            }
+        }
+        else {
+            tempFree = allFriends;
+        }
+
+        console.log(tempFree);
+
+        //if (friendsState == false) {
+        return tempFree.map((user, index) => {
+            if (friendsState == true || index != whichFriend) {
                 return (
                     <div>
-                      <div class="card" id="friendCard">
-                           <div class="card-body">
-                              <h6 class="card-subtitle">{user.firstname} {trimName(user.lastname, 15)}</h6>
-                              <br></br>
-                              <Link
+                        <div class="card" id="friendCard">
+                            <div class="card-body">
+                                <h6 class="card-subtitle">{user.firstname} {trimName(user.lastname, 15)}</h6>
+                                <br></br>
+                                <Link
                                 to={"/chat"}
                                 state={{allFriends: allFriends, whichFriend: index}}
-                              >
-                                  <a id="chatWithFriendBtn" class="btn btn-primary btn-sm" style={{border: "1px solid black"}}>Chat with {trimName(user.username, 15)}</a>
-                              </Link>
-                              <br></br>
-                              <br></br>
-                              <button id="remFriendBtn" class="btn btn-danger btn-sm" onClick={() => {handleFriendOpen(); setRemFriend(user); setRemIndex(index)}} style={{border: "1px solid black"}}>Remove {trimName(user.username, 15)}</button>
-                          </div>
-                      </div> 
-                      <br></br>
-                  </div>
+                                >
+                                    <a id="chatWithFriendBtn" class="btn btn-primary btn-sm" style={{border: "1px solid black"}}>Chat with {trimName(user.username, 15)}</a>
+                                </Link>
+                                <br></br>
+                                <br></br>
+                                <button id="remFriendBtn" class="btn btn-danger btn-sm" onClick={() => {handleFriendOpen(); setRemFriend(user); setRemIndex(index)}} style={{border: "1px solid black"}}>Remove {trimName(user.username, 15)}</button>
+                            </div>
+                        </div> 
+                        <br></br>
+                    </div>
                 );
             }
 
         });
+        //}
+        /*
+        else {
+           
+
+            if (nowAlrIn[0] == 0) {
+                return (
+                    <div style={{color: "yellow"}}>
+                        <p>No results found!</p>
+                        <p>Please make the query more specific.</p>
+                    </div>
+                );
+            }
+
+            return nowInds.map((num, index) => {
+                //console.log(rankArray[0]);
+                if (index != whichFriend) {
+                    //let user = allFriends[num];
+                    return (
+                        <div>
+                          <div class="card" id="friendCard">
+                               <div class="card-body">
+                                  <h6 class="card-subtitle">{allFriends[num].firstname} {trimName(allFriends[num].lastname, 15)}</h6>
+                                  <br></br>
+                                  <Link
+                                    to={"/chat"}
+                                    state={{allFriends: allFriends, whichFriend: index}}
+                                  >
+                                      <a id="chatWithFriendBtn" class="btn btn-primary btn-sm" style={{border: "1px solid black"}}>Chat with {trimName(allFriends[num].username, 15)}</a>
+                                  </Link>
+                                  <br></br>
+                                  <br></br>
+                                  <button id="remFriendBtn" class="btn btn-danger btn-sm" onClick={() => {handleFriendOpen(); setRemFriend(allFriends[num]); setRemIndex(index)}} style={{border: "1px solid black"}}>Remove {trimName(allFriends[num].username, 15)}</button>
+                              </div>
+                          </div> 
+                          <br></br>
+                      </div>
+                    );
+                }
+    
+            });
+        }
+        */
+
       };
 
       /*
@@ -407,12 +579,21 @@ const trimName = (str, lim) => {
         if (inp < 0) {
             return {backgroundColor: "black"};
         }
-        if (inp > 10) {
+        if (inp > 0.8 && inp <= 1) {
+            return {backgroundColor: "blue"};
+          }
+          else if (inp > 0.6 && inp <= 0.8) {
+            return {backgroundColor: "#3300CC"};
+          }
+          else if (inp > 0.4 && inp <= 0.6) {
+            return {backgroundColor: "#660099"};
+          }
+          else if (inp > 0.2 && inp <= 0.4) {
+            return {backgroundColor: "#CC0033"};
+          }
+          else {
             return {backgroundColor: "red"};
-        }
-        else {
-            return {backgroundColor: "green"};
-        }
+          }
       };
 
       
@@ -440,7 +621,7 @@ const trimName = (str, lim) => {
       const listAllData = () => {
         return whenFree.map((timeData, index) => {
             return (
-                <tr>
+                <tr id="dataTableRow">
                     <td className="time">
                         {retTime(index+8)}
                     </td>
@@ -585,8 +766,8 @@ const trimName = (str, lim) => {
                 </h6>
                 <div id="remFriendModalBtns">
                     <Link
-                    to={"/profile"}
-                    state={{username: "", password: ""}}
+                        to={"/profile"}
+                        state={{username: "", password: ""}}
                     >
                         <button class="btn btn-danger btn-sm" onClick={() => {removeFriend(currRemIndex)}}>Remove</button>
                     </Link>
@@ -651,15 +832,34 @@ const trimName = (str, lim) => {
             </Box>
         </Modal>
         
+        <div style={{position: "fixed", width: "100%", zIndex: "10", boxShadow: "2px 2px 3px 4px"}}>
+          <Header type="4"></Header>
+        </div>
 
+        <div id="wholeContainer">
             <div id="allTheThings">
                 <h2 className="chatTitle">
                     Chat with your friends!
                 </h2>
                 <br></br>
                 <br></br>
-
-
+                <div class="card text-white bg-dark" id="entireGradCard">
+                    <div class="card-body">
+                        <h5 style={{color: "yellow", textAlign: "center"}}>
+                            Color Scheme:
+                        </h5>
+                        <br></br>
+                        <p id="altLabel2" style={{color: "red", textAlign: "center"}}>Fully Busy/Unavailable</p>
+                        <div id="tableColorGradientX"></div>
+                        <p id="altLabel2" style={{color: "lightblue", textAlign: "center"}}>Fully Free/Available</p>
+                        <div id="gradLabels2">
+                            <p style={{color: "red"}}>Fully Busy/Unavailable</p>
+                            <p style={{color: "lightblue"}}>Fully Free/Available</p>
+                        </div>
+                    </div>
+                </div>
+                <br></br>
+                <br></br>   
                 <div className="chatStuff">
                     <div class="card" id="friendCards">
                         <div class="card-header text-center">
@@ -668,11 +868,22 @@ const trimName = (str, lim) => {
                             </h5>
                         </div>
                         <div class="card-body" style={{overflow: "auto"}}>
+                            <button id="showAllBtn" class="btn btn-success btn-sm" onClick={() => {setFriendsState(false)}}>Show All Friends</button>
+                            
                             {listFriends()}
                         </div>
                         <div class="card-footer">
-                        <input id="searchForFriend" type="text" name="searchFriend" placeholder="Search!"></input>
-                            <a href="#" class="btn btn-primary btn-sm" style={{border: "1px solid black"}}>Add friends +</a>
+                            {/*<input id="searchForFriend" type="text" name="searchFriend" placeholder="Search!"></input>*/}
+                            
+                            <div class="input-group input-group-sm mb-3" id="fullSearchField">
+                                <input id="searchForFriend" type="text" class="form-control" placeholder="Search!" aria-label="Search" aria-describedby="basic-addon1" onChange={(e) => setNowInput(e.target.value)}></input>
+                                <span class="input-group-text" id="basic-addon1" style={{cursor: "pointer"}} onClick={() => {setFriendsState(true)}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                    </svg>   
+                                </span>
+                            </div>
+                            <button class="btn btn-primary btn-sm" style={{border: "1px solid black"}}>Add friends +</button>
                         </div>
                     </div>
                     <div className="chatSpace">
@@ -760,6 +971,8 @@ const trimName = (str, lim) => {
                 <br></br>
             </div>
         </div>
+        <Footer type="4"></Footer>
+    </div>
   )
 }
 

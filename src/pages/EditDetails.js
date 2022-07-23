@@ -5,6 +5,10 @@ import {Button, Typography} from '@mui/material'
 import { Link } from 'react-router-dom';
 import {Modal} from '@mui/material'
 import {Box} from '@mui/material'
+import SearchFriends from '../components/SearchFriends';
+import { useLocation } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 import "./EditDetailsStyle.css";
 
@@ -21,7 +25,35 @@ function EditDetails() {
         boxShadow: 24,
         p: 4,
       };
+
+    const location = useLocation();
+    const {username, password, scr} = location.state;
     
+    console.log(scr);
+    let scroll = scr;
+    const doScroll = () => {
+        if (scroll == 0) {
+            document.querySelector("#accountDetailsCard").scrollIntoView();
+        }
+        else if (scroll == 1) {
+            document.querySelector("#stuffWithSearch").scrollIntoView();
+        }
+        else if (scroll == 2) {
+            document.querySelector("#stuffWithSearch").scrollIntoView();
+        }
+        else if (scroll == 3) {
+            document.querySelector("#defaultDataCardBody").scrollIntoView({behavior:"smooth"});
+        }
+        else {
+            document.querySelector("#accountDetailsCard").scrollIntoView();
+        }
+    }
+
+    useEffect (() => {
+        doScroll();
+    }, [])
+    
+
     const [tabIndex, setTabIndex] = useState(0);
 
     const rightClick = () => {
@@ -689,198 +721,212 @@ function EditDetails() {
             </Box>
         </Modal>
 
-        <Container id = "pageContainer">
-            <h2 className="headerText" align="center">
-                My Account
-            </h2>
-            <br></br>
-            <br></br>
-            <button class="btn btn-dark">
-                Click for Help!
-            </button>
-            <br></br>
-            <br></br>
-            <div class="card text-white bg-dark" id = "accountDetailsCard">
-                <div class="card-body" id="accountDetailsCardBody">
-                    <div id="bigsect">
-                        <div id="sect">
-                            <h5 class="card-title">Account Details</h5>
-                            <p class="card-text">Enter your basic account details.</p>
-                            <form>
-                                <label>Username:</label>
-                                <br></br>
-                                <input type="text" style={{width: "150px"}} onChange={(e) => {changeTheThing(e.target.value, 0)}}></input>
-                                <br></br>
-                                <br></br>
-                                <label>First Name:</label>
-                                <br></br>
-                                <input type="text" style={{width: "150px"}} onChange={(e) => {changeTheThing(e.target.value, 1)}}></input>
-                                <br></br>
-                                <br></br>
-                                <label>Last Name:</label>
-                                <br></br>
-                                <input type="text" style={{width: "150px"}} onChange={(e) => {changeTheThing(e.target.value, 2)}}></input>
-                                <br></br>
-                                <br></br>
-                                <br></br>
-                                <br></br>
-                            </form>
-                        </div>
-                        <div id="sect">
-                            <h5 class="card-title">Preferences</h5>
-                            <p class="card-text">Enter your preferences.</p>
-                            
-                                <label>Data Entry Mode:</label>
-                                <button class="btn btn-primary" id="entryOptions" onClick={() => {changeTheThing(!isSlider, 3)}}>
-                                    {returnTheThing(3)}
-                                </button>
-                                <br></br>
-                                <label>Recieve Notifications:</label>
-                                <button class="btn btn-success" id="entryOptions" onClick={() => {changeTheThing(!isNotif, 4)}}>
-                                    {returnTheThing(4)}
-                                </button>
-                                <br></br>
-                                <label>Private Account:</label>
-                                <button class="btn btn-danger" id="entryOptions" onClick={() => {changeTheThing(!isPub, 5)}}>
-                                    {returnTheThing(5)}
-                                </button>
+        <div style={{position: "fixed", width: "100%", zIndex: "10", boxShadow: "2px 2px 3px 4px"}}>
+          <Header type="2"></Header>
+        </div>
+
+        <Container id="wholeContainer">
+            <div id = "pageContainer">
+                <h2 className="headerText" align="center">
+                    My Account
+                </h2>
+                <br></br>
+                <br></br>
+                <button class="btn btn-dark">
+                    Click for Help!
+                </button>
+                <br></br>
+                <br></br>
+                <div class="card text-white bg-dark" id = "accountDetailsCard">
+                    <div class="card-body" id="accountDetailsCardBody">
+                        <div id="bigsect">
+                            <div id="sect">
+                                <h5 class="card-title">Account Details</h5>
+                                <p class="card-text">Enter your basic account details.</p>
+                                <form>
+                                    <label>Username:</label>
+                                    <br></br>
+                                    <input type="text" style={{width: "150px"}} onChange={(e) => {changeTheThing(e.target.value, 0)}}></input>
+                                    <br></br>
+                                    <br></br>
+                                    <label>First Name:</label>
+                                    <br></br>
+                                    <input type="text" style={{width: "150px"}} onChange={(e) => {changeTheThing(e.target.value, 1)}}></input>
+                                    <br></br>
+                                    <br></br>
+                                    <label>Last Name:</label>
+                                    <br></br>
+                                    <input type="text" style={{width: "150px"}} onChange={(e) => {changeTheThing(e.target.value, 2)}}></input>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                </form>
+                            </div>
+                            <div id="sect">
+                                <h5 class="card-title">Preferences</h5>
+                                <p class="card-text">Enter your preferences.</p>
                                 
+                                    <label>Data Entry Mode:</label>
+                                    <button class="btn btn-primary" id="entryOptions" onClick={() => {changeTheThing(!isSlider, 3)}}>
+                                        {returnTheThing(3)}
+                                    </button>
+                                    <br></br>
+                                    <label>Recieve Notifications:</label>
+                                    <button class="btn btn-success" id="entryOptions" onClick={() => {changeTheThing(!isNotif, 4)}}>
+                                        {returnTheThing(4)}
+                                    </button>
+                                    <br></br>
+                                    <label>Account Privacy:</label>
+                                    <button class="btn btn-danger" id="entryOptions" onClick={() => {changeTheThing(!isPub, 5)}}>
+                                        {returnTheThing(5)}
+                                    </button>
+                                    
+                                    <br></br>
+                                    <br></br>
+                                
+                            </div>
+                        </div>
+                        <div id="bigsect">
+                            <div id="sect">
+                                <h5 class="card-title">Optional Data</h5>
+                                <p class="card-text">Enter additional info!</p>
+                                <label for="age">Age:</label>
+                                <select name="age" id="Dropdown" value={nowAge} onChange={(e) => {changeTheThing(e.target.value, 6)}}>
+                                    <option value="r0" style={{display: "none"}}></option>
+                                    <option value="r1">1-20</option>
+                                    <option value="r2">21-40</option>
+                                    <option value="r3">41-60</option>
+                                    <option value="r4">61-80</option>
+                                    <option value="r5">80+</option>
+                                </select>
+                                <br></br>
+                                <label for="gender">Gender:</label>
+                                <select name="gender" id="Dropdown" value={nowGen} onChange={(e) => {changeTheThing(e.target.value, 7)}}>
+                                    <option value="g0" style={{display: "none"}}></option>
+                                    <option value="g1">Male</option>
+                                    <option value="g2">Female</option>
+                                    <option value="g3">Other</option>
+                                </select>
+                                <br></br>
+                                <label>Bio:</label>
+                                <textarea name="Text1" cols="20" rows="3" id="Dropdown" style={{resize:"none"}} onChange={(e) => {changeTheThing(e.target.value, 8)}}></textarea>
+                                <br></br>
+                            </div>
+                            <div id="sect">
+                                <h5 class="card-title">Danger Zone</h5>
+                                <p class="card-text">Be careful here!</p>
+                            
+                                <br></br>
+                                <button class="btn btn-secondary" onClick={() => {handleDisOpen()}}>
+                                    Disable Account
+                                </button>
+                                <br></br>
+                                <button class="btn btn-danger" onClick={() => {handleDelOpen()}}>
+                                    Delete Account
+                                </button>
                                 <br></br>
                                 <br></br>
+                                <br></br>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                                    <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+                                    <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+                                </svg>
+                                <br></br>
+                                <br></br>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sect">
+                        <button class="btn btn-warning" id="saveAll" onClick={() => {saveProfileInfo()}}>
+                            Save Information!
+                        </button>
+                    </div>
+                    <br></br>
+                </div>
+                
+                <br></br>
+                <br></br>
+
+                <div id="stuffWithSearch">
+                    <SearchFriends></SearchFriends>
+                </div>
+
+                <br></br>
+                <br></br>
+
+                <div>
+                    <div class="card" id="defaultDataCard">
+                        <div class="card-header" style={{textAlign: "center", borderBottom: "3px solid white"}}>
+                            <h5>Edit Default Data</h5>
+                            
+                            {retDate(Today, tabIndex)}
                             
                         </div>
-                    </div>
-                    <div id="bigsect">
-                        <div id="sect">
-                            <h5 class="card-title">Optional Data</h5>
-                            <p class="card-text">Enter additional info!</p>
-                            <label for="age">Age:</label>
-                            <select name="age" id="Dropdown" value={nowAge} onChange={(e) => {changeTheThing(e.target.value, 6)}}>
-                                <option value="r0" style={{display: "none"}}></option>
-                                <option value="r1">1-20</option>
-                                <option value="r2">21-40</option>
-                                <option value="r3">41-60</option>
-                                <option value="r4">61-80</option>
-                                <option value="r5">80+</option>
-                            </select>
-                            <br></br>
-                            <label for="gender">Gender:</label>
-                            <select name="gender" id="Dropdown" value={nowGen} onChange={(e) => {changeTheThing(e.target.value, 7)}}>
-                                <option value="g0" style={{display: "none"}}></option>
-                                <option value="g1">Male</option>
-                                <option value="g2">Female</option>
-                                <option value="g3">Other</option>
-                            </select>
-                            <br></br>
-                            <label>Bio:</label>
-                            <textarea name="Text1" cols="20" rows="3" id="Dropdown" style={{resize:"none"}} onChange={(e) => {changeTheThing(e.target.value, 8)}}></textarea>
-                            <br></br>
-                        </div>
-                        <div id="sect">
-                            <h5 class="card-title">Danger Zone</h5>
-                            <p class="card-text">Be careful here!</p>
                         
+                        <div class="card-body" id="defaultDataCardBody">
                             <br></br>
-                            <button class="btn btn-secondary" onClick={() => {handleDisOpen()}}>
-                                Disable Account
+                            <div>
+                                <h6>
+                                    Enter a number from 1 to 10 indicating how busy you are in each time range!
+                                </h6>
+                            </div>
+                            <br></br>
+                            <div id="defaultTableContainer">
+                                <table class="table table-dark table-bordered" id="defaultDataTable" style={{textAlign: "center", border:"2px solid white"}}>
+                                    <thead>
+                                        {
+                                        <tr>
+                                            <th scope="col" id="tabHeader">
+                                                <p>Time Range</p>
+                                            </th>
+                                            <th scope="col">
+                                                <p>Enter Data</p>
+                                            </th>
+                                        </tr>
+                                        }
+                                    </thead>
+                                    <tbody>
+                                        {defaultTable(tabIndex)}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer" style={{textAlign: "center", borderTop:"5px solid white"}}>
+                            <Button id="leftArrow"  onClick={leftClick}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-caret-left" viewBox="0 0 16 16">
+                                    <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
+                                </svg>
+                            </Button>
+                            <Button id="rightArrow" onClick={rightClick}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-caret-right" viewBox="0 0 16 16">
+                                    <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+                                </svg>
+                            </Button>
+                            <br></br>
+                            <br></br>
+                            <button class="btn btn-secondary" onClick={() => {SaveDefaultData()}} style={{border: "1px solid black", marginBottom: "10px", marginRight: "20px"}}>
+                                Save Data!
                             </button>
-                            <br></br>
-                            <button class="btn btn-danger" onClick={() => {handleDelOpen()}}>
-                                Delete Account
+                            <button class="btn btn-primary btn-sm" style={{border: "1px solid black", marginBottom: "10px"}}>
+                                <Link
+                                    style={{textDecoration: "none", color: "white"}}
+                                    to={"/addData"}
+                                    state={{username: "", password: ""}}
+                                >
+                                    <Typography>
+                                    Add when you're free
+                                    </Typography> 
+                                </Link>
                             </button>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
-                                <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
-                                <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
-                            </svg>
-                            <br></br>
-                            <br></br>
                         </div>
                     </div>
                 </div>
-                <div id="sect">
-                    <button class="btn btn-warning" id="saveAll" onClick={() => {saveProfileInfo()}}>
-                        Save Information!
-                    </button>
-                </div>
+
                 <br></br>
             </div>
-            
-            <br></br>
-            <br></br>
-
-            <div>
-                <div class="card" id="defaultDataCard">
-                    <div class="card-header" style={{textAlign: "center", borderBottom: "3px solid white"}}>
-                        <h5>Edit Default Data</h5>
-                        
-                        {retDate(Today, tabIndex)}
-                        
-                    </div>
-                    
-                    <div class="card-body" id="defaultDataCardBody">
-                        <br></br>
-                        <div>
-                            <h6>
-                                Enter a number from 1 to 10 indicating how free you are in each time range!
-                            </h6>
-                        </div>
-                        <br></br>
-                        <div id="defaultTableContainer">
-                            <table class="table table-dark table-bordered" id="defaultDataTable" style={{textAlign: "center", border:"2px solid white"}}>
-                                <thead>
-                                    {
-                                    <tr>
-                                        <th scope="col" id="tabHeader">
-                                            <p>Time Range</p>
-                                        </th>
-                                        <th scope="col">
-                                            <p>Enter Data</p>
-                                        </th>
-                                    </tr>
-                                    }
-                                </thead>
-                                <tbody>
-                                    {defaultTable(tabIndex)}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="card-footer" style={{textAlign: "center", borderTop:"5px solid white"}}>
-                        <Button id="leftArrow"  onClick={leftClick}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-caret-left" viewBox="0 0 16 16">
-                                <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
-                            </svg>
-                        </Button>
-                        <Button id="rightArrow" onClick={rightClick}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-caret-right" viewBox="0 0 16 16">
-                                <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
-                            </svg>
-                        </Button>
-                        <br></br>
-                        <br></br>
-                        <button class="btn btn-secondary" onClick={() => {SaveDefaultData()}} style={{border: "1px solid black", marginBottom: "10px", marginRight: "20px"}}>
-                            Save Data!
-                        </button>
-                        <button class="btn btn-primary btn-sm" style={{border: "1px solid black", marginBottom: "10px"}}>
-                            <Link
-                                style={{textDecoration: "none", color: "white"}}
-                                to={"/addData"}
-                                state={{username: "", password: ""}}
-                            >
-                                <Typography>
-                                Add when you're free
-                                </Typography> 
-                            </Link>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <br></br>
         </Container>
+        <Footer type="2"></Footer>
     </div>
   )
 }
