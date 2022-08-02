@@ -6,13 +6,6 @@
     text-align: center;
 }
 
-/*
-#entireHeader {
-    margin-bottom: 70px;
-}
-*/
-
-
 #headerLinks {
     display: flex;
     flex-direction: row;
@@ -64,30 +57,4 @@
     #headerLinks {
         display: none;
     }
-    /*
-    #oneLink {
-        width: 100%;
-        height: 30px;
-        margin-right: 0px;
-        margin-left: 0px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        font-size: 12px;
-    }
-
-    #headerLinks {
-        width: 100%;
-    }
-
-    #headerTitle {
-        margin-left: 0px;
-    }
-
-    #headerLinks {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    */
 }

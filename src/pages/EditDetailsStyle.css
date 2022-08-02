@@ -59,12 +59,14 @@
     background-color: #D3D3D3;
     border: 5px solid white;
     height: 700px;
+    margin-bottom: 30px;
 }
 
 #defaultDataCardBody {
     overflow:auto;
     text-align: center;
 }
+
 
 #defDataTable {
     border: 2px solid white;
@@ -89,6 +91,7 @@
     width: 50px;
     margin-left: 40px;
     margin-right: 20px;
+    text-align: center;
 }
 
 #Inp2 {
@@ -96,6 +99,7 @@
     margin-left: 40px;
     margin-right: 20px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 
@@ -107,11 +111,6 @@
 }
 
 @media only screen and (max-width: 1050px) {
-    /*
-    #accountDetailsCardBody {
-        flex-direction: column;
-    }
-    */
 
     #sect {
         margin-right: 70px;
@@ -131,6 +130,10 @@
 
     #saveAll {
         width: 90%;
+    }
+
+    #defaultDataCardBody p {
+        font-size: 12px;
     }
 }
 
@@ -190,6 +193,10 @@
     #defaultDataCard {
         width: 100%;
     }
+
+    #defaultDataCardBody p {
+        font-size: 10px;
+    }
     
 }
 
@@ -198,11 +205,5 @@
         table-layout: fixed;
         width: 180%;
     }
-
-    /*
-    #defaultTableContainer {
-        margin-right: 50px;
-    }
-    */
 
 }

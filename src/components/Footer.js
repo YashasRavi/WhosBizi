@@ -43,15 +43,11 @@ function Footer({type}) {
                   </button>
                 </Link>  
                 
-                <Link
-                    style={{textDecoration: "none", color: "white"}}
-                    to={"/help"}
-                    state={{username: "", password: ""}}
-                >
+                <a href="https://yashasravi.github.io/contacts.html" target="_blank" noopener noreferrer>
                   <button class="btn btn-warning" id="FooterBtn">
-                    Contact Us
+                    Contact Me
                   </button>
-                </Link>  
+                </a>  
               </div>
               <div id="theLinks">
                     <Link

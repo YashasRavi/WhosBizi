@@ -11,13 +11,10 @@ const Calender = ({array}) => {
     let today = new Date();
     let Now = today;
 
-    //const [Now, setNow] = useState(today)
-
     function retDate (date, offset) {
         const tod = date;
         const next = new Date(tod);
         next.setDate(tod.getDate()+offset);
-        console.log(next); 
         let current = next.getDay();
         if (current == 0) {
           return <p>Sun, {next.getMonth()+1}/{next.getDate()}</p>;
@@ -176,32 +173,6 @@ const Calender = ({array}) => {
                 </tbody>
             </table>
         </div>
-        
-
-        {/* 
-        <div style={{display: "flex"}}>
-            <div style={{marginRight: "10px"}}>
-            <DayPilotNavigator
-                selectMode={"week"}
-                showMonths={1}
-                skipMonths={1}
-                onTimeRangeSelected={ args => {
-                this.setState({
-                    startDate: args.day
-                });
-                }}
-            />
-            </div>
-            <div style={{display: "flex"}}>
-                <DayPilotCalendar
-                {...stuff}
-                ref={component => {
-                    this.calendar = component && component.control;
-                }}
-                />
-            </div>
-        </div>
-        */}
         
       </div>
     );

@@ -11,16 +11,6 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-/*
-Things to do:
-1. Allow user invites
-2. Change colors
-3. Show how many are free in each calender cell
-4 Allow calendar shrink feature
-
-
-*/
-
 export class UserProfile extends Component {
   constructor(props) {
     super(props);
@@ -294,7 +284,6 @@ export class UserProfile extends Component {
     this.friends = [this.friend1, this.friend2, this.friend3, this.friend4, this.friend5, this.friend6];
   }
 
-  /*boxShadow: "2px 2px 3px 4px"*/
   render() {
     return (
       <div style={{backgroundImage: "linear-gradient(45deg, #FA8072, yellow)", backgroundRepeat:"repeat", backgroundSize:"cover", backgroundPosition:"center"}}>

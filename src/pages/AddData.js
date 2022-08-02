@@ -9,23 +9,6 @@ import "./AddDataStyle.css";
 
 const AddData = () =>  {
 
-  /*
-    Stuff to do:
-    1. Save data button (save to array which stores percentages)
-    2. Save defaults button (change defaults array state)
-    3. Change color of cells with default data showing up
-    4. Look at the resposiveness (ex: making overflow auto)
-    5. Make a max value button and make sure the save array stores PERCENTAGES!
-    6. Make sure the user enters a NUMBER
-    Last. Make a demonstration for the page!
-    
-
-    If possible:
-    1. Add slider option
-    2. Show 6hr option
-
-  */
-
   let toSaveTemp = [
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -37,7 +20,7 @@ const AddData = () =>  {
   ];
 
   let dummyData = [
-    [0, 0.3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -75,22 +58,7 @@ const AddData = () =>  {
     [false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false]
   ]
-
-  /*
-  let prove = [
-    [true, true, true, true, true, true, true, true],
-    [true, true, true, true, true, true, true, true],
-    [true, true, true, true, true, true, true, true],
-    [true, true, true, true, true, true, true, true],
-    [true, true, true, true, true, true, true, true],
-    [true, true, true, true, true, true, true, true],
-    [true, true, true, true, true, true, true, true]
-  ];
-  */
-
-  //let newT = [[1,2,3], [4,5,6]];
   
-
     const [tableState, setTableState] = useState(dummyData);
     
     for (let d = 0; d < 7; d++) {
@@ -120,7 +88,7 @@ const AddData = () =>  {
     const [toSave, setToSave] = useState(toSaveTemp);
 
     const [maxValue, setMaxValue] = useState(10);
-    const [tempMaxValue, setTempMaxValue] = useState(0);
+    const [tempMaxValue, setTempMaxValue] = useState(10);
 
    let k = [10, 8, 7]; 
    const [test, setTest] = useState(k);    
@@ -135,14 +103,21 @@ const AddData = () =>  {
   }
 
 
-    let returnValue = (inp) => {
-
+    let returnValue = (inp, defInp) => {
+      
+      
       if (inp < 0) {
-        return ""; 
+        if (defInp < 0) {
+          return "-"; 
+        }
+        else {
+          return Math.floor(10*defInp)/10;
+        }
       }
       else if (maxValue != 0) {
-        return inp;
-      }
+        return Math.floor(10*inp)/10;
+      }     
+      
     }
 
     let changeMaxValue = () => {
@@ -158,6 +133,9 @@ const AddData = () =>  {
     const displaySliderValue = (inp) => {
       if (inp == 0.1) {
         return 0;
+      }
+      else if (isNaN(inp)) {
+        return "-";
       }
       else {
         return inp;
@@ -183,105 +161,42 @@ const AddData = () =>  {
       newCells[m][n] = !newCells[m][n];
       setCellStates(newCells);
 
-      //console.log("first: " + cellStates[m][n]);
-      //console.log("first :" + m + " " + n + " ");
-      //console.log(cellStates);
-      //setTest(1);
-      
-      //let newCells = JSON.parse(JSON.stringify(cellStates));
-      /*
-      let newCells = [
-        [false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false]
-      ];
-      */ 
-     //let newCells = prove;
-      /*
-      for (let i = 0; i < cellStates.length; i++) {
-        for (let j = 0; j < cellStates[i].length; j++) {
-          newCells[i][j] = cellStates[i][j];
-        }
-      }
-
-      newCells[m][n] = !newCells[m][n];
-      */
-
-      //origCells[m][n] = !origCells[m][n];
-    
-      
-      //let newTest = JSON.parse(JSON.stringify(test));
-      //newTest[1] = 9;
-      //let newTest = [6,7,8];
-      //newT[m] = 10;
-     //setTest(newT);
-      //setTest([5,4,3]);
-      //cellStates[m][n] = !cellStates[m][n];
-      /*
-      let temp = cellStates;
-      temp[m][n] = !temp[m][n];
-      setCellStates(temp);
-      */
-      //console.log("last: " + cellStates[m][n]);
     }
 
-    /*
-    useEffect(() => {
-      //console.log("last: " + cellStates[m][n]);
-      console.log("last :");
-      console.log(cellStates)
-    }, [cellStates])
-    
-    
-    useEffect(() => {
-      console.log(test);
-    }, [test])
-    */
-    /*
-    useEffect(() => {
-      console.log(tableState);
-    }, [tableState])
-    */
-
     let dataChangeHandler = (isSame, day, time, newInput) => {
-      //console.log(newInput);
       let tempState = [...tableState];
-      if (newInput == "") {
+      
+      if (isNaN(newInput)) {
         newInput = -1;
       }
+
       if (newInput > maxValue) {
+        console.log("REACHED");
         return;
       }
+
       if (newInput == 0.1) {
         newInput = 0;
       }
-      if (isSame == true && !isNaN(newInput)) {
+      
+
+      if (isSame == true && (!isNaN(newInput) || newInput == -1)) {
         tempState[day][time] = newInput/maxValue;
         tempState[day][time+1] = newInput/maxValue;
         tempState[day][time+2] = newInput/maxValue;
       }
-      else if (!isNaN(newInput)) {
+      else if (!isNaN(newInput) || newInput == -1) {
         tempState[day][time] = newInput/maxValue;
       }
       
-      //console.log(tempState[day][time])
       setTableState(tempState);
       
-      //console.log(tableState);
     }
 
     let returnCell = (day, range, inpBool, max) => {
-        //console.log(cellStates[0][0] + " " + inpBool);
-        let temp1 = returnValue(max*tableState[day][3*range]);
-        let temp2 = returnValue(max*tableState[day][1+3*range]);
-        let temp3 = returnValue(max*tableState[day][2+3*range]);
-
-        //if (inpBool == false) {console.log(temp2);}
-
+        let temp1 = returnValue(max*tableState[day][3*range], max*defaultState[day][3*range]);
+        let temp2 = returnValue(max*tableState[day][1+3*range], max*defaultState[day][1+3*range]);
+        let temp3 = returnValue(max*tableState[day][2+3*range], max*defaultState[day][2+3*range]);
 
         let def1 = "white";
         let sl1 = "red";
@@ -290,48 +205,37 @@ const AddData = () =>  {
         let def3 = "white";
         let sl3 = "red";
 
-        if (defaultState[day][3*range] >= 0 && defaultState[day][3*range] == temp1 && maxValue != 0) {
+        if (defaultState[day][3*range] >= 0 && tableState[day][3*range] < 0 && maxValue != 0) {
           def1 = "#FFEBCD";
           sl1 = "orange";
         }
 
-        if (defaultState[day][1+3*range] >= 0 && defaultState[day][1+3*range] == temp2 && maxValue != 0) {
+        if (defaultState[day][1+3*range] >= 0 && tableState[day][1+3*range] < 0 && maxValue != 0) {
           def2 = "#FFEBCD";
           sl2 = "orange";
         }
 
-        if (defaultState[day][2+3*range] >= 0 && defaultState[day][2+3*range] == temp3 && maxValue != 0) {
+        if (defaultState[day][2+3*range] >= 0 && tableState[day][2+3*range] < 0 && maxValue != 0) {
           def3 = "#FFEBCD";
           sl3 = "orange";
         }
 
-        /*
-          <Slider
-            onChange={(e) => {dataChangeHandler(true, day, 3*range, e.target.value); }}
-            defaultValue={0}
-            value={temp1}
-            min={0.1} 
-            max={maxValue}
-            marks
-            aria-label="Small"
-            valueLabelDisplay="auto"
-            valueLabelFormat = {displaySliderValue}
-            sx={{
-              width: 80,
-              color: "red",
-            }}
-          />
-        */
-
-        //temp1=-1;
+        let eqDefaults = (defaultState[day][3*range] == defaultState[day][1+3*range] && defaultState[day][3*range] == defaultState[day][2+3*range]);
 
         if (switchStates[day][range] == false) {
           if (inpBool == true) {
+            
             if (temp1 != temp2 || temp1 != temp3) {
-              temp1 = "";
-              def1 = "white";
-              sl1 = "red";
+              temp1 = "-";
             }
+
+            if (def1 == "#FFEBCD" && def1 == def2 && def1 == def3 && eqDefaults) {
+              def1 = "#FFEBCD"
+            }
+            else {
+              def1 = "white";
+            }
+
             return (
               <div id="cellMode1">
                 <input id="inp1" type="text" style={{backgroundColor: def1}} value={temp1} onChange={(e) => {dataChangeHandler(true, day, 3*range, e.target.value); }}></input>
@@ -353,9 +257,16 @@ const AddData = () =>  {
         else {
           if (inpBool == true) {
             if (temp1 != temp2 || temp1 != temp3) {
-              temp1 = "";
-              def1 = "white";
+              temp1 = "-";
             }
+            
+            if (sl1 == "#FFEBCD" && sl1 == sl2 && sl1 == sl3 && eqDefaults) {
+              sl1 = "orange"
+            }
+            else {
+              sl1 = "red";
+            }
+
             return (
               <div id="cellMode1">
                 <Slider
@@ -448,13 +359,11 @@ const AddData = () =>  {
     let today = new Date();
     let Now = today;
 
-    //const [Now, setNow] = useState(today)
 
     function retDate (date, offset) {
         const tod = date;
         const next = new Date(tod);
         next.setDate(tod.getDate()+offset);
-        //console.log(next); 
         let current = next.getDay();
         if (current == 0) {
           return <p>Sun, {next.getMonth()+1}/{next.getDate()}</p>;
@@ -489,10 +398,6 @@ const AddData = () =>  {
             <h2 className="chatTitle">
                 Record when you're free!
             </h2>
-            <h2>
-              {/*printTest(cellStates[0][1])*/}
-              {/*tableState[0][0]*/}
-            </h2>
             <br></br>
             <div id = "dataBtns">
               <div class="card" id = "maxDataCard">
@@ -526,9 +431,37 @@ const AddData = () =>  {
                   <button id="aDataBtn" class="btn btn-dark">Edit Defaults</button>
               </Link>
               <br></br>
-              <button id="aDataBtn" class="btn btn-dark btn-large">
-                Click for Help!
-              </button>
+              <br></br>
+              <div class="card bg-warning" id="theDirections">
+                <div class="card-header">
+                  <h5>
+                    Directions:
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <p>
+                    - Each cell represents a time range for a specific day. 
+                    <br></br>
+                    - In each cell, enter a number less than the maximum value. This value represents how free you are in that time range.
+                    <br></br>
+                    - If you want to clear the cell, enter any NON-NUMERIC key. Any letter or symbol would suffice.
+                    <br></br>
+                    - Click the "Split" button to enter a specific value for each hour. If you want to revert back, click the "Merge" button.
+                    <br></br>
+                    - A hiphen ("-") means there is no data entered in the cell yet. It could also mean that you entered different data for each hour in a time range and then clicked "Merge".
+                    <br></br>
+                    - Click the "Switch Input" button to toggle between text and slider input options.
+                    <br></br>
+                    - A yellow background in the text field or a yellow slider means that there is no data entered, but you have already selected default data for the time range.
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <button id="aDataBtn" class="btn btn-dark btn-large">
+                    Click for More Help!
+                  </button>
+                </div>
+              </div>
+              <br></br>
             </div>
             <br></br>
             <br></br>

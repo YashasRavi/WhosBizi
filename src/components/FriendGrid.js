@@ -6,13 +6,8 @@ import "./FriendGridStyle.css";
 import { TextField } from '@mui/material';
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-/*
-- Setstate for arrows
-- Fill in calenders
-*/
 
 const FriendGrid = ({array}) => {
-  //let friends = [friend1, friend2, friend3, friend4, friend5, friend6];
   let friends = array;
   const [index, setIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,11 +26,9 @@ const FriendGrid = ({array}) => {
     else {
       document.querySelector("#arrowLeft").style.opacity="100%";
     }
-    //return <></>;
   }
 
   function showFriends (inp) {
-    //updateArrows(inp);
     if (inp < friends.length) {
       
       let tempName = friends[inp].username;
@@ -47,7 +40,6 @@ const FriendGrid = ({array}) => {
         return <p>{retString}</p>
       }
       
-      //return <p>{friends[inp].username}</p>
       
     }
     else {
@@ -63,8 +55,6 @@ const FriendGrid = ({array}) => {
     }
   }
   
-  //MAKE SURE the array thing works!
-  //k--> friend number, n--> day number
   function showData (k,n) {
     if (k >= friends.length) {
       return {backgroundColor: "black"};
@@ -85,7 +75,6 @@ const FriendGrid = ({array}) => {
     }
 
     sum = sum/counter;
-    //console.log(sum);
 
     if (sum > 0.8 && sum <= 1) {
       return {backgroundColor: "blue"};
@@ -104,8 +93,6 @@ const FriendGrid = ({array}) => {
     }
   }
 
-  //updateArrows();
-
   function rightArrowClick () {
     if (index+5 < friends.length) {
       setIndex(index+5);
@@ -121,7 +108,6 @@ const FriendGrid = ({array}) => {
     if (index >= 5) {
       setIndex(index-5);
       setCurrentPage(currentPage-1);
-      //updateArrows();
     }
   }
 
@@ -318,19 +304,6 @@ const FriendGrid = ({array}) => {
       </div>
       <br></br>
     </div>
-    /*
-    <div style={{ backgroundColor: "grey", height: 400, maxWidth: '100%', textAlign:"center" }}>
-      <DataGrid
-        variant="primary"
-        style={{color: "black", fontWeight: "bold"}}
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        disableSelectionOnClick
-      />
-    </div>
-    */
   );
 }
 

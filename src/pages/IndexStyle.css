@@ -5,11 +5,21 @@
     text-align: center;
 }
 
-/* maybe change title font!*/
+.indexSubTitle {
+    padding-top: 10px;
+    margin-bottom: 30px;
+    font-size: 30px;
+    color: #0000CD;
+    text-align: center;   
+}
 
 @media only screen and (max-width: 500px) { 
     .indexTitle {
         font-size: 50px;
+    }
+
+    .indexSubTitle {
+        font-size: 25px;
     }
 
     .inputField {

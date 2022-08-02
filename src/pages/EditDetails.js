@@ -95,7 +95,6 @@ function EditDetails() {
         const tod = date;
         const next = new Date(tod);
         next.setDate(tod.getDate()+offset);
-        //console.log(next); 
         let current = next.getDay();
         if (current == 0) {
         return <h6>Sun, {next.getMonth()+1}/{next.getDate()}</h6>;
@@ -150,26 +149,7 @@ function EditDetails() {
         [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
     ]
 
-    /*
-    let origIsDaily = [
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-    ]
-    */
-
-    /* 
-        origIsDaily[1][n] becomes TRUE if the input field changes ... so IF it is true, we compare 
-
-
-    */
-
     let origIsDaily = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
-
 
     let cDaily = [
         [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
@@ -221,7 +201,7 @@ function EditDetails() {
     const handleDelClose = () => setDelOpen(false);
 
     const saveProfileInfo = () => {
-        /* Save all the stuff into the database */
+        /* Save all the data into the database */
         alert("Your details have been saved!")
     }
 
@@ -431,16 +411,17 @@ function EditDetails() {
         let myState = [...nowDefaults];
         let newCheckDaily = [...checkDaily];
 
-        if (newInput == "") {
+        if (isNaN(newInput)) {
             newInput = -1;
         }
 
-        if (isSame == true && !isNaN(newInput) && newInput<10) {
+
+        if (isSame == true && (!isNaN(newInput) || newInput == -1) && newInput<10) {
             myState[day][time] = newInput/10;
             myState[day][time+1] = newInput/10;
             myState[day][time+2] = newInput/10;
           }
-          else if (!isNaN(newInput) && newInput<10) {
+          else if ((!isNaN(newInput) || newInput == -1) && newInput<10) {
             myState[day][time] = newInput/10;
             newCheckDaily[day][time] = false;
           }
@@ -454,18 +435,9 @@ function EditDetails() {
 
     let returnValue = (p,q) => {
 
-        /*
-        if (inp < 0) {
-            return ""; 
-        }
-        else  {
-            return inp;
-        }
-        */
-
        if (nowDaily[q] < 0 || checkDaily[p][q] == false) {
             if (nowDefaults[p][q] < 0) {
-                return "";
+                return "-";
             }
             else {
                 return 10*nowDefaults[p][q];
@@ -496,41 +468,11 @@ function EditDetails() {
         
       }
 
-      /*
-      const retStuff = (p,q, isFirstNum, isNameNum, btnNum) => {
-        return "btnradio" + p+""+q+""+isFirstNum+""+isNameNum+""+btnNum;
-      }
-      */
-
     const cellStateHandler = (p,q) => {
         let newCellStates = [...nowStates];
         newCellStates[p][q] = !newCellStates[p][q];
         setNowStates(newCellStates);
     }
-
-    /*
-    const isDailyHandler = (p,q, inp, mode) => {
-        let newDaily = [...nowDaily];
-        if (mode == true) {
-            newDaily[p][q] = inp;
-            newDaily[p][q+1] = inp;
-            newDaily[p][q+2] = inp;
-            setNowDaily(newDaily);
-            return;
-        }
-        else {
-            newDaily[p][q] = inp;
-            setNowDaily(newDaily);
-            return;
-        }
-    }
-    */
-
-    /*
-    useEffect(() => {
-        console.log(nowDaily)
-    }, [nowDaily])
-    */
 
     const SaveDefaultData = () => {
         let tempData = [...nowToSave];
@@ -551,12 +493,6 @@ function EditDetails() {
 
     }
 
-    /*
-    useEffect(() => {
-        console.log(nowToSave);
-    }, [nowToSave]);
-    */
-
     const retCell = (p,q) => {
         let temp1 = returnValue(p,3*q);
         let temp2 = returnValue(p,1+3*q);
@@ -564,9 +500,8 @@ function EditDetails() {
         
 
         if (nowStates[p][q] == true) {
-            //console.log(retStuff(p,q,0,0,0));
             if (temp1 != temp2 || temp1 != temp3) {
-                temp1="";
+                temp1="-";
             }
             return (
 
@@ -866,11 +801,16 @@ function EditDetails() {
                         
                         <div class="card-body" id="defaultDataCardBody">
                             <br></br>
-                            <div>
-                                <h6>
-                                    Enter a number from 1 to 10 indicating how busy you are in each time range!
-                                </h6>
-                            </div>
+                            <h6>
+                                Enter a number from 0 to 10 indicating how busy you are in each time range!
+                            </h6>
+                            <p>
+                                When entered for a certain day of the week, default data will automatically be stored for that day every week.
+                                <br></br>
+                                The "Set as Daily Default" button takes the value in the cell and sets that value for the same time range each day.
+                                <br></br>
+                                For more directions, visit the Add Data page!
+                            </p>
                             <br></br>
                             <div id="defaultTableContainer">
                                 <table class="table table-dark table-bordered" id="defaultDataTable" style={{textAlign: "center", border:"2px solid white"}}>

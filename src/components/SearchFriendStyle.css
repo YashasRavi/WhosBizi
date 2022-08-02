@@ -1,7 +1,7 @@
 #allResults {
     background-color: black;
     border: 5px solid black;
-    width: 40rem;
+    width: 100%;
     max-height: 700px;
 }
 
@@ -32,6 +32,7 @@
 
 #Invites {
     height: 400px;
+    width: 100%;
     border: 2px solid black;
     text-align: center;
     color: yellow;
@@ -77,6 +78,10 @@
 @media only screen and (max-width: 370px) {
     #SearchCardBody {
         flex-direction: column;
+    }
+
+    #Invites p {
+        font-size: 10px;
     }
 
     #InviteCardBody {

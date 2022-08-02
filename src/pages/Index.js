@@ -45,7 +45,15 @@ function Index() {
                       What is WhosBizi?
                   </h6>
                   <p>
-                    add more info here ... 
+                    WhosBizi dynamic web application made with ReactJS. The app allows user to create an account, add other users as friends, and add data regarding when they are free during the week. The user can also view when their friends are free, helping them plan hangouts and meetings with their friends.
+                    <br></br>
+                    <br></br>
+                    The user's profile page enables the user to view which time and day their friends are free. The chat page allows the user to communicate with their friends. The Add data page displays a weekly calender, where users can enter data about when they are free for each day and time range.
+                    <br></br>
+                    <br></br>
+                    I created WhosBizi because I had a hard time individually reaching out to all of my peers to find out when they are free every week, and organizing meet-ups with all of them. Since WhosBizi visually shows when all of the users' friends are free, the users would have a much easier time connecting with their peers every week!
+                    <br></br>
+                    <br></br>
                   </p>
               </Box>
           </Modal>
@@ -57,18 +65,25 @@ function Index() {
           >
               <Box sx={ModalStyle} id="warnModal">
                   <h6>
-                      Contact Us!
+                      Contact Me!
                   </h6>
                   <p>
-                    Here are our details: 
+                    You can use this page to contact me: 
                   </p>
+                  <a href="https://yashasravi.github.io/contacts.html" target="_blank" noopener noreferrer>
+                    <button>
+                      Contact Me
+                    </button>
+                  </a>
               </Box>
           </Modal>
 
-          {/*<Button variant="contained">Hello World</Button>*/}
           <h1 className="indexTitle">
               WhosBizi
           </h1>
+          <h2 className="indexSubTitle">
+              Created by Yashas Ravi
+          </h2>
 
           <Container>
             <Grid container style={{paddingTop: "20px", textAlign: "center"}}>
@@ -107,7 +122,7 @@ function Index() {
                     <br></br>
                     <br></br>
                     <br></br>
-                    <button class="btn btn-primary" onClick={() => {{handleConOpen()}}}>CONTACT US!</button>
+                    <button class="btn btn-primary" onClick={() => {{handleConOpen()}}}>CONTACT ME!</button>
                     <br></br>
                     <br></br>
                     <br></br>
