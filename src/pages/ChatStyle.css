@@ -1,8 +1,37 @@
+/* CSS - Chat Page */
+
+/* Box containing the contents of the modals. Uses ModalStyle for more CSS. */
+#warningModal {
+    width: 400px;
+}
+
+/* Layout for modals with only buttons. Horizontal flex used. */
+#remFriendModalBtns {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+/* Layout for modals with buttons as well as an input field. Vertical flex used. */
+#ModalFormLayout {
+    display: flex; 
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* Buttons in modals for editing and replying to content (so modals with input fields).  */
+#modalFormBtn {
+    margin-top: 10px;
+}
+
+/* Inner container for all the content. Sets margins so content does not stick to the sides of the page. */
 #allTheThings {
     margin-left: 50px;
     margin-right: 50px;
 }
 
+/* Title of chat page. */
 .chatTitle {
     padding-top: 50px;
     font-size: 60px;
@@ -12,22 +41,25 @@
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
+/* Card containing color scheme for data table. */
 #entireGradCard {
     width: 50%; 
     margin-left: 25%;
 }
 
+/* Color gradient bar. */
 #tableColorGradientX {
     border: 2px solid black;
     background-image: linear-gradient(90deg, red, blue);
     height: 25px;
 }
 
-
+/* Top and bottom labels for small screen sizes, NOT displayed in regular screens. Vertical flex used. */
 #altLabel2 {
     display: none;
 }
 
+/* Left and right labels for regular screen sizes, NOT displayed in small screens. Horizontal flex used. */
 #gradLabels2 {
     display: flex;
     flex-direction: row;
@@ -38,6 +70,7 @@
     margin-top: 20px;
 }
 
+/* Container for friend list, chat box, and data table. Horizontal flexing used. */
 .chatStuff {
     padding-top: 20px;
     display: flex;
@@ -45,12 +78,14 @@
     justify-content: center;
 }
 
+/* Button to show all the friends. Margins used to give space on borders. */
 #showAllBtn {
     margin-top: 10px;
     margin-bottom: 20px;
     width: 100%;
 }
 
+/* Card showing the list of friends (as well as other buttons). */
 #friendCards {
     width:18rem;
     height: 470px;
@@ -58,13 +93,29 @@
     background-color: #FFFACD;
 }
 
+/* Each individual card for every friend. */
 #friendCard {
-    width: 15rem; 
+    width: 15rem;  
     border: 2px solid black;
     background-color:yellow;
     text-align: center;
 }
 
+/* Button to chat with the friend in the list. */
+#chatWithFriendBtn {
+    margin-left: 10px;
+    margin-right: 10px;
+    word-break: break-all;
+}
+
+/* Button to remove a friend in the list. */
+#remFriendBtn {
+    margin-left: 10px;
+    margin-right: 10px;
+    word-break: break-all;
+}
+
+/* Footer of the card showing the list of friends. Horizontal flex is used. */
 #friendCards .card-footer {
     border: 1px solid black;
     border-top: 2px solid black;
@@ -74,49 +125,19 @@
     justify-content: space-around;
 }
 
-
+/* Container for search content. */
 #fullSearchField {
     width: 100px;
     margin-top: 10px;
 }
 
-#warningModal {
-    width: 400px;
-}
-
-#remFriendModalBtns {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-#ModalFormLayout {
-    display: flex; 
-    flex-direction: column;
-    align-items: stretch;
-}
-
-#modalFormBtn {
-    margin-top: 10px;
-}
-
+/* Container for chatbox and the friend data. Horizontal flex used. */
 .chatSpace {
     display: flex;
     flex-direction: row;
 }
 
-#allMessages {
-    display: flex;
-    overflow-y: auto;
-    flex-direction: column;
-    margin-left: 15px;
-}
-
-#messageItself {
-    width: 90%;
-}
-
+/* Card containing all of the messages and the form to submit a new message.  */
 #friendChat {
     background-color: #FFFFE0;
     width: 40rem;
@@ -125,28 +146,32 @@
     border: 4px solid black;
 }
 
+/* Header containing the friend's username and options to block or remove the friend. */
 #friendChat .card-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-#chatWithFriendBtn {
-    margin-left: 10px;
-    margin-right: 10px;
-    word-break: break-all;
+/* Card body containing a card for every message. Vertical flex used. */
+#allMessages {
+    display: flex;
+    overflow-y: auto;
+    flex-direction: column;
+    margin-left: 15px;
 }
 
-#remFriendBtn {
-    margin-left: 10px;
-    margin-right: 10px;
-    word-break: break-all;
+/* A container for the message itself (and EXCLUDES the icons) */
+#messageItself {
+    width: 90%;
 }
 
+/* Button to block the friend. Margin set to distance this button from the button to remove the CURRENT friend. */
 #blockButton {
     margin-right: 10px;
 }
 
+/* Container for "Block" and "Remove" buttons for the CURRENT friend. */
 #friendButtons {
     display: flex;
     flex-direction: row;
@@ -154,15 +179,19 @@
     margin-left: 10px;
 }
 
+/* Title of all 3 cards, and break-word used to break sentences in cards to prevent overflow. */
+/* EXAMPLE - "word word word" split into "word word [next line] word" */
 .cardTitle {
     word-break: break-word;
 }
 
+/* Form to submit a new message. Horizontal flex used. */
 #chatForm {
     display: flex; 
     flex-direction: row;
 }
 
+/* Contains the message and the corresponding options. Horizontal flex used. */
 .textMessage {
     display: flex;
     flex-direction: row;
@@ -170,54 +199,59 @@
     margin-right: 10px;
 }
 
+/* Top option for each message. */
 #LeftIcon {
     margin-right: 10px;
 }
 
+/* Input field for user to enter a new message. */
 .myMsg {
     width: 100%;
     border: 1px solid black;
     margin-right: 10px;
 }
 
+/* Container for the data table. */
 #friendData {
     margin-left: 50px;
     
 }
 
+/* Every cell in the data table. */
 #fTable.table-bordered > tbody > tr > td{
     border:2px solid black;
     background-color: yellow;
     height: 30px;
 }
 
+/* Data table itself. */
 #fTable.table-bordered {
     width: 100%;
 }
 
+/* Card containing the data table. */
 #friendTable {
     height: 470px;
     background-color: #FFFACD;
     border: 4px solid black;
 }
 
+/* The time displayed in every table row (left cell). */
 .time {
     width: 100px;
     text-align: center;
 }
 
+/* Data table card footer containing arrow buttons and options for the user to add his/her data. Vertical flex used.*/
 #tableFooter {
     display: flex;
     flex-direction: column;
     justify-content: center;
     border: 1px solid black;
     border-top: 2px solid black;
-    /*
-    position: relative;
-    bottom: 9px;
-    */
 }
 
+/* Container for left and right arrows for the data table. */
 #leftRightArrows {
     margin-bottom: 10px;
     display: flex;
@@ -226,74 +260,90 @@
 }
 
 @media only screen and (max-width: 1400px) {
+    /* Reduce left and right margins for inner container. */
     #allTheThings {
         margin-left: 20px;
         margin-right: 20px;
     }
     
+    /* Reduce width of the individual cards for every friend. */
     #friendCard {
         width: 13rem;
     }
 
+    /* Reduce width of the card containing all of the messages and the form to submit a new message.  */
     #friendChat {
         width: 20rem;
     }
 
+    /* Container for buttons to edit/remove and like/reply messages. Vertical flex used. */
     #Icons {
         display: flex;
         flex-direction: column;
     }
 
+    /* Introduce bottom margin for the top button for every message. */
     #LeftIcon {
         margin-bottom: 20px;
     }
 
+    /* Introduce padding for the container with the message STRING. */
     #messageItself {
         padding-right: 10px;
     }
 
+    /* Introduce margins for container with message and the corresponding options. */
     .textMessage {
         margin-right: 0px;
         margin-bottom: 15px;
     }
 
+    /* Reduce font size of title for all 3 cards. */
     .cardTitle {
         font-size: 15px;
     }
 
+    /* Move table footer down 4px. */
     #tableFooter {
         bottom: 4px;
     }
 }
 
 @media only screen and (max-width: 980px) {
+    /* Change flex for container with chatbox and data table. Makes chatbox and friend list in top row and makes friend list go down */
     .chatStuff {
         flex-direction: column-reverse;
         align-items: space-evenly;
     }
 
+    /* Sets width for container for container of chatbox (takes half the width). */
     .chatContent {
         width: calc(50% - 50px);
     }
 
+    /* Increase width of card (to 90%) containing all of the messages and the form to submit new ones. */
     #friendChat {
         width: 90%;
     }
 
+    /* Set increased width for container of data table (takes half the page). */
     #friendData {
         width: calc(50% - 50px);
     }
 
+    /* Sets margins and increases width for the card showing the list of friends (takes full width). */
     #friendCards {
         margin-left: 50px;
         margin-top: 50px;
         width: calc(100% - 100px);
     }
 
+    /* Set full width for card for EACH friend. */
     #friendCard {
         width: 100%;
     }
 
+    /* Set friend name and buttons in horizontal flex in the friend card. */
     #friendCard .card-body {
         display: flex;
         flex-direction: row;
@@ -302,26 +352,27 @@
         height: 70px;
     }
 
+    /* Increase width of input field. */
     #fullSearchField {
         width: 300px;
-        margin-top: 10px;
     }
-
-
     
 }
 
 @media only screen and (max-width: 900px) {
+    /* Stop displaying the horizontal labels for the gradient bar. */
     #gradLabels2 {
         display: none;
     }
 
+    /* Change the gradient bar so the gradient is now vertical and suits the screen size. */
     #tableColorGradientX {
         background-image: linear-gradient(180deg, red, blue);
         height: 100px;
         margin-bottom: 20px;
     }
 
+    /* Show the top/bottom labels for gradient bar. */
     #altLabel2 {
         display: block;
     }
@@ -329,29 +380,35 @@
 }
 
 @media only screen and (max-width: 800px) {
+    /* Sets all of the cards to be in vertical flex orientation. */
     .chatSpace {
         flex-direction: column;
     }
 
+    /* Sets width for container for the data table (takes full page width). */
     #friendData {
         width: calc(100% - 100px);
         margin-top: 50px;
         margin-left: 50px;
     }
 
+    /* Sets width for container for chatbox (takes full page width). */
     .chatContent {
         width: calc(100% - 100px);
     }
 
+    /* Increase width of card (to 100%) containing all of the messages and the form to submit new ones. */
     #friendChat {
         width: 100%;
     }
 
+    /* Reduce width of input field. */
     #fullSearchField {
         width: 200px;
         margin-top: 10px;
     }
 
+    /* Show buttons on each message in flex horizontal orientation. */
     #Icons {
         display: flex;
         flex-direction: row;
@@ -360,6 +417,7 @@
 }
 
 @media only screen and (max-width: 630px) {
+    /* Increase height of card body of each friend card. */
     #friendCard .card-body {
         display: block;
         height: 160px;
@@ -367,21 +425,24 @@
 }
 
 @media only screen and (max-width: 530px) {
-
+    /* Increase witdh of card containing the gradient bar. */
     #entireGradCard {
         width: 80%; 
         margin-left: 10%;
     }
 
+    /* Reduce font size of titles of the 3 cards. */
    .chatTitle {
        font-size: 40px;
    }
 
+   /* Reduce width of input field and set a top margin. */
    #fullSearchField {
         width: 100px;
         margin-top: 10px;
     }
 
+    /* Show buttons on each message in flex vertical orientation. */
     #Icons {
         display: flex;
         flex-direction: column;
@@ -390,21 +451,25 @@
 }
 
 @media only screen and (max-width: 460px) {
+    /* Reduce margins on the inner container of all the content. */
     #allTheThings {
         margin-left: 5px;
         margin-right: 5px;
     }
 
+    /* Reduce margins and increase width for the card showing the list of friends  */
     #friendCards {
         width: 90%;
         margin-left: 10px;
         margin-right: 10px;
     }
 
+    /* Reduce the width of the box containing the contents of the modals. */
     #warningModal {
         width: 300px;
     }
 
+    /* Increase width and reduce margins for the data table. */
     #friendData {
         width: 90%;
         margin-left: 10px;
@@ -412,16 +477,19 @@
 
     }
 
+    /* Increase width of the container for chatbox. */
     .chatContent {
         width: 90%;
     }
 
+    /* Set left and right margins for the card containing all of the messages and the form to submit new ones */
     #friendChat {
         margin-left: 10px;
         margin-right: 10px;
 
     }    
 
+    /* Eliminate right margin for the top button in each message. */
     #LeftIcon {
         margin-right: 0px;
     }
@@ -429,50 +497,59 @@
 }
 
 @media only screen and (max-width: 360px) {
-
+    /* Increase height of card body of each friend card. */
     #friendCard .card-body {
         display: block;
         height: 230px;
     }
 
+    /* Switch flex from row to column for the footer of the card showing the list of friends. */
     #friendCards .card-footer {
         flex-direction: column;
         justify-content: center;
     }
 
+    /* FULLY increase width of input field to 100% and set top/bottom margins. */
     #fullSearchField {
         width: 100%;
         margin-top: 10px;
         margin-bottom: 10px;
     }
 
+    /* Reduce the width of the box containing the contents of the modals. */
     #warningModal {
         width: 200px;
     }
 
+    /* Switch from row to column for layout for modals with ONLY buttons. */
     #remFriendModalBtns {
         flex-direction: column;
         align-items: center;
     }
 
+    /* Set top margin for the bottom button (usually "cancel") for modals with ONLY buttons. */
     #canButton {
         margin-top: 20px;
     }
 
+    /* Switch from row to column for card header containing the friend's username and options to block or remove the friend.  */
     #friendChat .card-header {
         flex-direction: column;
         text-align: center;
     }
 
+    /* Switch to column flex for the form to submit a new message. */
     #chatForm {
         flex-direction: column;
         justify-content: space-evenly;
     }
 
+    /* Set a bottom margin for the input field for user to enter a new message. */
     .myMsg {
         margin-bottom: 10px;
     }
 
+    /* Switch the data table footer to have column flex. */
     #tableFooter {
         flex-direction: column;
         justify-content: center;

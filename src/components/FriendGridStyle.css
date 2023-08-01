@@ -1,55 +1,40 @@
+ /* CSS - Friend table component */ 
+
+ /* Variable to store the opacity of the arrows */
 :root {
     --arrowState: 50%;
 }
 
+/* Container for entire table */
 .wholeTable {
     border: 4px solid white;
     padding-right: 15px;
     background-color: #2B3034;
 }
 
+/* Identifier for table itself. Overflow set to auto so user can scroll the table horizontally. */
+.myTable {
+    overflow-x:auto;
+}
 
-
+/* Each cell in the table */
 table.table-bordered > tbody > tr > td{
     border:1px solid white;
     word-wrap:break-word;
 }
 
-#arrowLeft {
-    opacity: var(--arrowState);
-}
-
-.arrow_btn:hover {
-    fill: yellow;
-}
-
-.myTable {
-    overflow-x:auto;
-}
-
-
+/* The link contaning the paragraph tag that displays the friends' name */
 #friendLink {
     color: yellow;
     text-decoration: none;
 }
 
+/* Hover effect for the friend link */
 #friendLink:hover {
    color: #FFA500;
 }
 
-.pageText1 {
-    display: none;
-}
-
-.pageText2 {
-    display: block;
-}
-
-#friendSearchForm {
-    margin-left: 20px;
-    width: 200px;
-}
-
+/* Container for arrow buttons, search bar, and page indicator. Row flex is done for horizontal positioning. */
 .bottomStuff {
     display: flex;
     flex-direction: row;
@@ -58,9 +43,36 @@ table.table-bordered > tbody > tr > td{
     margin-top: 10px;
 }
 
+/* Page indicator for small screen sizes */
+.pageText1 {
+    display: none;
+}
+
+/* Page indicator for regular screen sizes */
+.pageText2 {
+    display: block;
+}
+
+/* Container for search bar and button */
+#friendSearchForm {
+    margin-left: 20px;
+    width: 200px;
+}
+
+/* ID for left arrow button */
+#arrowLeft {
+    opacity: var(--arrowState);
+}
+
+/* Hover effect for arrow button */
+.arrow_btn:hover {
+    fill: yellow;
+}
+
 
 @media only screen and (max-width: 750px) {
 
+    /* Decrease table width */
     table.table-bordered {
         width: 800px;
     }
@@ -69,45 +81,44 @@ table.table-bordered > tbody > tr > td{
 
 @media only screen and (max-width: 510px) {
 
-    
+    /* Decrease width of container that has search bar and button */
     #friendSearchForm {
         width: 85%;
         margin-left: 0px;
     }
 
+    /* Set flex layout of search form to horizontal and decrease width of search bar */
     #searchFriends {
         display: flex;
         flex-direction: row;
         justify-content: center;
-    }
-
-    #friendSearchForm {
-        margin-left: 0px;
+        border: none;
+        width: 180px;
+        left: 0px;
     }
     
+    /* Change position of left arrow */
     #arrowLeft {
         position: relative;
         left: 30px;
     }
 
+    /* Display page number on top of table */
     .pageText1 {
         display: block;
     }
     
+    /* Hide page number on bottom of table */
     .pageText2 {
         display: none;
     }
 
+    /* Decrease width of table */
     table.table-bordered {
         width: 600px;
     }
 
-    #searchFriends {
-        border: none;
-        width: 180px;
-        left: 0px;
-    }
-
+    /* Change orientation of contents below the table to a vertical layout */
     .bottomStuff {
         display: flex;
         flex-direction: column;

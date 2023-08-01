@@ -1,14 +1,6 @@
-#calTable > tbody > tr > td{
-    border:1px solid black;
-    height: 70px;
-    min-width: 100px;
-}
+/* CSS - Calender  */
 
-#calTable > tbody > tr > th{
-    border:1px solid black;
-    min-width: 120px;
-}
-
+/* Container for the calender */
 .calendarTable {
     overflow:auto; 
     border:4px solid black; 
@@ -18,11 +10,24 @@
     padding-left: 15px;
 }
 
+/* Each cell in the calender */
+#calTable > tbody > tr > td{
+    border:1px solid black;
+    height: 70px;
+    min-width: 100px;
+}
+
+/* Each header in the calender (first cell in every row) */
+#calTable > tbody > tr > th{
+    border:1px solid black;
+    min-width: 120px;
+}
+
 @media only screen and (max-width: 1080px) {
+    /* Set borders for calender table in smaller screen sizes */
     .calendarTable {
         border-right: 10px solid black;
-        border-bottom: 10px solid black;
-        
+        border-bottom: 10px solid black;      
     }
 }
 

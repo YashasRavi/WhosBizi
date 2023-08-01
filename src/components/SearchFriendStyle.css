@@ -1,3 +1,6 @@
+/* CSS - SearchFriends Component */
+
+/* Card containing the option to search for new friends. Spans the full width of the page with a border. */
 #allResults {
     background-color: black;
     border: 5px solid black;
@@ -5,23 +8,30 @@
     max-height: 700px;
 }
 
+/* Card header containing the search card title and input field. */
 #allResultsHeader {
     color: yellow;
     border: 10px solid black;
     text-align: center;
 }
 
+/* 
+    Card header containing the search card title and input field. 
+    Overflow done so the user can scroll through the results INSIDE the card. 
+*/
 #allResultsBody {
     overflow: auto;
     border-bottom: 20px solid black;
 }
 
+/* Card containing the necessary information for a search result. */
 #SearchCard {
     margin-bottom: 10px;
     background-color: #FFFACD;
     
 }
 
+/* Body of the card containing a search result. Horizontal flex used to display the username and buttons. */
 #SearchCardBody {
     display: flex; 
     flex-direction: row;
@@ -30,6 +40,7 @@
     border: 5px solid #FFE4B5;
 }
 
+/* Card containing the invitations. */
 #Invites {
     height: 400px;
     width: 100%;
@@ -39,17 +50,23 @@
     background-color: black;
 }
 
+/* 
+    Card body containing a card for every invitation sent to the user by other users.
+    Overflow done so the user can scroll through the invitations INSIDE the card. 
+*/
 #InvitesBody {
     border-bottom: 20px solid black;
     overflow: auto;
 }
 
+/* Card containing necessary information for the invitation.  */
 #InviteCard {
     margin-bottom: 10px;
     background-color: #F5F5F5;
     color: black;
 }
 
+/* Card body containing the text and buttons for the invitation. Horizontal flex used to display the username and buttons. */
 #InviteCardBody {
     display: flex; 
     flex-direction: row;
@@ -57,37 +74,45 @@
     align-items: center;
 }
 
+/* Button to accept an invite, which is done by acceptInvite(). Right margin used to increase seperation between button and the username text. */
 #leftBtn {
     margin-right: 10px;
 }
 
+/* Input form (NOT used in page?) */
 #searchInput {
     background-color: #FDF5E6;
 }
 
 @media only screen and (max-width: 700px) {
+    /* Keep the card containing the option to search for new friends at 100% width of the page. */
     #allResults {
         width: 100%;
     }
 
+    /* Keep the card containing the invitations at 100% width of the page. */
     #Invites {
         width: 100%;
     }
 }
 
 @media only screen and (max-width: 370px) {
+    /* Body of the card containing a search result. SWITCH to vertical flexing at small screen sizes. */
     #SearchCardBody {
         flex-direction: column;
     }
 
+    /* Reduce font size in the invitations card. */
     #Invites p {
         font-size: 10px;
     }
 
+    /* Body of the card containing an invitation. SWITCH to vertical flexing at small screen sizes. */
     #InviteCardBody {
         flex-direction: column;
     }
 
+    /* Reduce font size in the search results card. */
     #cardSub {
         margin-bottom: 10px;
     }

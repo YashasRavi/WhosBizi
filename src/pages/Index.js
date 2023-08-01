@@ -10,18 +10,19 @@ import { Box } from '@mui/system';
 import {useState, useEffect} from 'react'
 import "./IndexStyle.css";
 
-
-
 function Index() {
 
+  // useState and functions for "More information" modal
   const [ModOpen, setModOpen] = useState(false);
   const handleModOpen = () => setModOpen(true);
   const handleModClose = () => setModOpen(false);
 
+  // useState and functions for "Contact me" modal
   const [ConOpen, setConOpen] = useState(false);
   const handleConOpen = () => setConOpen(true);
   const handleConClose = () => setConOpen(false);
 
+  // Styling for both modals
   const ModalStyle = {
     position: 'absolute',
     top: '50%',
@@ -34,13 +35,16 @@ function Index() {
   };
 
   return (
+    // Entire page
     <div style={{backgroundImage: "linear-gradient(45deg, #FA8072, yellow)"}}>
+          {/* Modal for "More information" */}
           <Modal
             open={ModOpen}
             onClose={handleModClose}
             aria-labelledby="modal-modal-title"
           >
-              <Box sx={ModalStyle} id="warnModal">
+              {/* Information inside "More information" modal */}
+              <Box sx={ModalStyle} /*id="warnModal"*/ >
                   <h6>
                       What is WhosBizi?
                   </h6>
@@ -58,12 +62,14 @@ function Index() {
               </Box>
           </Modal>
 
+          {/* Modal for "Contact me" */}
           <Modal
             open={ConOpen}
             onClose={handleConClose}
             aria-labelledby="modal-modal-title"
           >
-              <Box sx={ModalStyle} id="warnModal">
+              {/* Information inside "Contact me" modal */}
+              <Box sx={ModalStyle} /*id="warnModal"*/>
                   <h6>
                       Contact Me!
                   </h6>
@@ -78,6 +84,7 @@ function Index() {
               </Box>
           </Modal>
 
+          {/* Header and title */}
           <h1 className="indexTitle">
               WhosBizi
           </h1>
@@ -85,16 +92,24 @@ function Index() {
               Created by Yashas Ravi
           </h2>
 
+          {/* Grid layout for remaining page contents */}
           <Container>
             <Grid container style={{paddingTop: "20px", textAlign: "center"}}>
+                {/* Leftmost grid column */}
                 <Grid item xs={1} md={3} xl={4}></Grid>
+
+                {/* Middle grid column (contains sign in box and buttons) */}
                 <Grid item xs={10} md={6} xl={4}>
                     <Card className="card" style={{display:"flex", alignItems:"center", backgroundColor: "#FFF0F5", border:"3px solid black"}}>
                         <br></br>
+
+                        {/* Title of card used for sign in box */}
                         <Typography variant="h4" style={{fontWeight: "bold", color: "#4B0082"}}>
                             Sign In!
                         </Typography>
                         <br></br>
+
+                        {/* Form for username and password input */}
                         <div className="inputField">
                           <form noValid autoComplete="off">
                               <TextField label="Username" color="secondary" variant="outlined" style={{backgroundColor:"#FFF8DC"}}>
@@ -108,6 +123,8 @@ function Index() {
                         </div>
                         <br></br>
                         <br></br>
+
+                        {/* Sign in button and create account button (which makes new account with user inputs if one is not existent) */}
                         <div className="buttons">
                           <Button variant="contained" style={{marginBottom:"10px", backgroundColor:"purple"}}>Submit</Button>
                           <Typography style={{fontWeight: "bold", color: "purple"}}>OR</Typography>
@@ -116,6 +133,8 @@ function Index() {
                         <br></br>
                         <br></br>
                     </Card>
+
+                    {/* "More information" and "Contact me" buttons */}
                     <br></br>
                     <br></br>
                     <button class="btn btn-primary" onClick={() => {{handleModOpen()}}}>MORE INFORMATION!</button>
@@ -129,6 +148,8 @@ function Index() {
                     <br></br>
 
                 </Grid>
+
+                {/* Rightmost grid column */}
                 <Grid item xs={1} md={3} xl={4}></Grid>
             </Grid>
             

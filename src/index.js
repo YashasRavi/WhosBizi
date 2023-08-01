@@ -8,11 +8,20 @@ import $ from 'jquery';
 import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
+// Creates a root.
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Renders the app page.
 root.render(
+  
+  // StrictMode enables potential problems in the application to be highlighted when running.
   <React.StrictMode>
+    
+    {/* Entire application. */}
     <App />
+
   </React.StrictMode>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

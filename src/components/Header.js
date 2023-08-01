@@ -5,8 +5,13 @@ import {useState, useEffect} from 'react';
 
 function Header({type}) {
   
+  /* 
+    The type signifies what the current page is that Header is being used in, where 
+    0 - Profile, 1 - AddData, 2 - EditDetails, 3 - Help 
+  */
   let ty = type;
 
+  // Bolds the link if the current page matches the link of the page in the Header
   const boldTheLink = () => {
       if (ty == "0") {
         document.querySelector("#prof").style.fontWeight = "bold";
@@ -22,19 +27,30 @@ function Header({type}) {
       }
   }
 
+  // Makes sure the link is bolded when the page is opened, without any other functions having to occur beforehand (hence the [] parameter)
   useEffect ( () => {
     boldTheLink();
   }, [])
   
   
   return (
+
+    // Entire page
     <div id="entireHeader" style={{backgroundColor: "black"}}>
+
+        {/* Card containing Header contents */}
         <div class="card text-white bg-dark">
             <div class="card-body" id="headerBody">
+
+                {/* Title of header which is WhosBizi */}
                 <h3 id="headerTitle" style={{color: "yellow"}}>
                     WhosBizi
                 </h3>
+
+                {/* Links to all of the pages. Note that ALL links send username and password information to selected page (not implemented yet !!!) */}
                 <nav id="headerLinks">
+
+                    {/* Link to Profile page */}
                     <Link
                         style={{textDecoration: "none", color: "white"}}
                         to={"/profile"}
@@ -45,6 +61,7 @@ function Header({type}) {
                         </button>
                     </Link>
                     
+                    {/* Link to Add Data page */}
                     <Link
                         style={{textDecoration: "none", color: "white"}}
                         to={"/addData"}
@@ -55,6 +72,7 @@ function Header({type}) {
                         </button>
                     </Link>
 
+                    {/* Link to Edit Details page */}
                     <Link
                         style={{textDecoration: "none", color: "white"}}
                         to={"/editDetails"}
@@ -65,7 +83,7 @@ function Header({type}) {
                         </button>
                     </Link>       
                     
-
+                    {/* Link to Help page */}
                     <Link
                         style={{textDecoration: "none", color: "white"}}
                         to={"/help"}
@@ -76,6 +94,7 @@ function Header({type}) {
                         </button>
                     </Link>
                     
+                    {/* Link to Sign in page where user is logged out */}
                     <Link
                         style={{textDecoration: "none", color: "white"}}
                         to={"/index"}
@@ -85,6 +104,7 @@ function Header({type}) {
                     </Link>
                     
                 </nav>
+                
             </div>
         </div>
     </div>

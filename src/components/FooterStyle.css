@@ -1,23 +1,32 @@
+
+/* CSS - Footer component */
+
+/* Contains everything in the Footer */
+#FooterBody {
+    margin-right: 10px;
+}
+
+/* Wrapper for div tags that contain "About WhosBizi" and "Contact Me" buttons. Visible in ALL screen sizes. */
 #FooterBtn {
     margin-left: 30px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
+/* Wrapper for all of the page buttons. Only visible for small screen sizes. */
 #theLinks {
     display: none;
 }
 
-#FooterBody {
-    margin-right: 10px;
-}
-
 @media only screen and (max-width: 420px) {
+
+    /* Display the page buttons */
     #theLinks {
         display: flex;
         flex-direction: column;
     }
 
+    /* Remove margin and set width to full page */
     #FooterBtn {
         margin-left: 0px;
         width: 100%;

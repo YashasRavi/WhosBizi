@@ -1,3 +1,7 @@
+
+/* CSS - User Profile page */
+
+/* The "Welcome username" text on the top */
 .headerText {
     font-weight: bold;
     color: #4B0082;
@@ -6,32 +10,37 @@
     font-size: 60px;
 }
 
+/* div tag containing the Add Data and Add Friends buttons */
 .twoButtons {
     display:flex; 
     justify-content:space-evenly;
 }
 
-
+/* Container that encloses a grid which has all the main content */
 #wholeContainer {
     padding-top: 70px;
 }
 
+/* Empty div tag which forms a gradient for friend grid */
 #tableColorGradient {
     border: 2px solid black;
     background-image: linear-gradient(90deg, red, blue);
     height: 25px;
 }
 
+/* Empty div tag which forms a gradient for friend grid */
 #tableColorGradient2 {
     border: 2px solid black;
     background-image: linear-gradient(90deg, darkred, #FA86F2);
     height: 25px;
 }
 
+/* Label for gradient in small screen sizes, not displayed for normal screens */
 #altLabel {
     display: none;
 }
 
+/* Label for gradient in normal screen sizes, not displayed for small screens */
 #gradLabels {
     display: flex;
     flex-direction: row;
@@ -83,6 +92,7 @@
         flex-direction: column;
     }
 
+    /* The Add Friends button which needs to be in full width for small screen sizes */
     #bottomBtn {
         width: 100%;
     }

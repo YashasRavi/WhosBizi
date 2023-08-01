@@ -1,3 +1,6 @@
+/* CSS - Header component */
+
+/* Body of header containing all the buttons. */
 #headerBody {
     display: flex;
     flex-direction: row;
@@ -6,6 +9,7 @@
     text-align: center;
 }
 
+/* Contains link tags each of which enclose a button. EXCLUDES the "WhosBizi" title. */
 #headerLinks {
     display: flex;
     flex-direction: row;
@@ -13,10 +17,12 @@
     align-items: center;
 }
 
+/* Contains the "WhosBizi" title in Header. NO Links included. */
 #headerTitle {
     margin-left: 30px;
 }
 
+/* Wrapper for the button itself, INSIDE the link tag */
 #oneLink {
     width: 100px;
     margin-right: 20px;
@@ -24,16 +30,19 @@
 }
 
 @media only screen and (max-width: 900px) { 
+    /* Set orientation of buttons to vertical */
     #headerBody {
         flex-direction: column;
     }
 
+    /* Make vertical space between each button */
     #headerLinks {
         margin-top: 15px;
     }
 }
 
 @media only screen and (max-width: 700px) {
+    /* Change orientation for every link */
     #oneLink {
         width: 65px;
         height: 50px;
@@ -44,6 +53,7 @@
 }
 
 @media only screen and (max-width: 450px) {
+    /* Change orientation for every link */
     #oneLink {
         width: 65px;
         height: 50px;
@@ -54,6 +64,7 @@
 }
 
 @media only screen and (max-width: 400px) {
+    /* Remove display of links */
     #headerLinks {
         display: none;
     }

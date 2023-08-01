@@ -1,3 +1,8 @@
+
+/* CSS for Index page */
+
+
+/* For "WhosBizi" */
 .indexTitle {
     padding-top: 20px;
     font-size: 120px;
@@ -5,6 +10,7 @@
     text-align: center;
 }
 
+/* For "By Yashas Ravi" */
 .indexSubTitle {
     padding-top: 10px;
     margin-bottom: 30px;
@@ -22,10 +28,12 @@
         font-size: 25px;
     }
 
+    /* Entire form for username and password input */
     .inputField {
         width: 150px;
     }
 
+    /* "More information" and "Contact me" buttons */
     .buttons {
         width: 150px;
     }
