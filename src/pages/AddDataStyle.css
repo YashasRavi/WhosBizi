@@ -1,16 +1,20 @@
+/* CSS - AddData Page */
 
+/* Container for the option to set a maximum value, directions, "Save All Data" button, and "Edit Defaults" button */
 #dataBtns {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* Card for the user to set a maximum input value.  */
 #maxDataCard {
     width: 18rem;
     background-color: black; 
     border: 2px solid yellow; 
 }
 
+/* Card body for the user to set a maximum input value. */
 #maxDataBody {
     display: flex;
     flex-direction: column;
@@ -19,42 +23,53 @@
     text-align: center;
 }
 
+/* Button to save ALL of the data in the page, editing defaults, and linking to the help page. */
 #aDataBtn {
     width: 200px;
 }
 
+/* The "Switch Input" button used in the table. */
 #defaultDataBtn {
     margin-top: 5%;
     margin-bottom: 5%;
     width: 100px;
 }
 
+/* Card containing the directions for the page. */
 #theDirections {
     font-size: 15px;
     line-height: 25px;
 }
 
+/* 
+    Card containing the ENTIRE data table. 
+    Overflow auto done to allow scrolling if the table is bigger than the card. 
+*/
 .tableContainer {
     overflow: auto;
     background-color: black;
     border: 10px solid black;
 }
 
+/* Data table with input fields for users to enter their data. Fills all of tableContainer. */
 #dataTable {
     border: 2px solid white;
     width: 100%;
     height: 100%;
 }
 
+/* The first cell in every row of the table body (so every row BESIDES the top row). */
 #dataTable.table-bordered > tbody > tr > th {
     text-align: center;
 }
 
+/* The first cell in every row of the table head (so the top row). */
 #dataTable.table-bordered > thead > tr > th {
     text-align: center;
     vertical-align: center;
 }
 
+/* Cell containing the "Switch Input" button. */
 #switchPlace {
     display: flex;
     flex-direction: column;
@@ -62,26 +77,7 @@
     align-items: center;
 }
 
-#cellMode2 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#inp2 {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    width: 50px;
-    text-align: center;
-}
-
-#btn2 {
-    margin-bottom: 5px;
-    width: 80px;
-}
-
+/* Container REPRESENTING the cell with a merged input (text OR slider). */
 #cellMode1 {
     display: flex;
     flex-direction: column;
@@ -89,18 +85,7 @@
     justify-content: center;
 }
 
-#Slider1 {
-    margin-top: 30%;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-#Slider2 {
-    margin-top: 5%;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
+/* Text field in a merged cell. Larger margins made to allow the text field to be in the MIDDLE. */
 #inp1 {
     margin-left: 15px;
     margin-right: 15px;
@@ -109,28 +94,74 @@
     text-align: center;
 }
 
+/* Slider in a merged cell. Larger margins made to allow the slider to be in the MIDDLE. */
+#Slider1 {
+    margin-top: 30%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* Button to split cells in a merged cell. */
 #btn1 {
     margin-top: 15px;
     width: 70px;
 }
 
+/* Container REPRESENTING the cell with a split input (text OR slider). */
+#cellMode2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Text field in a split cell. Smaller margins made to allow 3 input fields in 1 cell. */
+#inp2 {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 50px;
+    text-align: center;
+}
+
+/* Slider in a split cell. Smaller margins made to allow 3 sliders in 1 cell. */
+#Slider2 {
+    margin-top: 5%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* Button to merge cells in a split cell. */
+#btn2 {
+    margin-bottom: 5px;
+    width: 80px;
+}
+
 @media only screen and (max-width: 815px) {
+
+    /* Increases right side border of the card holding the data table.  */
     .tableContainer {
         border-right: 10px solid black;
     }
+
 }
 
 @media only screen and (max-width: 350px) {
+
+    /* Reduces the width (and aligns text to center) for the card enabling user to set a maximum input value.  */
     #maxDataCard {
         width: 10rem;
         text-align: center;
     }
 
+    /* Input field for the user to set the maximum value. */
     #maxEntryForm {
         width: 50px;
     }
 
+    /* Reduces font size of card containing the directions. */
     #theDirections {
         font-size: 12px;
     }
+    
 }

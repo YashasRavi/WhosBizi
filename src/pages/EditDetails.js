@@ -15,6 +15,10 @@ import "./EditDetailsStyle.css";
 
 function EditDetails() {
 
+    /*
+      Styling for the modals, where absolute positioning is used to place the modal in 
+      the CENTER of the page.  
+    */
     const ModalStyle = {
         position: 'absolute',
         top: '50%',
@@ -24,52 +28,97 @@ function EditDetails() {
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
-      };
+    };
 
+    /* 
+        useLocation hook to direct from any other page to the Edit Details page.
+        Uses these parameters in the LINK to the Edit Details page:
+            * to={"/editDetails"}
+            * state={{username: "", password: "", scr: 3}}
+        Currently, the "scr" attribute is extracted to determine to what section of the 
+        page the auto-scroll would go to.
+    */
     const location = useLocation();
     const {username, password, scr} = location.state;
     
-    console.log(scr);
+    // Stores the value in "scr" in "scroll".
     let scroll = scr;
+
+    /*
+        doScroll() uses "scroll" to determine what section of the Edit Details page
+        to scroll to.
+    */
     const doScroll = () => {
+        // Check if scroll value is 0.
         if (scroll == 0) {
+            // If so, scroll to the section with account data and preferences.
             document.querySelector("#accountDetailsCard").scrollIntoView();
         }
+        // Check if scroll value is 1.
         else if (scroll == 1) {
+            // If so, scroll to the section where new friends can be added.
             document.querySelector("#stuffWithSearch").scrollIntoView();
         }
+        // Check if scroll value is 2.
         else if (scroll == 2) {
+            // If so, scroll to the section where new friends can be added.
             document.querySelector("#stuffWithSearch").scrollIntoView();
         }
+        // Check if scroll value is 3.
         else if (scroll == 3) {
+            // If so, scroll to the section where the default data can be edited.
             document.querySelector("#defaultDataCardBody").scrollIntoView({behavior:"smooth"});
         }
+        // Check if scroll value is not any of the other values.
         else {
+            // If so, scroll to the section with account data and preferences (default).
             document.querySelector("#accountDetailsCard").scrollIntoView();
         }
     }
 
+    /*
+        The useEffect() here ensures that doScroll() occurs whenever the page is refreshed 
+        (as indicated by the empty array parameter []).
+    */
     useEffect (() => {
         doScroll();
     }, [])
     
-
+    // tabIndex denotes which day the data table displays (and setTabIndex changes this value)
     const [tabIndex, setTabIndex] = useState(0);
 
+    /*
+        rightClick() increases the page of the table (meaning the tableIndex) by 1
+        if the right arrow clicked, IF 0 <= tabIndex < 6.
+    */
     const rightClick = () => {
+        // Compare if tabIndex < 6, since there are 7 day in the week so only 7 possible values of tabIndex, from 0 to 6.
         if (tabIndex < 6) {
+            // If that holds, increase tabIndex by 1.
             setTabIndex(tabIndex+1);
         }
     }
     
+    /*
+        leftClick() decreases the page of the table (meaning the tableIndex) by 1
+        if the right arrow clicked, IF 0 < tableIndex <= 6.
+    */
     const leftClick = () => {
+        // Compare if tabIndex > 0, since there are 7 day in the week so only 7 possible values of tabIndex, from 0 to 6.
         if (tabIndex > 0) {
+            // If that holds, decrement tabIndex by 1.
             setTabIndex(tabIndex-1);
         }
     }
     
+    /* 
+        updateArrows() uses the parameter tI (meaning the tableIndex) to determine whether 
+        the left or right arrow should be usable. Left only unusable if first page (tI = 0) and right
+        only unusable if last page (tI = 6).
+    */
     const updateTableArrows = (tI) => {
-    
+
+        // If tI = 6, then the user is on the last page and can't go to the next page, so right arrow is disabled.
         if (tI == 6) {
             document.querySelector("#rightArrow").style.opacity="50%";
         }
@@ -77,6 +126,7 @@ function EditDetails() {
             document.querySelector("#rightArrow").style.opacity="100%";
         }
     
+        // If tI = 0, then the user is on the first page and can't go to the previous page, so left arrow is disabled.
         if (tI == 0) {
             document.querySelector("#leftArrow").style.opacity="50%";
         }
@@ -85,40 +135,65 @@ function EditDetails() {
         }
     } 
 
+    /*
+        useEffect() here used to update the table arrows WHENEVER tabIndex changes,
+        meaning that leftClick() or rightClick() was called to change the tabIndex.
+    */
     useEffect (() => {
         updateTableArrows(tabIndex);
     }, [tabIndex])
 
+    // Store today's date in the variable "Today".
     let Today = new Date();
 
+    /*
+      retDate() uses date and offset as parameters to return a calendar of the week.
+      The function uses a temporarily variable "nest" which uses offset as a parameter to
+      return a new date. The offset here depends on which column of the calender the
+      function is being called for.
+    */
     function retDate (date, offset) {
+
+        // Get today's date, store it in tod.
         const tod = date;
+
+        // Create a copy of today's date, store it in next.
         const next = new Date(tod);
+
+        // Using offset (which is basically the column number), set next to be the date for that column.
         next.setDate(tod.getDate()+offset);
+
+        // Here, "current" stores the day (a number from 0 to 6) that "next" represents.
         let current = next.getDay();
+
+        /* 
+            Return a paragraph tag containing the 3-letter day (CONDITIONALLY) based on
+            the day of the week (quantitatively represented by "current").
+        */
         if (current == 0) {
-        return <h6>Sun, {next.getMonth()+1}/{next.getDate()}</h6>;
+            return <h6>Sun</h6>;
         }
         if (current == 1) {
-        return <h6>Mon, {next.getMonth()+1}/{next.getDate()}</h6>;
+            return <h6>Mon</h6>;
         }
         if (current == 2) {
-        return <h6>Tue, {next.getMonth()+1}/{next.getDate()}</h6>;
+            return <h6>Tue</h6>;
         }
         if (current == 3) {
-        return <h6>Wed, {next.getMonth()+1}/{next.getDate()}</h6>;
+            return <h6>Wed</h6>;
         }
         if (current == 4) {
-        return <h6>Thu, {next.getMonth()+1}/{next.getDate()}</h6>;
+            return <h6>Thu</h6>;
         }
         if (current == 5) {
-        return <h6>Fri, {next.getMonth()+1}/{next.getDate()}</h6>;
+            return <h6>Fri</h6>;
         }
         if (current == 6) {
-        return <h6>Sat, {next.getMonth()+1}/{next.getDate()}</h6>;
+            return <h6>Sat</h6>;
         }
     }
 
+    // myDefaults contains the dummy default data used for the page.
     let myDefaults = [
         [0.5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
         [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -129,6 +204,7 @@ function EditDetails() {
         [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
       ];
 
+      // cStates determines if every cell is split (false) or merged (true).
       let cStates = [
         [false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false],
@@ -139,6 +215,7 @@ function EditDetails() {
         [false, false, false, false, false, false, false, false]
     ];
 
+    // toSave contains the final default data to be saved.
     let ToSave = [
         [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
         [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -149,8 +226,10 @@ function EditDetails() {
         [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
     ]
 
+    // ?
     let origIsDaily = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
 
+    // cDaily represents if each cell is a daily (false) or weekly default (true). 
     let cDaily = [
         [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
@@ -161,105 +240,182 @@ function EditDetails() {
         [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
     ]
 
+    /*
+        Sets the value of cStates to true if the values in every hour of a 3 hour interval are the same.
+        In other words, if hour 3*n, 3*n+1, and 3*n+2 are the same. This is done by checking if the values in 
+        myDefaults[x][3*y], myDefaults[x][3*y+1], and myDefaults[x][3*y+2] are all equal.
+        This means that myDefaults[x][3*y] is mergable.
+    */
     for (let d = 0; d < 7; d++) {
+        // Traverse every hour in the day represented by myDefaults[d].
         for (let i = 0; i < 8; i++) {
-    
-          if (myDefaults[d][i*3] == myDefaults[d][1+i*3] && myDefaults[d][i*3] == myDefaults[d][2+i*3]) {
-            cStates[d][i] = true;
-          }
-          else {
-            cStates[d][i] = false;
-          }
+            // Check if every 3 hour interval has the same value.
+            if (myDefaults[d][i*3] == myDefaults[d][1+i*3] && myDefaults[d][i*3] == myDefaults[d][2+i*3]) {
+                // If so, set cStates for that interval to true.
+                cStates[d][i] = true;
+            }
+            // Check if every 3 hour interval have differing values.
+            else {
+                // If so, set origCells for that interval to false.
+                cStates[d][i] = false;
+            }
     
         }
       }
 
+    // nowDefaults represents the default data that is modified by the inputs in the data table.  
     const [nowDefaults, setNowDefaults] = useState(myDefaults);
+
+    // nowStates represents if each cell is merged or split.
     const [nowStates, setNowStates] = useState(cStates);
+
+    // nowDaily represents
     const [nowDaily, setNowDaily] = useState(origIsDaily);
+
+    // checkDaily represents if each cell is a daily or weekly default.
     const [checkDaily, setCheckDaily] = useState(cDaily);
+
+    // nowToSave represents the final default data to be saved. 
     const [nowToSave, setSave] = useState(ToSave);
 
+    // uName represents the user's username entered in the input field. 
     const [uName, setUName] = useState("");
+
+    // fName represents the user's first name entered in the input field. 
     const [fName, setFName] = useState("");
+
+    // lName represents the user's last name entered in the input field. 
     const [lName, setLName] = useState("");
 
+    // isSlider represents if the user always wants slider input when the AddData page opens.
     const [isSlider, setIsSlider] = useState(false);
+
+    // isNotif represents if the user wants notifications or not.
     const [isNotif, setIsNotif] = useState(false);
+
+    // isPub represents if the user wants to make his/her account public. Private means other people won't be able to find this account.
     const [isPub, setIsPub] = useState(false);
 
+    // nowAge represents the age input the user enters (here, "r0" is the value of an option that does not exist, so the default entry is blank).
     const [nowAge, setNowAge] = useState("r0");
-    const [nowGen, setNowGen] = useState("r1");
+
+    // nowGen represents the gender input the user enters (here, "g0" is the value of an option that does not exist, so the default entry is blank).
+    const [nowGen, setNowGen] = useState("g0");
+
+    // nowBio represents the information user enters about him/herself.
     const [nowBio, setNowBio] = useState("");
 
+    // disOpen indicates if the modal for disabling the account is open or not. 
     const [disOpen, setDisOpen] = useState(false);
+
+    // handleDisOpen opens the modal for disabling the account. 
     const handleDisOpen = () => setDisOpen(true);
+
+    // handleDisClose close the modal for disabling the account. 
     const handleDisClose = () => setDisOpen(false);
 
+    // delOpen indicates if the modal for deleting the account is open or not. 
     const [delOpen, setDelOpen] = useState(false);
+
+    // handleDelOpen opens the modal for deleting the account. 
     const handleDelOpen = () => setDelOpen(true);
+
+    // handleDelClose close the modal for deleting the account. 
     const handleDelClose = () => setDelOpen(false);
 
+    /*
+      saveProfileInfo() saves all of the information entered in the account details and 
+      preferences section.
+    */
     const saveProfileInfo = () => {
-        /* Save all the data into the database */
+        /* {SAVE ALL INFO TO DATABASE} */
         alert("Your details have been saved!")
     }
 
+    /*
+        changeTheThing() uses "inp" (a boolean) and "code" (a number) to determine what
+        setter function (determined by "code") to call and use it to change the state to
+        "inp". 
+    */
     const changeTheThing = (inp, code) => {
-        console.log("code " + code + ": " + inp);
+        // Changes username.
         if (code == 0) {
             setUName(inp);
         }
+        // Changes first name.
         else if (code == 1) {
             setFName(inp);
         }
+        // Changes last name.
         else if (code == 2) {
             setLName(inp);
         }
+        // Change slider input option.
         else if (code == 3) {
             setIsSlider(inp);
         }
+        // Changes option to recieve notifications.
         else if (code == 4) {
             setIsNotif(inp);
         }
+        // Changes account publicity.
         else if (code == 5) {
             setIsPub(inp);
         }
+        // Changes user age input.
         else if (code == 6) {
             setNowAge(inp);
         }
+        // Changes user gender input.
         else if (code == 7) {
             setNowGen(inp);
         }
+        // Changes other details input from user.
         else if (code == 8) {
             setNowBio(inp);
         }
+        // Else, abort the function.
         else {
             return;
         }
     }
 
+    /*
+        returnTheThing() returns the text to be used in the "Slider Input", "Notifications",
+        and "Public" buttons based on what the values of the state currently are.
+    */
     const returnTheThing = (code) => {
+        // If "code" = 3, then change the text in the "Slider Input" button.
         if (code == 3) {
+            // If Sliders are not default, give user option to make Sliders the default input.
             if (isSlider == false) {
                 return "Switch to Sliders";
             }
+            // If Sliders are default, give user option to make text the default input.
             else {
                 return "Switch to Text";
             }
         }
+
+        // If "code" = 4, then change the text on the "Notifications" button.
         else if (code == 4) {
+            // If notifications are off, give user option to turn on notifications.
             if (isNotif == false) {
                 return "Turn on";
             }
+            // If notifications are on, give user option to turn of notifications.
             else {
                 return "Turn off";
             }
         }
+
+        // If "code" = 5, change the text on the "Public" button.
         else if (code == 5) {
+            // If the account is Private, give user option to switch to a Public account.
             if (isPub == false) {
                 return "Switch to Public";
             }
+            // If the account is Public, give user option to switch to a Private account.
             else {
                 return "Switch to Private";
             }
