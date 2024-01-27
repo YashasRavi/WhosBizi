@@ -9,7 +9,7 @@
 
 /* Card for the user to set a maximum input value.  */
 #maxDataCard {
-    width: 18rem;
+    width: 100%;
     background-color: black; 
     border: 2px solid yellow; 
 }
@@ -21,6 +21,12 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+#buttonGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 /* Button to save ALL of the data in the page, editing defaults, and linking to the help page. */
@@ -39,6 +45,42 @@
 #theDirections {
     font-size: 15px;
     line-height: 25px;
+    width: 100%;
+}
+
+/* Container for all of the checkboxes for the selectable hours. */
+#defaultSelectionContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+/* Container for the section containing the checkboxes AND the input form (defaultEntryCard). */
+#defaultEntryContainer {
+    border: 2px solid black;
+}
+
+/* Container for all of the checkboxes for the selectable hours. */
+#defaultDataEntryCard {
+    overflow-y: auto;
+    scroll-behavior: auto;
+    height: 200px;
+    width: 30%;
+    border: 3px solid black;
+    border-bottom: 5px solid black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#defaultEntryInput {
+    width: 80%;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+#defDataSubmitBtn {
+    margin-left: 50%;
+    margin-right: 50%;
 }
 
 /* 
@@ -146,14 +188,10 @@
 
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 450px) {
 
-    /* Reduces the width (and aligns text to center) for the card enabling user to set a maximum input value.  */
-    #maxDataCard {
-        width: 10rem;
-        text-align: center;
-    }
 
+    
     /* Input field for the user to set the maximum value. */
     #maxEntryForm {
         width: 50px;

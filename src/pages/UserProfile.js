@@ -426,11 +426,11 @@ export class UserProfile extends Component {
                     {/* Contains Add Data and Add Friends buttons */}
                     <div className = "twoButtons">
 
-                      {/* Add Data button linking to /addData with the link CONTAINING username and password of current user */}
+                      {/* My Data button linking to /currentData with the link CONTAINING username and password of current user */}
                       <Button variant="contained">
                         <Link
                           style={{textDecoration: "none", color: "white"}}
-                          to={"/addData"}
+                          to={"/currentData"}
                           state={{username: "", password: ""}}
                         >
                           <Typography>

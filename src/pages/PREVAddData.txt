@@ -2,22 +2,12 @@ import React from 'react'
 import { Container } from '@mui/material'
 import { useState, useEffect } from 'react';
 import {Slider} from '@mui/material'
-
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import "./AddDataStyle.css";
 
 const AddData = () =>  {
-
-  // defValueFromServer represents the daily default data value that the user entered when previously modifying the default data.
-  let defValueFromServer = 0;
 
   /*
     toSaveTemp represents the data that is supposed to be saved to the backend. 
@@ -38,6 +28,21 @@ const AddData = () =>  {
     their input data into the text fields. Once the backend is formed, the data from the backend will be used.
   */
   let dummyData = [
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+  ];
+
+  /*
+    dummyDefaults are the placeholder default data used by the webpage, which is the data that is initially
+    present in the text fields until dummyData is changed. Once the backend is formed, the data from the backend
+    will be used for dummyDefaults.
+  */
+  let dummyDefaults = [
     [0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -49,8 +54,7 @@ const AddData = () =>  {
 
   /*
     origCells represents whether the data in every 3 cells is merged. If so, origCells[x][y] is false.
-    Intially, all values are set to false, meaning that the data is split for every 3 hour interval.
-    The for loop later used will set every index to its correct value based on the data in tableState[].
+    Intially, all values are set to false, meaning that the data is merged for every 3 hour interval.
   */
   let origCells = [
     [false, false, false, false, false, false, false, false],
@@ -86,17 +90,11 @@ const AddData = () =>  {
   // switchStates represents if every 3 hours of each day is represented as a text field or a slider.
   const [switchStates, setSwitchStates] = useState(origSwitches);
 
+  // defaultState represents the default data that was present in dummyDefaults. It is unlikeley to change.
+  const [defaultState, setDefaultState] = useState(dummyDefaults);
+
   // toSave represents the data that is supposed to be saved to the backend. Initially set to toSaveTemp.
   const [toSave, setToSave] = useState(toSaveTemp);
-
-  // currentDefault represents the value the user wants to enter for daily defaults. This value has to be sent from the server and is editable in the page.
-  const [currentDefault, setCurrentDefault] = useState(defValueFromServer);
-
-  // selectedDefaultDays represents a list of the day checkboxes that are selected for the daily defaults.
-  const [selectedDefaultDays, setSelectedDefaultDays] = useState([]);
-
-  // selectedDefaultTimes represents a list of the time checkboxes that are selected for the daily defaults.
-  const [selectedDefaultTimes, setSelectedDefaultTimes] = useState([]);
 
   // maxValue represents the maximum possible number to represent how free the user is.
   const [maxValue, setMaxValue] = useState(10);
@@ -105,52 +103,55 @@ const AddData = () =>  {
   const [tempMaxValue, setTempMaxValue] = useState(10);
 
   /*
-    updateCellStates() sets the value of cellStates to true if the values in every hour of a 3 hour interval are the same.
-    
+    Sets the value of origCells to true if the values in every hour of a 3 hour interval are the same.
     In other words, if hour 3*n, 3*n+1, and 3*n+2 are the same. This is done by checking if the values in 
     tableState[x][3*y], tableState[x][3*y+1], and tableState[x][3*y+2] are all equal.
     This means that tableState[x][3*y] is mergable.
   */
-  const updateCellStates = () => {
+  for (let d = 0; d < 7; d++) {
+    // Traverse every hour in the day represented by tableState[d].
+    for (let i = 0; i < 8; i++) {
 
-    let tempCellStates = [...cellStates];    
-    
-    // Traverse every day represented by tableState.
-    for (let d = 0; d < 7; d++) {
-      // Traverse every hour in the day represented by tableState[d].
-      for (let i = 0; i < 8; i++) {
-
-        // Check if every 3 hour interval has the same value.
-        if (tableState[d][i*3] == tableState[d][1+i*3] && tableState[d][i*3] == tableState[d][2+i*3]) {
-          // If so, set cellStates[][] for that interval to true (merging).
-          tempCellStates[d][i] = true;
-        }
-
-        // Check if every 3 hour interval have differing values.
-        else {
-          // If so, set cellStates[][] for that interval to false (splitting).
-          tempCellStates[d][i] = false;
-        }
-
+      // Check if every 3 hour interval has the same value.
+      if (tableState[d][i*3] == tableState[d][1+i*3] && tableState[d][i*3] == tableState[d][2+i*3]) {
+        // If so, set origCells for that interval to true.
+        origCells[d][i] = true;
       }
-    }
 
-    setCellStates(tempCellStates);
+      // Check if every 3 hour interval have differing values.
+      else {
+        // If so, set origCells for that interval to false.
+        origCells[d][i] = false;
+      }
+
+    }
   }
 
   // Scrolls the user to the data table so that the instructions do not come into view when the webpage is loaded.
   useEffect(() => {
-    updateCellStates();
+    document.querySelector(".tableContainer").scrollIntoView();
   }, [])
 
   /*
-    returnValue() takes in inp (a value in tableState) and rounds it to the nearest tenth 
-    to display it.
+    returnValue() takes in inp (a value in tableState) and defInp (a value in defaultState)
+    and rounds it to the nearest tenth to display it.
   */
-  let returnValue = (inp) => {
-    // Check if inp (the value in tableState) is not yet set (meaning inp is -1).
+  let returnValue = (inp, defInp) => {
+    // Check if inp (the value in tableState) is not set right (meaning inp is -1).
     if (inp < 0) {
-      return "-";
+
+      // If so, use default data. Check if defInp (the value in default data, so defaultState) is NOT set.
+      if (defInp < 0) {
+        // If so, return "-".
+        return "-"; 
+      }
+
+      // Check if the defInp (the value in default data) has been set.
+      else {
+        // If so, return the defInp value rounded to the nearest tenth.
+        return Math.floor(10*defInp)/10;
+      }
+
     }
 
     // If inp has already been set, check if the maximum value is not 0.
@@ -172,12 +173,7 @@ const AddData = () =>  {
     // Checks if the value in the input field (tempMaxValue) is valid and positive.
     if(!isNaN(tempMaxValue) && tempMaxValue > 0) {
       // Changes the value of maxValue to tempMaxValue.
-      if (currentDefault > maxValue) {
-        alert("Change your input in the daily defaults input field, since it is higher than the maximum value.");
-      }
-      else {
-        setMaxValue(tempMaxValue); 
-      }
+      setMaxValue(tempMaxValue); 
     }
 
     // If the value in tempMaxValue is invalid, display an alert message.
@@ -185,91 +181,6 @@ const AddData = () =>  {
       // Alert the user if tempMaxValue is invalid.
       alert("Please enter a valid number that is higher than 0 for the maximum!");
     }
-
-  }
-
-  /*
-    handleCheckboxChange() updates the daily defaults checkbox state DEPENDING on the 
-    checkboxes that the user selects.
-  */
-  const handleCheckboxChange = (event, isTime) => {
-    const target = event.target;
-    const value = target.value;
-    const isChecked = target.checked;
-
-    // Update state based on whether the checkbox was checked or unchecked
-    if (isTime == true) {
-      setSelectedDefaultTimes(prev => {
-        if (isChecked) {
-          // Add the value to the array of selected checkboxes
-          return [...prev, value];
-        } else {
-          // Remove the value from the array of selected checkboxes
-          return prev.filter(checkboxValue => checkboxValue !== value);
-        }
-      });
-    }
-    else {
-      setSelectedDefaultDays(prev => {
-        if (isChecked) {
-          // Add the value to the array of selected checkboxes
-          return [...prev, value];
-        } else {
-          // Remove the value from the array of selected checkboxes
-          return prev.filter(checkboxValue => checkboxValue !== value);
-        }
-      });
-    }
-  };
-
-
-  /*
-
-    populateDailyDefaults() uses the currently selected checkboxes to populate the 
-    daily defaults into the default data table. 
-  */
-  const populateDailyDefaults = () => {
-    
-    let tempState = [...tableState];
-    const possibleDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    let dayList = retDayList();
-    let timeSlots = retTimeSlots();
-
-    // Iterate through every day in the week starting from today.
-    for (let d = 0; d < dayList.length; d++) {
-      let currDay = possibleDays[dayList[d]];
-      // Check if the array of selected days from the checkbox is empty.
-      if (selectedDefaultDays.length == 0) {
-        // This means the user has not selected any days, so inform them and abort.
-        alert("Please select the days that you want to enter a value for.");
-        return;
-      }
-      // Check if the current day being processed in the loop is selected in the checkbox.
-      if (selectedDefaultDays.includes(currDay)) {
-        if (selectedDefaultTimes.length == 0) {
-          // This means the user has not selected any hours, so inform them and abort.
-          alert("Please select the hours that you want to enter a value for.");
-          return;
-        }
-        // Iterate through every hour.
-        for (let r = 0; r < timeSlots.length; r++) {
-            // Form the hour range string using timeSlots.
-            let hourRangeString = timeSlots[r] + "-" + timeSlots[r+1];
-            // Check if this hour range is selected in the checkbox.
-            if (selectedDefaultTimes.includes(hourRangeString)) {
-              // If so, for the hour range in EACH selected day, change the cell value to the value entered by the user.
-              tempState[d][r] = currentDefault/maxValue;
-            }
-        }
-      }
-    }
-
-    // Update the state accordingly.
-    setTableState(tempState);
-    // Update to merge or split the cells, since their values have changed.
-    updateCellStates();
-    // Scroll the user to the data table.
-    document.querySelector(".tableContainer").scrollIntoView();
 
   }
 
@@ -330,26 +241,8 @@ const AddData = () =>  {
     // Make a copy of cellStates and store it in newCells (which will be modified).
     let newCells = [...cellStates];
 
-    // Check if the cell is currently in a split state.
-    if (cellStates[m][n] == false) {
-      // If so, check if all 3 hours in the 3-hour interval are equal.
-      if (tableState[m][3*n] == tableState[m][1+3*n] && tableState[m][3*n] == tableState[m][2+3*n]) {
-        // If so, allow merging to occur.
-        newCells[m][n] = !newCells[m][n];
-      }
-      // Check if the 3 hours in the 3-hour interval are NOT equal.
-      else {
-        // If so, disallow merging and inform the user of this.
-        alert("All 3 hours in the interval must be equal for the interval to be merged!");
-        // Abort the method.
-        return;
-      }
-    }
-    // Check if the cell is currently in a merged state.
-    else {
-      // Split the 3-hour interval n on day m.
-      newCells[m][n] = !newCells[m][n];
-    }
+    // Split or merge the 3-hour interval n on day m.
+    newCells[m][n] = !newCells[m][n];
 
     // Save the changes into cellStates so that the state of the page changes.
     setCellStates(newCells);
@@ -418,21 +311,22 @@ const AddData = () =>  {
     setTableState(tempState);
     
   }
+
   /*
     returnCell() takes in the day, the 3-hour interval range, inpBool (representing whether
-    the input is merged or not), and the user-set max value to return a cell in the
+    the input is a text or a slider), and the user-set max value to return a cell in the
     data table.
   */
   let returnCell = (day, range, inpBool, max) => {
 
     /*
       temp1, temp2, and temp3 store the values in cells on day "day" and hour 3*"range", 3*"range"+1,
-      and 3*"range"+2 to DISPLAY. This MEANS they are equal to "-" if there is no corresponding value 
-      in tableState[] (meaning the value is -1).
+      and 3*"range"+2 to DISPLAY. This MEANS they are equal to "-" or a number in tableState OR 
+      defaultState rounded to the nearest tenth.
     */
-    let temp1 = returnValue(max*tableState[day][3*range]);
-    let temp2 = returnValue(max*tableState[day][1+3*range]);
-    let temp3 = returnValue(max*tableState[day][2+3*range]);
+    let temp1 = returnValue(max*tableState[day][3*range], max*defaultState[day][3*range]);
+    let temp2 = returnValue(max*tableState[day][1+3*range], max*defaultState[day][1+3*range]);
+    let temp3 = returnValue(max*tableState[day][2+3*range], max*defaultState[day][2+3*range]);
 
     // def1, def2, and def3 represent the colors of the text boxes in the 3 aforementioned cells.
     let def1 = "white";
@@ -444,12 +338,74 @@ const AddData = () =>  {
     let sl2  = "red";
     let sl3 = "red";
 
+    /*
+      Check if the cell at day "day" and hour 3*"range" (first hour in 3-hour interval) does 
+      NOT have a new user-entered value, BUT does have a default value. Also check if maximum possible value is not 0.
+    */
+    if (defaultState[day][3*range] >= 0 && tableState[day][3*range] < 0 && maxValue != 0) {
+      // Set the color of the text for the corresponding cell to orange.
+      def1 = "#FFEBCD";
+      // Set the color of the slider for the corresponding cell to orange.
+      sl1 = "orange";
+    }
+
+    /*
+      Check if the cell at day "day" and hour 1+3*"range" (second hour in 3-hour interval) does 
+      NOT have a new user-entered value, BUT does have a default value. 
+      Also check if maximum possible value is not 0.
+    */
+    if (defaultState[day][1+3*range] >= 0 && tableState[day][1+3*range] < 0 && maxValue != 0) {
+      // Set the color of the text for the corresponding cell to orange.
+      def2 = "#FFEBCD";
+      // Set the color of the slider for the corresponding cell to orange.
+      sl2 = "orange";
+    }
+
+    /*
+      Check if the cell at day "day" and hour 2+3*"range" (third hour in 3-hour interval) does 
+      NOT have a new user-entered value, BUT does have a default value. 
+      Also check if maximum possible value is not 0.
+    */
+    if (defaultState[day][2+3*range] >= 0 && tableState[day][2+3*range] < 0 && maxValue != 0) {
+      // Set the color of the text for the corresponding cell to orange.
+      def3 = "#FFEBCD";
+      // Set the color of the slider for the corresponding cell to orange.
+      sl3 = "orange";
+    }
+
+    // eqDefaults represents if the default data in the 3-hour interval is the same (meaning it can be MERGED).
+    let eqDefaults = (defaultState[day][3*range] == defaultState[day][1+3*range] && defaultState[day][3*range] == defaultState[day][2+3*range]);
+
     // Check if the input mode is a text field.
     if (switchStates[day][range] == false) {
-
       // If the input mode is a text field, then check if the cells are merged.
       if (inpBool == true) {
-      
+        // If the cells are merged, compare if the values for every hour IN the 3-hour interval are DIFFERENT.
+        if (temp1 != temp2 || temp1 != temp3) {
+          // If the values are different, set the cell value as "-" instead of a number, since each cell in the interval has DIFFERENT numbers.
+          temp1 = "-";
+        }
+        
+        // Check if the colors of the text fields in the 3-hour interval are ALL orange. 
+        if (def1 == "#FFEBCD" && def1 == def2 && def1 == def3 && eqDefaults) {
+          /*
+            If so, when the cells are merged, the text field will have an orange color.
+            This means that the SAME default data value is being used for ALL of the data 
+            in the 3-hour interval.
+          */
+          def1 = "#FFEBCD"
+        }
+
+        // Check if any of the colors are NOT orange OR if any of the default data in the 3-hour interval is different.
+        else {
+          /*
+            If so, when the cells are merged, the text field will have an white color.
+            This means that the default data in the 3-hour interval are different and hence
+            the merged text field CANNOT have a orange color, thus being white.
+          */
+          def1 = "white";
+        }
+
         // Return a merged text field.
         return (
           // Container REPRESENTING the cell with a merged text field.
@@ -493,6 +449,31 @@ const AddData = () =>  {
     else {
       // If the input mode is a slider, then check if the cells are merged.
       if (inpBool == true) {
+         // If the cells are merged, compare if the values for every hour IN the 3-hour interval are DIFFERENT.
+        if (temp1 != temp2 || temp1 != temp3) {
+          // If the values are different, set the cell value as "-" instead of a number, since each cell in the interval has DIFFERENT numbers.
+          temp1 = "-";
+        }
+        
+        // Check if the colors of the text fields in the 3-hour interval are ALL orange.
+        if (sl1 == "#FFEBCD" && sl1 == sl2 && sl1 == sl3 && eqDefaults) {
+          /*
+            If so, when the cells are merged, the slider will have an orange color.
+            This means that the SAME default data value is being used for ALL of the data 
+            in the 3-hour interval.
+          */
+          sl1 = "orange"
+        }
+
+        // Check if any of the colors are NOT orange OR if any of the default data in the 3-hour interval is different.
+        else {
+          /*
+            If so, when the cells are merged, the slider will have an red color.
+            This means that the default data in the 3-hour interval are different and hence
+            the merged slider CANNOT have a orange color, thus being red.
+          */
+          sl1 = "red";
+        }
 
         // Return a merged slider.
         return (
@@ -600,98 +581,6 @@ const AddData = () =>  {
   }
 
   /*
-    retTimeSlots() stores 8AM, 9AM, 10AM ... 7AM, 8AM in an array and returns it.
-  */
-  const retTimeSlots = () => {
-    
-    let timeSlots = [];
-    for (let hour = 8; hour <= 31; hour++) {
-        let time = hour % 24 % 12 === 0 ? 12 : hour % 24 % 12;
-        let suffix = hour % 24 < 12 || hour % 24 === 0 ? 'AM' : 'PM';
-        timeSlots.push(`${time}${suffix}`);
-    }
-    timeSlots.push("8AM");
-
-    return timeSlots;
-  }
-
-  /*
-    retDefaultDataHours() returns a button group of checkboxes for which hours the
-    user selects to enter a default value for.
-  */
-  let retDefaultDataHours = () => {
-
-    // Store the hours of each day in timeSlots[].
-    let timeSlots = retTimeSlots()
-
-    // Create a checkbox for each slot in timeSlots[].
-    return timeSlots.map((slot, index) => {
-      const timeRange = `${timeSlots[index]}-${timeSlots[index + 1]}`;
-      if (index == timeSlots.length-1) {
-        return;
-      }
-      else {
-        return (
-          <React.Fragment>
-              <input type="checkbox" class="btn-check" id={`btncheck${index}`} autocomplete="off" value = {timeRange} onChange={(e) => {handleCheckboxChange(e,true)}}></input>
-              <label class="btn btn-outline-dark" for={`btncheck${index}`}>
-                  {timeSlots[index]}-{timeSlots[index+1]}
-              </label>
-          </React.Fragment>
-        );
-      }
-    });
-
-
-  }
-
-  /*
-    retDayList() creates an array with the Date object indices representing days of the week starting from today.
-  */
-
-  const retDayList = () => {
-
-    let dayList = [];
-    let copyDate = new Date(Now);
-    let tempDate = new Date(copyDate);
-    for (let i = 0; i < 7; i++) {
-      tempDate.setDate(copyDate.getDate()+i);
-      dayList.push(tempDate.getDay());
-    }
-
-    return dayList;
-  }
-
-
-  /*
-    retDefaultDays() returns a button group of checkboxes for which days of the week
-    the user selects to enter a default value for.
-  */
-  let retDefaultDays = () => {
-
-    // Use retDayList() to store the weekdays from today for this week. 
-    let dayList = retDayList();
-
-    // Store the days of the week in possibleDays[], where dayList[] can be used as an index.
-    const possibleDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-    // Iterate through dayList[] to create a checkbox for each day of the week, starting from today.
-    return dayList.map((currentDay, index) => {
-      const currDay = `${possibleDays[dayList[index]]}`;
-      return (
-        <React.Fragment>
-            <input type="checkbox" class="btn-check" id={`btndaycheck${index}`} autocomplete="off" value = {currDay} onChange={(e) => {handleCheckboxChange(e,false)}}></input>
-            <label class="btn btn-outline-dark" for={`btndaycheck${index}`}>
-                {possibleDays[dayList[index]]}
-            </label>
-        </React.Fragment>
-      );
-    });
-
-  }
-
-
-  /*
     saveAllChanges() stores the current data into toSave to be saved in the backend. 
   */
   let saveAllChanges = () => {
@@ -763,7 +652,8 @@ const AddData = () =>  {
       <div style={{position: "fixed", width: "100%", zIndex: "10", boxShadow: "2px 2px 3px 4px"}}>
         
         {/* Header tag. Type = 1 indicates that the "Add Data" button is bolded. */}
-        <Header type="10"></Header>
+        
+        <Header type="1"></Header>
       </div>
 
       {/* Container for page body (so everything besides the Header and Footer). */}
@@ -771,26 +661,88 @@ const AddData = () =>  {
 
         {/* Title of the page as a <h2> tag. */}
         <h2 className="chatTitle">
-            Enter Default Data
+            Record when you're free!
         </h2>
 
         <br></br>
 
-        <br></br>
-
-        {/* Contains the option to set a maximum value, directions, buttons, and daily defaults selection. */}
+        {/* Contains the option to set a maximum value, directions, "Save All Data" button, and "Edit Defaults" button. */}
         <div id = "dataBtns">
 
-          {/* Card containing the contents (inner container). */}
+          {/* Card for the user to set a maximum input value. */}
+          <div class="card" id = "maxDataCard">
+
+            {/* Card body for the user to set a maximum input value. */}
+            <div class="card-body card-primary" id = "maxDataBody">
+
+              {/* Title of the card. */}
+              <h5 class="card-title" style={{color: "#FFD700"}}>
+                Set the maximum value:
+              </h5>
+
+              {/* Paragraph tag to explain the maximum value card. */}
+              <p style={{color: "yellow", textAlign: "center", marginTop: "10px"}}>
+                This value represents how free you can possibly get!
+              </p>
+
+              <br></br>
+
+              {/* Input field for the user to set the maximum value. Stores input in tempMaxValue using setTempMaxValue().  */}
+              <input type="text" id="maxEntryForm" defaultValue={maxValue} onChange={(e) => setTempMaxValue(e.target.value)}></input>
+              
+              <br></br>
+              
+              <br></br>
+
+              {/* Button to store the value in tempMaxValue to maxValue using changeMaxValue(). */}
+              <button class="btn btn-warning" onClick={changeMaxValue}>Submit</button>
+              
+              <br></br>
+              
+              {/* Indicates the current maximum input value. */}
+              <h5 style={{color: "#FFD700"}}>
+                The current maximum is {maxValue}.
+              </h5>
+            
+            </div>
+          
+          </div>
+          
+          <br></br>
+          
+          <br></br>
+          
+          {/* Button to save ALL of the data in the page, where values in tableState are stored in toSave using saveAllChanges(). */}
+          <button id="aDataBtn" class="btn btn-warning btn-lg" onClick={saveAllChanges}>Save All Data</button>
+          
+          <br></br>
+          
+          {/* Link to "Edit Details" page for the user to edit default data (the scr: 3 leads users to the "Edit Defaults" section IN the page). */}
+          <Link
+            style={{textDecoration: "none", color: "white"}}
+            to={"/editDetails"}
+            state={{username: "", password: "", scr: 3}}
+          >
+            
+            {/* Button that stores the link to the "Edit Details" page. */}
+            <button id="aDataBtn" class="btn btn-dark">Edit Defaults</button>
+          
+          </Link>
+          
+          <br></br>
+          
+          <br></br>
+          
+          {/* Card containing the directions for the page. */}
           <div class="card bg-warning" id="theDirections">
 
             {/* Card Header, which is a container for the title of the card. */}
             <div class="card-header">
 
               {/* Title stored in <h5> tag. */}
-              <h3>
+              <h5>
                 Directions:
-              </h3>
+              </h5>
 
             </div>
 
@@ -798,201 +750,35 @@ const AddData = () =>  {
             <div class="card-body">
               
               {/* ALL of the directions stored in a <p> tag. */}
-              <strong>
-                <ul>
-                  <li>
-                    Each cell represents a time range for a specific day.
-                  </li>
-                  <li>
-                    In each cell, enter a number less than the maximum value. This value represents how free you are in that time range.
-                  </li>
-                  <li>
-                    If you want to clear the cell, enter any NON-NUMERIC key. Any letter or symbol would suffice.
-                  </li>
-                  <li>
-                    The time ranges for each cell can either be 3 hours or 1 hour. 
-                  </li>
-                  <li>
-                    Click the "Split" button to enter a specific value for each hour. If you want to revert back, click the "Merge" button (this ONLY works if the cells in all 3 hours in the range are the same).
-                    <ul>
-                      <li>
-                        For example, suppose for a specific day, if you have a value of "3" for 8AM-9AM, "0" for 9AM-10AM, and "2" for 10AM-11AM, then "Merge" on that cell won't work! 
-                      </li>
-                      <li>
-                        However, if you had a value of "3" for 8AM-9AM, 9AM-10AM, and 10AM-11AM, then "Merge" on that cell will work.
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    A hiphen ("-") means there is no data entered in the cell yet.
-                  </li>
-                  <li>
-                    Click the "Switch Input" button to toggle between text and slider input options.
-                  </li>
-                </ul>
-              </strong>
-
+              <p>
+                - Each cell represents a time range for a specific day. 
+                <br></br>
+                - In each cell, enter a number less than the maximum value. This value represents how free you are in that time range.
+                <br></br>
+                - If you want to clear the cell, enter any NON-NUMERIC key. Any letter or symbol would suffice.
+                <br></br>
+                - Click the "Split" button to enter a specific value for each hour. If you want to revert back, click the "Merge" button.
+                <br></br>
+                - A hiphen ("-") means there is no data entered in the cell yet. It could also mean that you entered different data for each hour in a time range and then clicked "Merge".
+                <br></br>
+                - Click the "Switch Input" button to toggle between text and slider input options.
+                <br></br>
+                - A yellow background in the text field or a yellow slider means that there is no data entered, but you have already selected default data for the time range.
+              </p>
+            
             </div>
-
+            
             {/* Card Footer, which is a container storing the link to the "Help" page. */}
             <div class="card-footer">
-
-              <br></br>
-
-              {/* Group of buttons to give users more help, save all data, and set a daily default. */}
-              <div id = "buttonGroup">
-                {/* Button leading users to the "Help" page. */}
-                <button id="aDataBtn" class="btn btn-dark btn-large">
-                  Click for More Help
-                </button>
-
-                {/* Button to save ALL of the data in the page, where values in tableState are stored in toSave using saveAllChanges(). */}
-                <button id="aDataBtn" class="btn btn-dark btn-large" onClick={saveAllChanges}>
-                  Save All Data
-                </button>
-
-                {/* Button taking users to the profile page. */}
-                <Link
-                      style={{textDecoration: "none", color: "white"}}
-                      to={"/profile"}
-                      state={{username: "", password: "", scr: 10}}
-                >
-                    <button id="aDataBtn" class="btn btn-dark btn-large">
-                      Visit Profile
-                    </button>
-                </Link>
-                
-              </div>
-
-              <br></br>
-
-              {/* Card for the user to enter daily defaults. */}
-             <div class = "card bg-warning" id = "defaultEntryContainer">
-                <div class = "card-header">
-                  <h4>
-                    <strong>
-                      Enter Daily Defaults
-                    </strong>
-                  </h4>
-                </div>
-                <br></br>
-                {/* Container for selection options for default data. */}
-                <div id = "defaultSelectionContainer">
-                  {/* Checkbox for which hours to enter the default value for. */}
-                  <div class = "card" id = "defaultDataEntryCard">
-                    <div class = "card-header"> 
-                      <h6>
-                        Select time ranges
-                      </h6>
-                    </div>
-                    <div class = "card-body">
-                      <div class="btn-group-vertical w-100" id = "dataHoursContainer" role="group" aria-label="default data hours">
-                        {retDefaultDataHours()}
-                      </div>
-                    </div>
-                  </div>
-                  <br></br>
-                  {/* Checkbox for which days to enter the default value for. */}
-                  <div class = "card" id = "defaultDataEntryCard">
-                    <div class = "card-header">
-                      <h6>
-                        Select days of the week
-                      </h6>
-                    </div>
-                    <div class = "card-body">
-                      <div class="btn-group-vertical w-100" id = "dataDaysContainer" role="group" aria-label="default data days">
-                        {retDefaultDays()}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <br></br>
-                {/* Container for form enabling users to enter the value to be assigned all default cell selections. */}
-                <div class = "alert bg-dark" id = "defaultEntryInput">
-                  <form>
-                    <h6 class = "text-light">
-                      During every week, on the selected days and times, the amount that I am free is 
-                      {"  "}
-                      <input 
-                          id = "defInputTextbox" 
-                          type = "number" 
-                          min={0} 
-                          max={maxValue} 
-                          value = {currentDefault}
-                          onChange={(e) => {if (e.target.value <= maxValue) {setCurrentDefault(e.target.value)}}}
-                      />
-                      {"  "}
-                      out of {maxValue}, so 
-                      {"  "}
-                      <input 
-                          id = "defPercentBox" 
-                          type = "number" 
-                          min={0} 
-                          max={100} 
-                          value = {(currentDefault/maxValue)*100}
-                          onChange={(e) => {if (e.target.value <= 100) {setCurrentDefault((e.target.value)*maxValue/100)}}}
-                      />
-                      {"  "}
-                      %.
-                    </h6>
-                    <input id = "defDataSubmitBtn" type = "submit" onClick={(e) => {e.preventDefault(); populateDailyDefaults();}}></input>
-                  </form>
-                </div>
-             </div>
-
-              <br></br>
-
-              {/* Card for the user to set a maximum input value. */}
-              <div class="card" id = "maxDataCard">
-
-                {/* Card body for the user to set a maximum input value. */}
-                <div class="card-body card-primary" id = "maxDataBody">
-
-                  {/* Title of the card. */}
-                  <h5 class="card-title" style={{color: "#FFD700"}}>
-                    Set the maximum value:
-                  </h5>
-
-                  {/* Paragraph tag to explain the maximum value card. */}
-                  <p style={{color: "yellow", textAlign: "center", marginTop: "10px"}}>
-                    This value represents how free you can possibly get!
-                  </p>
-
-                  <br></br>
-
-                  {/* Input field for the user to set the maximum value. Stores input in tempMaxValue using setTempMaxValue().  */}
-                  <input type="text" id="maxEntryForm" defaultValue={maxValue} onChange={(e) => setTempMaxValue(e.target.value)}></input>
-                  
-                  <br></br>
-                  
-                  <br></br>
-
-                  {/* Button to store the value in tempMaxValue to maxValue using changeMaxValue(). */}
-                  <button class="btn btn-warning" onClick={changeMaxValue}>Submit</button>
-                  
-                  <br></br>
-                  
-                  {/* Indicates the current maximum input value. */}
-                  <h5 style={{color: "#FFD700"}}>
-                    The current maximum is {maxValue}.
-                  </h5>
-
-                   {/* Inform the user about changes in table values. */}
-                  <h6 style={{color: "#FFD700"}}>
-                    Changing the maximum causes all table field values will change proportionally.
-                  </h6>
-                
-                </div>
               
-              </div>
-
-              <br></br>
-
+              {/* Button leading users to the "Help" page. */}
+              <button id="aDataBtn" class="btn btn-dark btn-large">
+                Click for More Help!
+              </button>
+            
             </div>
-
-          </div>
           
-          <br></br>
+          </div>
           
           <br></br>
         
@@ -1036,9 +822,7 @@ const AddData = () =>  {
               <tr>
 
                 {/* Title of row showing the 1-hour time interval. */}
-                <th scope="row">
-                  8AM-9AM
-                </th>
+                <th scope="row">8AM-9AM</th>
 
                 {/* 
                   Remaining cells containing the input fields for every day AT this hour. 

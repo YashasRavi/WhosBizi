@@ -8,6 +8,7 @@ import Chat from './pages/Chat'
 import AddData from './pages/AddData';
 import EditDetails from './pages/EditDetails';
 import Help from './pages/Help';
+import CurrentData from "./pages/CurrentData"
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import {Button} from '@mui/material';
 import {Container} from '@mui/material';
@@ -30,23 +31,26 @@ function App() {
           {/* Default page. */}
           <Route path="/" element={<App />} />
 
-          {/* Sign-in Page. */}
+          {/* Sign-in Page - allows users to sign in. */}
           <Route path="index" element={<Index />} />
 
-          {/* Profile Page (requires input parameters from Sign-in Page.). */}
+          {/* Profile Page (requires input parameters from Sign-in Page.) - allows users to see when their friends are free. */}
           <Route path="profile" element={<UserProfile />} />
 
-          {/* Chat Page (requires input parameters from Profile Page using the useLocation() hook). */}
+          {/* Chat Page (requires input parameters from Profile Page using the useLocation() hook) - allows users to communicate with other users. */}
           <Route path="chat" element={<Chat />} />
 
-          {/* Add Data Page. */}
+          {/* Add Data Page - allows users to add default data. */}
           <Route path="addData" element={<AddData />} />
 
-          {/* Edit Details Page. */}
+          {/* Edit Details Page - allows users to edit account preferences. */}
           <Route path="editDetails" element={<EditDetails />} />
           
-          {/* Hepl Page. */}
+          {/* Help Page - allows users to gain more guidance regarding how to use the application. */}
           <Route path="help" element={<Help />} />
+
+          {/* Current Data Page - allows users to add data regarding when they are free. */}
+          <Route path="/currentData" element={<CurrentData />} />
         
         </Routes>
       

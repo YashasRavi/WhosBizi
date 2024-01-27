@@ -1,0 +1,83 @@
+/* CSS - Current Data page */
+
+#currentDataTitle {
+    font-size: 60px;
+    color: yellow;
+    text-align: center;
+    text-shadow: 2px 2px 8px #e78282;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+#currentDataContents {
+    text-align: center;
+}
+
+#gradientCard {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border: 5px solid #ffc107;
+    color:white;
+}
+
+#gradientCardBody {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+/* Empty div tag which forms a gradient for the user to choose a color from. */
+#tableColorGradient {
+    border: 2px solid black;
+    background-image: linear-gradient(90deg, red, blue);
+    height: 25px;
+}
+
+#valueSelect {
+    width: 1;
+}
+
+#gradientCardFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    color: black;
+}
+
+#gradientButton {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#dataTableCard {
+    width: 90%; 
+    margin-left: 5%;
+    margin-right: 5%;
+    overflow: auto;
+    background-color: black;
+    border: 6px solid #ffc107;
+}
+
+#currentDataTable {
+    background-color: black;
+    margin: 5px solid black;
+}
+
+#timeIndicatorCell {
+    border-width: 2px 1px 2px 0px;
+    border-style: solid;
+    border-color: white
+}
+
+#tableCellContents {
+    border-width: 2px 0px 2px 1px;
+    border-color: white;
+    border-style: solid;
+}
+
+#tableCellContents:hover {
+    cursor: pointer;
+}
+
+

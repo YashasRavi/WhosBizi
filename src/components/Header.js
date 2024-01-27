@@ -61,14 +61,14 @@ function Header({type}) {
                         </button>
                     </Link>
                     
-                    {/* Link to Add Data page */}
+                    {/* Link to Current Data page */}
                     <Link
                         style={{textDecoration: "none", color: "white"}}
-                        to={"/addData"}
+                        to={"/currentData"}
                         state={{username: "", password: ""}}
                     >
                         <button class="btn btn-warning" id="oneLink">
-                            <div id="add">Add Data</div>
+                            <div id="add">My Data</div>
                         </button>
                     </Link>
 

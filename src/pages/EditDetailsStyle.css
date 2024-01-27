@@ -59,6 +59,13 @@
     word-wrap: break-word;
 }
 
+#btnForDefaultData {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #defaultDataCard {
     background-color: #D3D3D3;
     border: 5px solid white;

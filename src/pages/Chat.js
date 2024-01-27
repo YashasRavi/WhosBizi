@@ -1261,10 +1261,10 @@ const Chat = () => {
                                     </div>
                                     {/* Button for the user to add his/her data. */}
                                     <button class="btn btn-primary btn-sm" style={{border: "1px solid black", marginBottom: "10px"}}>
-                                        {/* Link for the user to go to the "Add Data" page. */}
+                                        {/* Link for the user to go to the "Current Data" page. */}
                                         <Link
                                             style={{textDecoration: "none", color: "white"}}
-                                            to={"/addData"}
+                                            to={"/currentData"}
                                             state={{username: "", password: ""}}
                                         >   
                                             <Typography>
